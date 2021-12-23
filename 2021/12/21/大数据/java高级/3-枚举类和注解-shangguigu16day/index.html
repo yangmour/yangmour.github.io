@@ -17,18 +17,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="枚举类和注解[TOC] 1.枚举类的使用1.枚举类的说明： 1.枚举类的理解：类的对象只有有限个，确定的。我们称此类为枚举类 2.当需要定义一组常量时，强烈建议使用枚举类 3.如果枚举类中只一个对象，则可以作为单例模式的实现方式。  2.如何自定义枚举类？步骤：1234567891011121314151617181920212223242526272829303132333435&#x2F;&#x2F;自定义枚举类">
+  <meta name="description" content="枚举类和注解[TOC] 1.枚举类的使用1.枚举类的说明： 1.枚举类的理解：类的对象只有有限个，确定的。我们称此类为枚举类 2.当需要定义一组常量时，强烈建议使用枚举类 3.如果枚举类中只一个对象，则可以作为单例模式的实现方式。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3-枚举类和注解-shangguigu16day">
 <meta property="og:url" content="https://yangmour.github.io/2021/12/21/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/3-%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%92%8C%E6%B3%A8%E8%A7%A3-shangguigu16day/index.html">
 <meta property="og:site_name" content="希文的个人博客">
-<meta property="og:description" content="枚举类和注解[TOC] 1.枚举类的使用1.枚举类的说明： 1.枚举类的理解：类的对象只有有限个，确定的。我们称此类为枚举类 2.当需要定义一组常量时，强烈建议使用枚举类 3.如果枚举类中只一个对象，则可以作为单例模式的实现方式。  2.如何自定义枚举类？步骤：1234567891011121314151617181920212223242526272829303132333435&#x2F;&#x2F;自定义枚举类">
+<meta property="og:description" content="枚举类和注解[TOC] 1.枚举类的使用1.枚举类的说明： 1.枚举类的理解：类的对象只有有限个，确定的。我们称此类为枚举类 2.当需要定义一组常量时，强烈建议使用枚举类 3.如果枚举类中只一个对象，则可以作为单例模式的实现方式。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-21T13:09:10.000Z">
-<meta property="article:modified_time" content="2021-12-21T13:46:17.941Z">
+<meta property="article:modified_time" content="2021-12-23T13:16:38.807Z">
 <meta property="article:author" content="希文">
 <meta property="article:tag" content="java基础-高级">
 <meta name="twitter:card" content="summary">
@@ -101,7 +101,7 @@
       <h1 class="site-title">希文的个人博客</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">测试</p>
+      <p class="site-subtitle" itemprop="description">白日依山尽，黄河入海流。欲穷千里目，更上一层楼。</p>
   </div>
 
   <div class="site-nav-right">
@@ -223,10 +223,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-21 21:09:10 / 修改时间：21:46:17" itemprop="dateCreated datePublished" datetime="2021-12-21T21:09:10+08:00">2021-12-21</time>
+              <time title="创建时间：2021-12-21 21:09:10" itemprop="dateCreated datePublished" datetime="2021-12-21T21:09:10+08:00">2021-12-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-23 21:16:38" itemprop="dateModified" datetime="2021-12-23T21:16:38+08:00">2021-12-23</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -259,6 +265,8 @@
 <li>2.当需要定义一组常量时，强烈建议使用枚举类</li>
 <li>3.如果枚举类中只一个对象，则可以作为单例模式的实现方式。</li>
 </ul>
+<span id="more"></span>
+
 <h3 id="2-如何自定义枚举类？步骤："><a href="#2-如何自定义枚举类？步骤：" class="headerlink" title="2.如何自定义枚举类？步骤："></a>2.如何自定义枚举类？步骤：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义枚举类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Season</span></span>&#123;</span><br><span class="line"> <span class="comment">//1.声明Season对象的属性:private final修饰</span></span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">final</span> String seasonName;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">final</span> String seasonDesc;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//2.私化类的构造器,并给对象属性赋值</span></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="title">Season</span><span class="params">(String seasonName,String seasonDesc)</span></span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.seasonName = seasonName;</span><br><span class="line">     <span class="keyword">this</span>.seasonDesc = seasonDesc;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//3.提供当前枚举类的多个对象：public static final的</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Season SPRING = <span class="keyword">new</span> Season(<span class="string">&quot;春天&quot;</span>,<span class="string">&quot;春暖花开&quot;</span>);</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Season SUMMER = <span class="keyword">new</span> Season(<span class="string">&quot;夏天&quot;</span>,<span class="string">&quot;夏日炎炎&quot;</span>);</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Season AUTUMN = <span class="keyword">new</span> Season(<span class="string">&quot;秋天&quot;</span>,<span class="string">&quot;秋高气爽&quot;</span>);</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Season WINTER = <span class="keyword">new</span> Season(<span class="string">&quot;冬天&quot;</span>,<span class="string">&quot;冰天雪地&quot;</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">//4.其他诉求1：获取枚举类对象的属性</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">getSeasonName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> seasonName;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">getSeasonDesc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> seasonDesc;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//4.其他诉求1：提供toString()</span></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="string">&quot;Season&#123;&quot;</span> +</span><br><span class="line">             <span class="string">&quot;seasonName=&#x27;&quot;</span> + seasonName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">             <span class="string">&quot;, seasonDesc=&#x27;&quot;</span> + seasonDesc + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">             <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -331,6 +339,7 @@
 <li>ElementType.TYPE_PARAMETER 表示该注解能写在类型变量的声明语句中（如：泛型声明。</li>
 <li>ElementType.TYPE_USE 表示该注解能写在使用类型的任何语句中。</li>
 </ol>
+<!-- more -->
 
     </div>
 
@@ -467,12 +476,12 @@
 
 
   <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
-          <a href="http://poc10.cn/" title="http:&#x2F;&#x2F;poc10.cn&#x2F;" rel="noopener" target="_blank">友情链接</a>
+          <a href="http://poc10.cn/" title="http:&#x2F;&#x2F;poc10.cn&#x2F;" rel="noopener" target="_blank">网络安全方面</a>
         </li>
     </ul>
   </div>
