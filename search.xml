@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/11/24/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>1.多线性(shangguigu14day)</title>
     <url>/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/1-%E5%A4%9A%E7%BA%BF%E6%80%A7-shangguigu14day/</url>
     <content><![CDATA[<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><p>[TOC]</p>
@@ -196,6 +176,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2021/11/24/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>3-枚举类和注解-shangguigu16day</title>
     <url>/2021/12/21/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/3-%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%92%8C%E6%B3%A8%E8%A7%A3-shangguigu16day/</url>
     <content><![CDATA[<h1 id="枚举类和注解"><a href="#枚举类和注解" class="headerlink" title="枚举类和注解"></a>枚举类和注解</h1><p>[TOC]</p>
@@ -283,6 +283,12 @@
       <tags>
         <tag>java基础-高级</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>5-泛型-shangguigu18day</title>
+    <url>/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/5-%E6%B3%9B%E5%9E%8B-shangguigu18day/</url>
+    <content><![CDATA[<h1 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h1><p>[TOC]</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
   </entry>
   <entry>
     <title>1.后面需要看的(shangguigu14day)</title>
@@ -523,260 +529,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Centos7搭建hadoop分布式集群</title>
-    <url>/2021/11/23/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/Centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/</url>
-    <content><![CDATA[<p>﻿## Hadoop搭建</p>
-<p>（其他组件安装最近更新）</p>
-<h2 id="一-系统一些基本配置"><a href="#一-系统一些基本配置" class="headerlink" title="一.系统一些基本配置"></a>一.系统一些基本配置</h2><p>1.更改网卡配置（克隆之后把另外两台ip改了）</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vi /etc/sysconfig/network<span class="literal">-scripts</span>/ifcfg<span class="literal">-ens33</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#网卡里面的配置</span></span><br><span class="line"><span class="built_in">TYPE</span>=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span>	<span class="comment">#使用static配置</span></span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable<span class="literal">-privacy</span></span><br><span class="line">NAME=ens33</span><br><span class="line">UUID=<span class="number">316</span>c77f2<span class="literal">-75e6</span><span class="literal">-47cd</span><span class="literal">-ba71</span><span class="literal">-227d4ac9457f</span></span><br><span class="line">DEVICE=ens33</span><br><span class="line">ONBOOT=yes	<span class="comment">#开机启动配置</span></span><br><span class="line"><span class="comment">#查看自己的ip和网关</span></span><br><span class="line">IPADDR=<span class="number">192.168</span>.<span class="number">232.111</span>	<span class="comment">#静态ip</span></span><br><span class="line">GATEWAY=<span class="number">192.168</span>.<span class="number">232.2</span>	<span class="comment">#默认网关</span></span><br><span class="line">NETMASK=<span class="number">255.255</span>.<span class="number">255.0</span>	<span class="comment">#子网掩码</span></span><br><span class="line">DNS1=<span class="number">8.8</span>.<span class="number">8.8</span></span><br><span class="line">DNS2=<span class="number">0.0</span>.<span class="number">0.0</span></span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>2.重启网卡</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201005184511853.png#pic_center" alt="重启之后这样才对"><br>3.测试网路是否连通</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">ping www.baidu.com</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201005184859975.PNG#pic_center" alt="连通的图片"><br>4.关闭防火墙：查看防火墙状态</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">firewall<span class="literal">-cmd</span> -<span class="literal">-state</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201005185016527.png#pic_center" alt="防火墙状态"><br>5.临时关闭防火墙，开机还会启动</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201005185125196.png#pic_center" alt="临时关闭的状态"><br>6.设置开机不启动</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201005185246861.png#pic_center" alt="在这里插入图片描述"><br>7.常用软件安装</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">yum <span class="literal">-y</span> install vim</span><br><span class="line">yum <span class="literal">-y</span> install <span class="built_in">wget</span></span><br><span class="line">yum <span class="literal">-y</span> install lrzsz</span><br><span class="line">yum <span class="literal">-y</span> install net<span class="literal">-tools</span></span><br><span class="line">yum <span class="literal">-y</span> install psmisc</span><br></pre></td></tr></table></figure>
-
-<p>8.配置阿里yum源<br>   备份当前yun源</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
-
-<p>下载阿里云的yum源配置</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">wget</span> <span class="literal">-O</span> /etc/yum.repos.d/CentOS<span class="literal">-Base</span>.repo http://mirrors.aliyun.com/repo/Centos<span class="literal">-7</span>.repo</span><br></pre></td></tr></table></figure>
-
-<p>清楚原来的缓存，构建新缓存</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
-
-<p>9.添加节点信息</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">192.168</span>.<span class="number">232.111</span> master</span><br><span class="line"><span class="number">192.168</span>.<span class="number">232.112</span> slave1</span><br><span class="line"><span class="number">192.168</span>.<span class="number">232.113</span> slave2</span><br></pre></td></tr></table></figure>
-
-<p>10.修改hostname(修改完成后重启生效)</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hostname(修改完成后重启生效)</span><br><span class="line">hostnamectl <span class="built_in">set-hostname</span> master <span class="comment">#修改hostname为master</span></span><br></pre></td></tr></table></figure>
-
-<p>10.配置节点之间免密访问(在一台机器上执行，再将该节点克隆两份即可，克隆之后在做两次)<br>在家目录下，执行以下代码生成密钥对，一路回车即可：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa <span class="literal">-P</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201006112421337.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>将公钥文件写入授权文件中，并赋予权限</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">chmod <span class="number">600</span> ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-
-<p>11.克隆虚拟机（看图    注意:虚拟机需要关闭）</p>
-<p><img src="https://img-blog.csdnimg.cn/20201006114456639.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201006114456629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20201006114456622.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201006115915299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20201006114610698.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>##注意要修改克隆的ip地址以及名称（上面步骤1和10）</p>
-<p>12.节点间免密访问测试（任意两台节点都需要测试，第一次需要输入“yes”）<br>    <img src="https://img-blog.csdnimg.cn/20201006120052937.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="二-开始安装jdk（可以去官网下载jdk）"><a href="#二-开始安装jdk（可以去官网下载jdk）" class="headerlink" title="二.开始安装jdk（可以去官网下载jdk）"></a>二.开始安装jdk（可以去官网下载jdk）</h2><ol>
-<li><h2 id="自行选择下载jdk（点击百度网盘可以下载-jdk百度网盘链接-提取码：d4cf"><a href="#自行选择下载jdk（点击百度网盘可以下载-jdk百度网盘链接-提取码：d4cf" class="headerlink" title="自行选择下载jdk（点击百度网盘可以下载) jdk百度网盘链接 提取码：d4cf"></a>自行选择下载jdk（点击百度网盘可以下载) <a href="https://pan.baidu.com/s/1rDrzMUO04_6UHNLAiDq-OA">jdk百度网盘链接</a> 提取码：d4cf</h2></li>
-<li>用xftp上传jdk-8u162-linux-x64.tar.gz文件到/usr/local/java(上传完解压文件,然后改名)</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">mkdir /usr/local/java</span><br><span class="line"><span class="built_in">cd</span> /usr/local/java</span><br><span class="line">tar <span class="literal">-zxvf</span> jdk<span class="literal">-8u162</span><span class="literal">-linux</span><span class="literal">-x64</span>.tar.gz</span><br><span class="line"><span class="built_in">mv</span> jdk1.<span class="number">8.0</span>_162 jdk</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>设置环境变量</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#加入下面内容</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk</span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>执行命令使设置生效</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>验证java是否安装成功</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">java <span class="literal">-version</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201008002344331.png#pic_center" alt="在这里插入图片描述"></p>
-<p> 6.执行以下命令，在其他两台节点安装(如果ssh没有使文件生效就去子节点再去执行一下)</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#给子节点创建java文件夹</span></span><br><span class="line">ssh slave1 mkdir /usr/local/java</span><br><span class="line">ssh slave2 mkdir /usr/local/java</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点上的安装包分发到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /usr/local/java slave1:/usr/local</span><br><span class="line">scp <span class="literal">-r</span> /usr/local/java slave2:/usr/local</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点的配置好的环境变量覆盖到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave1:/etc/profile</span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave2:/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#使修改生效</span></span><br><span class="line">ssh slave1 source /etc/profile</span><br><span class="line">ssh slave2 source /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看是否安装成功</span></span><br><span class="line">ssh slave1 java <span class="literal">-version</span></span><br><span class="line">ssh slave2 java <span class="literal">-version</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="三-Hadoop安装"><a href="#三-Hadoop安装" class="headerlink" title="三.Hadoop安装"></a>三.Hadoop安装</h2><ol>
-<li>自行选择下载jdk（点击百度网盘可以下载) <a href="https://pan.baidu.com/s/1FqJ0AgykeHqj2o2oOh5xuA">hadoop百度网盘链接</a> 提取码：3bq4</li>
-<li>用xftp上传hadoop文件到/opt/hadoop(上传完解压文件,然后改名)</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">mkdir /opt/hadoop</span><br><span class="line"><span class="built_in">cd</span> /opt/hadoop </span><br><span class="line">tar <span class="literal">-zxvf</span> hadoop<span class="literal">-2</span>.<span class="number">7.5</span>.tar.gz</span><br><span class="line"><span class="built_in">mv</span> hadoop<span class="literal">-2</span>.<span class="number">7.5</span> hadoop</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>配置环境变量</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#在末尾增加以下内容，然后保存</span></span><br><span class="line"><span class="comment">#HADOOP</span></span><br><span class="line">export HADOOP_HOME=/opt/hadoop/hadoop</span><br><span class="line">export PATH=<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>配置env文件（打开hadoop-env.sh，找到“export JAVA_HOME”这行配制jdk路径。）</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vi /opt/hadoop/hadoop/etc/hadoop/hadoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#写入下列路径(编辑完保存退出即可。)</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>配置核心组件文件（/opt/hadoop/hadoop/etc/hadoop/core-site.xml）</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/core<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;hdfs://master:<span class="number">9000</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/opt/hadoop/hadoopdata&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建hadoop数据目录</span></span><br><span class="line">mkdir /opt/hadoop/hadoopdata</span><br></pre></td></tr></table></figure>
-
-<p> 6.配置文件系统（/opt/hadoop/hadoop/etc/hadoop/hdfs-site.xml）</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/hdfs<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;<span class="number">1</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li>配置yarn站点文件（/opt/hadoop/hadoop/etc/hadoop/yarn-site.xml）</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/yarn<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.nodemanager.aux<span class="literal">-services</span>&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18040</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18030</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.resource<span class="literal">-tracker</span>.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18025</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18141</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">8088</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="8">
-<li>配置MapReduce计算框架文件（）</li>
-</ol>
-<p> 在“/opt/hadoop/hadoop/etc/hadoop”子目录下，系统已经有一个 mapred-site.xml.template文件，我们需要将其复制并改名，位置不变，命令是“</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml.template /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml</span><br><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
-
-<p>  ”，然后，用 vi编辑 mapred-site.xml 文件，需要将下面的代码填充到文件<configuration> </configuration>中间</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
-
-
-<p>编辑完毕，保存退出即可。</p>
-<ol start="9">
-<li>配置Master的slaves文件</li>
-</ol>
-<ul>
-<li><p>slaves 文件给出了 Hadoop 集群的 Slave 节点列表。该文件十分重要，因为启动Hadoop 的时候，系统总是根据当前 slaves 文件中 Slave 节点名称列表启动集群，不在列表中的Slave 节点便不会被视为计算节点。</p>
-<ol>
-<li>用 vi编辑 slaves 文件，我们应当根据自己所搭建集群的实际情况进行编辑。例如，我们这里由于已经安装了 Slave0 和 Slave1，并且计划将它们全部投入 Hadoop 集群运行，所以应当输入如下代码。</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vi /opt/hadoop/hadoop/etc/hadoop/slaves</span><br><span class="line">	</span><br><span class="line"><span class="comment">#写入下列（需要删除原来文件里面localhost那一行）</span></span><br><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
-
-<ol start="10">
-<li>复制 Master 上的 Hadoop 到 Slave 节点（通过复制 Master 节点上的hadoop，能够大大提高系统部署效率。由于我们这里有Slave1 和 Slave2，所以要复制两次。）</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">scp <span class="literal">-r</span> /opt/hadoop root@slave1:/opt</span><br><span class="line">scp <span class="literal">-r</span> /opt/hadoop root@slave2:/opt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="11">
-<li>复制Master上的配置文件到Slave节点</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将master节点的配置好的环境变量覆盖到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave1:/etc/profile</span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave2:/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#使修改生效</span></span><br><span class="line">ssh slave1 source /etc/profile</span><br><span class="line">ssh slave2 source /etc/profile</span><br></pre></td></tr></table></figure>
-
-<ol start="12">
-<li>格式化文件系统（该操作只需要在 Master 节点上进行，命令是“ hadoop namenode -format”）</li>
-</ol>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hadoop namenode <span class="literal">-format</span></span><br></pre></td></tr></table></figure>
-
-<ol start="13">
-<li>启动和关闭 Hadoop</li>
-</ol>
-<ul>
-<li>可以使用 start-all.sh 命令启动 Hadoop 集群。<br>首先进入 Hadoop 安装主目录，然后执行 shin/start-all.sh 命令，执行命令后，系统提示“ Are you sure want to continue connecting（yes/no）”，请输入yes，之后系统即可启动。 </li>
-<li>要关闭 Hadoop 集群，可以使用 stop-all.sh 命令,<br>下次启动 Hadoop 时候，无须 NameNode 的初始化，只需要使用start-dfs.sh 命令即可，然后接着使用 start-yarn.sh 启动 Yarn 。</li>
-<li>实际上，Hadoop 系统建议放弃（deprecated）使用 start-all. sh 和 stop-all.sh 一类的命令，而改用 start-dfs.sh 和 start-yarn .sh 命令。</li>
-</ul>
-<ol start="14">
-<li>验证 Hadoop 是否启动成功</li>
-</ol>
-<ul>
-<li>用户可以在终端执行 jps 命令查看 Hadoop 是否启动成功。在 Master 节点，执行 jps后如果显示的结果是四个进程的名称： SecondaryNameNode、 ResourceManager、 Jps 和NameNode，如下图所示，则表明主节点（ Master ）启动成功 。</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20201008020406927.png#pic_center" alt="在这里插入图片描述"></p>
-<ul>
-<li>在 Slave0 节点执行 jps 命令，打印的结果中会显示三个进程，分别是 NodeManager、<br>Jps 和 DataNode ，如下图所示，表明从节点（Slave0）启动成功。其他节点可以类似验证。<br><img src="https://img-blog.csdnimg.cn/20201008020448168.png#pic_center" alt="在这里插入图片描述"></li>
-</ul>
-<h2 id="四-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）"><a href="#四-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）" class="headerlink" title="四.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）"></a>四.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）</h2><p>1.自行选择下载hive（点击百度网盘链接可以下载) <a href="https://pan.baidu.com/s/1ICqytI-qI6Xa1A4jg2mBqg">百度网盘链接</a> 提取码：vauh</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建文件夹</span></span><br><span class="line">mkdir /opt/Hive</span><br></pre></td></tr></table></figure>
-
-<p>2.用xftp上传压缩文件.gz文件到/opt/Hive(上传完解压文件,然后改名)<br><img src="https://img-blog.csdnimg.cn/20201122143223428.png#pic_center" alt="在这里插入图片描述"></p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#解压文件夹</span></span><br><span class="line">tar <span class="literal">-zxvf</span> apache<span class="literal">-hive</span><span class="literal">-2</span>.<span class="number">3.4</span><span class="literal">-bin</span>.tar.gz</span><br><span class="line"><span class="comment">#给解压的文件改名为hive</span></span><br><span class="line"><span class="built_in">mv</span> apache<span class="literal">-hive</span><span class="literal">-2</span>.<span class="number">3.4</span><span class="literal">-bin</span> hive</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201122143817901.png#pic_center" alt="在这里插入图片描述"><br>3.配置hive环境变量</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#打开文件</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#打开文件后在对下面添加hive路径</span></span><br><span class="line">export HIVE_HOME=/opt/Hive/hive</span><br><span class="line"><span class="comment">#参考这个我的路径前面配置了jkd，Hadoop路经。“export PATH=$HIVE_HOME/bin:$PATH”</span></span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$HIVE_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br><span class="line"><span class="comment">#查看hive版本号(出现版本说明安装正确）</span></span><br><span class="line">hive -<span class="literal">-version</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201122145507959.png#pic_center" alt="在这里插入图片描述"><br>4.修改hive配置文件</p>
-<p>进入conf文件夹查看文件</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/Hive/hive/conf/</span><br><span class="line"><span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201122150017204.png#pic_center" alt="在这里插入图片描述"></p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> hive<span class="literal">-env</span>.sh.template hive<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#添加hadoop环境变量</span></span><br><span class="line">export HADOOP_HOME=/opt/hadoop/hadoop</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201122163607772.png#pic_center" alt="在这里插入图片描述"></p>
-<p>查看hive-site.xml（如果没有就复制一份模板）</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#复制模板（有hive-site.xml文件跳过这一步）</span></span><br><span class="line"><span class="built_in">cp</span> hive<span class="literal">-default</span>.xml.template hive<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
-
-<p>配置hive-site.xml</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim hive<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
-
-<p>在文件中添加（汉字是解释，把这一段放在文件最下面，在</configuration>上面）</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;用户名（这是新添加的，记住删除配置文件原有的哦！）</span><br><span class="line">       &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;密码</span><br><span class="line">       &lt;value&gt;<span class="number">123456</span>&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;mysql</span><br><span class="line">       &lt;value&gt;jdbc:mysql://<span class="number">192.168</span>.<span class="number">232.111</span>:<span class="number">3306</span>/hive&lt;/value&gt;mysql的ip端口号</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;mysql驱动程序</span><br><span class="line">       &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;system:java.io.tmpdir&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;/opt/Hive/hive/logs/tmp&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201122181238668.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>5.用xftp复制mysql的驱动程序到hive/lib下面，<a href="https://pan.baidu.com/s/1iM8zAuuemijjAfNiODui6A">百度网盘中的mysql的jar包链接</a>，验证码：h4m1。我用的jar包为：mysql-connector-java-5.1.21-bin.jar</p>
-<p>​<br>6.在mysql中hive的schema（在此之前需要创建mysql下的hive数据库）</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/Hive/hive/bin</span><br><span class="line">schematool <span class="literal">-dbType</span> mysql <span class="literal">-initSchema</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201122184640619.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>7.执行hive命令</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hive</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201122184743486.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>1.出现报错</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201122185045339.png#pic_center" alt="在这里插入图片描述"><br>进入hive文件夹下的conf文件下,找到hive-site.xml</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">修改前：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="variable">$</span>&#123;system:java.io.tmpdir&#125;/<span class="variable">$</span>&#123;system:user.name&#125;&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;Local scratch space <span class="keyword">for</span> Hive jobs&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">修改后：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="variable">$</span>&#123;system:java.io.tmpdir&#125;/<span class="variable">$</span>&#123;user.name&#125;&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;Local scratch space <span class="keyword">for</span> Hive jobs&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在查看测试成功<br><img src="https://img-blog.csdnimg.cn/20201122190339706.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="五-Sqoop安装"><a href="#五-Sqoop安装" class="headerlink" title="五.Sqoop安装"></a>五.Sqoop安装</h2><p>1.自行选择下载sqoop（点击百度网盘链接可以下载) <a href="https://pan.baidu.com/s/1Df7hy1i_Sfvf29yZKp5dsw">百度网盘链接</a> 提取码：bhpf  </p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建文件夹</span></span><br><span class="line">mkdir /opt/Sqoop</span><br></pre></td></tr></table></figure>
-
-<p>2.用xftp上传压缩文件.gz文件到/opt/Sqoop(上传完解压文件,然后改名)</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#解压文件</span></span><br><span class="line">tar <span class="literal">-zxvf</span> sqoop<span class="literal">-1</span>.<span class="number">4.7</span>.bin__hadoop<span class="literal">-2</span>.<span class="number">6.0</span>.tar.gz</span><br><span class="line">解压完改名</span><br><span class="line"><span class="built_in">mv</span> sqoop<span class="literal">-1</span>.<span class="number">4.7</span>.bin__hadoop<span class="literal">-2</span>.<span class="number">6.0</span> sqoop</span><br></pre></td></tr></table></figure>
-
-<p>3.配置环境变量</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#打开文件</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#打开文件后在对下面添加hive路径</span></span><br><span class="line">export SQOOP_HOME=/opt/Sqoop/sqoop</span><br><span class="line"><span class="comment">#参考这个我的路径前面配置了jkd，Hadoop,hive路经。“export PATH=$PATH:$SQOOP_HOME/bin&quot;</span></span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$HIVE_HOME</span>/bin:<span class="variable">$PATH:</span><span class="variable">$SQOOP_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-
-<p>4.修改配置文件<br>Sqoop的配置文件与大多数大数据框架类似，在sqoop根目录下的conf目录中。</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#进入目录</span></span><br><span class="line"><span class="built_in">cd</span> /opt/Sqoop/sqoop/conf</span><br><span class="line"><span class="comment">#复制文件并改名</span></span><br><span class="line"><span class="built_in">cp</span> sqoop<span class="literal">-env</span><span class="literal">-template</span>.sh sqoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#进入文件</span></span><br><span class="line">vim sqoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#文件里需要添加的参数</span></span><br><span class="line">export HADOOP_COMMON_HOME=/opt/hadoop/hadoop</span><br><span class="line">export HADOOP_MAPRED_HOME=/opt/hadoop/hadoop</span><br><span class="line">export HIVE_HOME=/opt/Hive/hive</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201123171846372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>5.拷贝mysql驱动</p>
-<p>拷贝上面hive用的mysql驱动到sqoop的lib目录下</p>
-<p>6.验证 Sqoop<br>我们可以通过某一个 command 来验证 sqoop 配置是否正确：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">sqoop help</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201123173050203.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">sqoop list<span class="literal">-databases</span> -<span class="literal">-connect</span> jdbc:mysql://master:<span class="number">3306</span>/ -<span class="literal">-username</span> root -<span class="literal">-password</span> xiwen123</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20201123173512134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<hr>
-<p>第一个篇博客搭建集群</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>5-泛型-shangguigu18day</title>
-    <url>/2022/01/05/5-%E6%B3%9B%E5%9E%8B-shangguigu18day/</url>
-    <content><![CDATA[<h1 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h1><p>[TOC]</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
-  </entry>
-  <entry>
     <title>4-Java集合-shangguigu17day</title>
-    <url>/2022/01/05/4-Java%E9%9B%86%E5%90%88-shangguigu17day/</url>
+    <url>/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/4-Java%E9%9B%86%E5%90%88-shangguigu17day/</url>
     <content><![CDATA[<h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><p>[TOC]</p>
 <h2 id="1-数组与集合"><a href="#1-数组与集合" class="headerlink" title="1.数组与集合"></a>1.数组与集合</h2><h3 id="1-集合与数组存储数据概述："><a href="#1-集合与数组存储数据概述：" class="headerlink" title="1.集合与数组存储数据概述："></a>1.集合与数组存储数据概述：</h3><ul>
 <li>集合、数组都是对多个数据进行存储操作的结构，简称Java容器。</li>
@@ -1073,6 +827,252 @@
 <ol start="4">
 <li>使用详情见思维导图：<br>《附录：尚硅谷_宋红康_数据结构概述-Java版.xmind》</li>
 </ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>Centos7搭建hadoop分布式集群</title>
+    <url>/2021/11/23/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/Centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/</url>
+    <content><![CDATA[<p>﻿## Hadoop搭建</p>
+<p>（其他组件安装最近更新）</p>
+<h2 id="一-系统一些基本配置"><a href="#一-系统一些基本配置" class="headerlink" title="一.系统一些基本配置"></a>一.系统一些基本配置</h2><p>1.更改网卡配置（克隆之后把另外两台ip改了）</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vi /etc/sysconfig/network<span class="literal">-scripts</span>/ifcfg<span class="literal">-ens33</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#网卡里面的配置</span></span><br><span class="line"><span class="built_in">TYPE</span>=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span>	<span class="comment">#使用static配置</span></span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable<span class="literal">-privacy</span></span><br><span class="line">NAME=ens33</span><br><span class="line">UUID=<span class="number">316</span>c77f2<span class="literal">-75e6</span><span class="literal">-47cd</span><span class="literal">-ba71</span><span class="literal">-227d4ac9457f</span></span><br><span class="line">DEVICE=ens33</span><br><span class="line">ONBOOT=yes	<span class="comment">#开机启动配置</span></span><br><span class="line"><span class="comment">#查看自己的ip和网关</span></span><br><span class="line">IPADDR=<span class="number">192.168</span>.<span class="number">232.111</span>	<span class="comment">#静态ip</span></span><br><span class="line">GATEWAY=<span class="number">192.168</span>.<span class="number">232.2</span>	<span class="comment">#默认网关</span></span><br><span class="line">NETMASK=<span class="number">255.255</span>.<span class="number">255.0</span>	<span class="comment">#子网掩码</span></span><br><span class="line">DNS1=<span class="number">8.8</span>.<span class="number">8.8</span></span><br><span class="line">DNS2=<span class="number">0.0</span>.<span class="number">0.0</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>2.重启网卡</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005184511853.png#pic_center" alt="重启之后这样才对"><br>3.测试网路是否连通</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">ping www.baidu.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005184859975.PNG#pic_center" alt="连通的图片"><br>4.关闭防火墙：查看防火墙状态</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">firewall<span class="literal">-cmd</span> -<span class="literal">-state</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005185016527.png#pic_center" alt="防火墙状态"><br>5.临时关闭防火墙，开机还会启动</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005185125196.png#pic_center" alt="临时关闭的状态"><br>6.设置开机不启动</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005185246861.png#pic_center" alt="在这里插入图片描述"><br>7.常用软件安装</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">yum <span class="literal">-y</span> install vim</span><br><span class="line">yum <span class="literal">-y</span> install <span class="built_in">wget</span></span><br><span class="line">yum <span class="literal">-y</span> install lrzsz</span><br><span class="line">yum <span class="literal">-y</span> install net<span class="literal">-tools</span></span><br><span class="line">yum <span class="literal">-y</span> install psmisc</span><br></pre></td></tr></table></figure>
+
+<p>8.配置阿里yum源<br>   备份当前yun源</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+
+<p>下载阿里云的yum源配置</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">wget</span> <span class="literal">-O</span> /etc/yum.repos.d/CentOS<span class="literal">-Base</span>.repo http://mirrors.aliyun.com/repo/Centos<span class="literal">-7</span>.repo</span><br></pre></td></tr></table></figure>
+
+<p>清楚原来的缓存，构建新缓存</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<p>9.添加节点信息</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">192.168</span>.<span class="number">232.111</span> master</span><br><span class="line"><span class="number">192.168</span>.<span class="number">232.112</span> slave1</span><br><span class="line"><span class="number">192.168</span>.<span class="number">232.113</span> slave2</span><br></pre></td></tr></table></figure>
+
+<p>10.修改hostname(修改完成后重启生效)</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hostname(修改完成后重启生效)</span><br><span class="line">hostnamectl <span class="built_in">set-hostname</span> master <span class="comment">#修改hostname为master</span></span><br></pre></td></tr></table></figure>
+
+<p>10.配置节点之间免密访问(在一台机器上执行，再将该节点克隆两份即可，克隆之后在做两次)<br>在家目录下，执行以下代码生成密钥对，一路回车即可：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa <span class="literal">-P</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201006112421337.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>将公钥文件写入授权文件中，并赋予权限</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">chmod <span class="number">600</span> ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>11.克隆虚拟机（看图    注意:虚拟机需要关闭）</p>
+<p><img src="https://img-blog.csdnimg.cn/20201006114456639.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201006114456629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201006114456622.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201006115915299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201006114610698.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>##注意要修改克隆的ip地址以及名称（上面步骤1和10）</p>
+<p>12.节点间免密访问测试（任意两台节点都需要测试，第一次需要输入“yes”）<br>    <img src="https://img-blog.csdnimg.cn/20201006120052937.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="二-开始安装jdk（可以去官网下载jdk）"><a href="#二-开始安装jdk（可以去官网下载jdk）" class="headerlink" title="二.开始安装jdk（可以去官网下载jdk）"></a>二.开始安装jdk（可以去官网下载jdk）</h2><ol>
+<li><h2 id="自行选择下载jdk（点击百度网盘可以下载-jdk百度网盘链接-提取码：d4cf"><a href="#自行选择下载jdk（点击百度网盘可以下载-jdk百度网盘链接-提取码：d4cf" class="headerlink" title="自行选择下载jdk（点击百度网盘可以下载) jdk百度网盘链接 提取码：d4cf"></a>自行选择下载jdk（点击百度网盘可以下载) <a href="https://pan.baidu.com/s/1rDrzMUO04_6UHNLAiDq-OA">jdk百度网盘链接</a> 提取码：d4cf</h2></li>
+<li>用xftp上传jdk-8u162-linux-x64.tar.gz文件到/usr/local/java(上传完解压文件,然后改名)</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">mkdir /usr/local/java</span><br><span class="line"><span class="built_in">cd</span> /usr/local/java</span><br><span class="line">tar <span class="literal">-zxvf</span> jdk<span class="literal">-8u162</span><span class="literal">-linux</span><span class="literal">-x64</span>.tar.gz</span><br><span class="line"><span class="built_in">mv</span> jdk1.<span class="number">8.0</span>_162 jdk</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>设置环境变量</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#加入下面内容</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk</span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>执行命令使设置生效</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>验证java是否安装成功</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">java <span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201008002344331.png#pic_center" alt="在这里插入图片描述"></p>
+<p> 6.执行以下命令，在其他两台节点安装(如果ssh没有使文件生效就去子节点再去执行一下)</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#给子节点创建java文件夹</span></span><br><span class="line">ssh slave1 mkdir /usr/local/java</span><br><span class="line">ssh slave2 mkdir /usr/local/java</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点上的安装包分发到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /usr/local/java slave1:/usr/local</span><br><span class="line">scp <span class="literal">-r</span> /usr/local/java slave2:/usr/local</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点的配置好的环境变量覆盖到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave1:/etc/profile</span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave2:/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#使修改生效</span></span><br><span class="line">ssh slave1 source /etc/profile</span><br><span class="line">ssh slave2 source /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看是否安装成功</span></span><br><span class="line">ssh slave1 java <span class="literal">-version</span></span><br><span class="line">ssh slave2 java <span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三-Hadoop安装"><a href="#三-Hadoop安装" class="headerlink" title="三.Hadoop安装"></a>三.Hadoop安装</h2><ol>
+<li>自行选择下载jdk（点击百度网盘可以下载) <a href="https://pan.baidu.com/s/1FqJ0AgykeHqj2o2oOh5xuA">hadoop百度网盘链接</a> 提取码：3bq4</li>
+<li>用xftp上传hadoop文件到/opt/hadoop(上传完解压文件,然后改名)</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">mkdir /opt/hadoop</span><br><span class="line"><span class="built_in">cd</span> /opt/hadoop </span><br><span class="line">tar <span class="literal">-zxvf</span> hadoop<span class="literal">-2</span>.<span class="number">7.5</span>.tar.gz</span><br><span class="line"><span class="built_in">mv</span> hadoop<span class="literal">-2</span>.<span class="number">7.5</span> hadoop</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>配置环境变量</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#在末尾增加以下内容，然后保存</span></span><br><span class="line"><span class="comment">#HADOOP</span></span><br><span class="line">export HADOOP_HOME=/opt/hadoop/hadoop</span><br><span class="line">export PATH=<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>配置env文件（打开hadoop-env.sh，找到“export JAVA_HOME”这行配制jdk路径。）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vi /opt/hadoop/hadoop/etc/hadoop/hadoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#写入下列路径(编辑完保存退出即可。)</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>配置核心组件文件（/opt/hadoop/hadoop/etc/hadoop/core-site.xml）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/core<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;hdfs://master:<span class="number">9000</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/opt/hadoop/hadoopdata&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建hadoop数据目录</span></span><br><span class="line">mkdir /opt/hadoop/hadoopdata</span><br></pre></td></tr></table></figure>
+
+<p> 6.配置文件系统（/opt/hadoop/hadoop/etc/hadoop/hdfs-site.xml）</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/hdfs<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;<span class="number">1</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>配置yarn站点文件（/opt/hadoop/hadoop/etc/hadoop/yarn-site.xml）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/yarn<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.nodemanager.aux<span class="literal">-services</span>&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18040</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18030</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.resource<span class="literal">-tracker</span>.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18025</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18141</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">8088</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>配置MapReduce计算框架文件（）</li>
+</ol>
+<p> 在“/opt/hadoop/hadoop/etc/hadoop”子目录下，系统已经有一个 mapred-site.xml.template文件，我们需要将其复制并改名，位置不变，命令是“</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml.template /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml</span><br><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<p>  ”，然后，用 vi编辑 mapred-site.xml 文件，需要将下面的代码填充到文件<configuration> </configuration>中间</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>编辑完毕，保存退出即可。</p>
+<ol start="9">
+<li>配置Master的slaves文件</li>
+</ol>
+<ul>
+<li><p>slaves 文件给出了 Hadoop 集群的 Slave 节点列表。该文件十分重要，因为启动Hadoop 的时候，系统总是根据当前 slaves 文件中 Slave 节点名称列表启动集群，不在列表中的Slave 节点便不会被视为计算节点。</p>
+<ol>
+<li>用 vi编辑 slaves 文件，我们应当根据自己所搭建集群的实际情况进行编辑。例如，我们这里由于已经安装了 Slave0 和 Slave1，并且计划将它们全部投入 Hadoop 集群运行，所以应当输入如下代码。</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vi /opt/hadoop/hadoop/etc/hadoop/slaves</span><br><span class="line">	</span><br><span class="line"><span class="comment">#写入下列（需要删除原来文件里面localhost那一行）</span></span><br><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>复制 Master 上的 Hadoop 到 Slave 节点（通过复制 Master 节点上的hadoop，能够大大提高系统部署效率。由于我们这里有Slave1 和 Slave2，所以要复制两次。）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">scp <span class="literal">-r</span> /opt/hadoop root@slave1:/opt</span><br><span class="line">scp <span class="literal">-r</span> /opt/hadoop root@slave2:/opt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>复制Master上的配置文件到Slave节点</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将master节点的配置好的环境变量覆盖到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave1:/etc/profile</span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave2:/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#使修改生效</span></span><br><span class="line">ssh slave1 source /etc/profile</span><br><span class="line">ssh slave2 source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<ol start="12">
+<li>格式化文件系统（该操作只需要在 Master 节点上进行，命令是“ hadoop namenode -format”）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hadoop namenode <span class="literal">-format</span></span><br></pre></td></tr></table></figure>
+
+<ol start="13">
+<li>启动和关闭 Hadoop</li>
+</ol>
+<ul>
+<li>可以使用 start-all.sh 命令启动 Hadoop 集群。<br>首先进入 Hadoop 安装主目录，然后执行 shin/start-all.sh 命令，执行命令后，系统提示“ Are you sure want to continue connecting（yes/no）”，请输入yes，之后系统即可启动。 </li>
+<li>要关闭 Hadoop 集群，可以使用 stop-all.sh 命令,<br>下次启动 Hadoop 时候，无须 NameNode 的初始化，只需要使用start-dfs.sh 命令即可，然后接着使用 start-yarn.sh 启动 Yarn 。</li>
+<li>实际上，Hadoop 系统建议放弃（deprecated）使用 start-all. sh 和 stop-all.sh 一类的命令，而改用 start-dfs.sh 和 start-yarn .sh 命令。</li>
+</ul>
+<ol start="14">
+<li>验证 Hadoop 是否启动成功</li>
+</ol>
+<ul>
+<li>用户可以在终端执行 jps 命令查看 Hadoop 是否启动成功。在 Master 节点，执行 jps后如果显示的结果是四个进程的名称： SecondaryNameNode、 ResourceManager、 Jps 和NameNode，如下图所示，则表明主节点（ Master ）启动成功 。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20201008020406927.png#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>在 Slave0 节点执行 jps 命令，打印的结果中会显示三个进程，分别是 NodeManager、<br>Jps 和 DataNode ，如下图所示，表明从节点（Slave0）启动成功。其他节点可以类似验证。<br><img src="https://img-blog.csdnimg.cn/20201008020448168.png#pic_center" alt="在这里插入图片描述"></li>
+</ul>
+<h2 id="四-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）"><a href="#四-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）" class="headerlink" title="四.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）"></a>四.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）</h2><p>1.自行选择下载hive（点击百度网盘链接可以下载) <a href="https://pan.baidu.com/s/1ICqytI-qI6Xa1A4jg2mBqg">百度网盘链接</a> 提取码：vauh</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建文件夹</span></span><br><span class="line">mkdir /opt/Hive</span><br></pre></td></tr></table></figure>
+
+<p>2.用xftp上传压缩文件.gz文件到/opt/Hive(上传完解压文件,然后改名)<br><img src="https://img-blog.csdnimg.cn/20201122143223428.png#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#解压文件夹</span></span><br><span class="line">tar <span class="literal">-zxvf</span> apache<span class="literal">-hive</span><span class="literal">-2</span>.<span class="number">3.4</span><span class="literal">-bin</span>.tar.gz</span><br><span class="line"><span class="comment">#给解压的文件改名为hive</span></span><br><span class="line"><span class="built_in">mv</span> apache<span class="literal">-hive</span><span class="literal">-2</span>.<span class="number">3.4</span><span class="literal">-bin</span> hive</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122143817901.png#pic_center" alt="在这里插入图片描述"><br>3.配置hive环境变量</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#打开文件</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#打开文件后在对下面添加hive路径</span></span><br><span class="line">export HIVE_HOME=/opt/Hive/hive</span><br><span class="line"><span class="comment">#参考这个我的路径前面配置了jkd，Hadoop路经。“export PATH=$HIVE_HOME/bin:$PATH”</span></span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$HIVE_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br><span class="line"><span class="comment">#查看hive版本号(出现版本说明安装正确）</span></span><br><span class="line">hive -<span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122145507959.png#pic_center" alt="在这里插入图片描述"><br>4.修改hive配置文件</p>
+<p>进入conf文件夹查看文件</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/Hive/hive/conf/</span><br><span class="line"><span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122150017204.png#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> hive<span class="literal">-env</span>.sh.template hive<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#添加hadoop环境变量</span></span><br><span class="line">export HADOOP_HOME=/opt/hadoop/hadoop</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122163607772.png#pic_center" alt="在这里插入图片描述"></p>
+<p>查看hive-site.xml（如果没有就复制一份模板）</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#复制模板（有hive-site.xml文件跳过这一步）</span></span><br><span class="line"><span class="built_in">cp</span> hive<span class="literal">-default</span>.xml.template hive<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<p>配置hive-site.xml</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">vim hive<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<p>在文件中添加（汉字是解释，把这一段放在文件最下面，在</configuration>上面）</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;用户名（这是新添加的，记住删除配置文件原有的哦！）</span><br><span class="line">       &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;密码</span><br><span class="line">       &lt;value&gt;<span class="number">123456</span>&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;mysql</span><br><span class="line">       &lt;value&gt;jdbc:mysql://<span class="number">192.168</span>.<span class="number">232.111</span>:<span class="number">3306</span>/hive&lt;/value&gt;mysql的ip端口号</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;mysql驱动程序</span><br><span class="line">       &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;system:java.io.tmpdir&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;/opt/Hive/hive/logs/tmp&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122181238668.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>5.用xftp复制mysql的驱动程序到hive/lib下面，<a href="https://pan.baidu.com/s/1iM8zAuuemijjAfNiODui6A">百度网盘中的mysql的jar包链接</a>，验证码：h4m1。我用的jar包为：mysql-connector-java-5.1.21-bin.jar</p>
+<p>​<br>6.在mysql中hive的schema（在此之前需要创建mysql下的hive数据库）</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/Hive/hive/bin</span><br><span class="line">schematool <span class="literal">-dbType</span> mysql <span class="literal">-initSchema</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122184640619.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>7.执行hive命令</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hive</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122184743486.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>1.出现报错</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122185045339.png#pic_center" alt="在这里插入图片描述"><br>进入hive文件夹下的conf文件下,找到hive-site.xml</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">修改前：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="variable">$</span>&#123;system:java.io.tmpdir&#125;/<span class="variable">$</span>&#123;system:user.name&#125;&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;Local scratch space <span class="keyword">for</span> Hive jobs&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">修改后：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="variable">$</span>&#123;system:java.io.tmpdir&#125;/<span class="variable">$</span>&#123;user.name&#125;&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;Local scratch space <span class="keyword">for</span> Hive jobs&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在查看测试成功<br><img src="https://img-blog.csdnimg.cn/20201122190339706.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="五-Sqoop安装"><a href="#五-Sqoop安装" class="headerlink" title="五.Sqoop安装"></a>五.Sqoop安装</h2><p>1.自行选择下载sqoop（点击百度网盘链接可以下载) <a href="https://pan.baidu.com/s/1Df7hy1i_Sfvf29yZKp5dsw">百度网盘链接</a> 提取码：bhpf  </p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建文件夹</span></span><br><span class="line">mkdir /opt/Sqoop</span><br></pre></td></tr></table></figure>
+
+<p>2.用xftp上传压缩文件.gz文件到/opt/Sqoop(上传完解压文件,然后改名)</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#解压文件</span></span><br><span class="line">tar <span class="literal">-zxvf</span> sqoop<span class="literal">-1</span>.<span class="number">4.7</span>.bin__hadoop<span class="literal">-2</span>.<span class="number">6.0</span>.tar.gz</span><br><span class="line">解压完改名</span><br><span class="line"><span class="built_in">mv</span> sqoop<span class="literal">-1</span>.<span class="number">4.7</span>.bin__hadoop<span class="literal">-2</span>.<span class="number">6.0</span> sqoop</span><br></pre></td></tr></table></figure>
+
+<p>3.配置环境变量</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#打开文件</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#打开文件后在对下面添加hive路径</span></span><br><span class="line">export SQOOP_HOME=/opt/Sqoop/sqoop</span><br><span class="line"><span class="comment">#参考这个我的路径前面配置了jkd，Hadoop,hive路经。“export PATH=$PATH:$SQOOP_HOME/bin&quot;</span></span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$HIVE_HOME</span>/bin:<span class="variable">$PATH:</span><span class="variable">$SQOOP_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>4.修改配置文件<br>Sqoop的配置文件与大多数大数据框架类似，在sqoop根目录下的conf目录中。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#进入目录</span></span><br><span class="line"><span class="built_in">cd</span> /opt/Sqoop/sqoop/conf</span><br><span class="line"><span class="comment">#复制文件并改名</span></span><br><span class="line"><span class="built_in">cp</span> sqoop<span class="literal">-env</span><span class="literal">-template</span>.sh sqoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#进入文件</span></span><br><span class="line">vim sqoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#文件里需要添加的参数</span></span><br><span class="line">export HADOOP_COMMON_HOME=/opt/hadoop/hadoop</span><br><span class="line">export HADOOP_MAPRED_HOME=/opt/hadoop/hadoop</span><br><span class="line">export HIVE_HOME=/opt/Hive/hive</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201123171846372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>5.拷贝mysql驱动</p>
+<p>拷贝上面hive用的mysql驱动到sqoop的lib目录下</p>
+<p>6.验证 Sqoop<br>我们可以通过某一个 command 来验证 sqoop 配置是否正确：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">sqoop help</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201123173050203.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">sqoop list<span class="literal">-databases</span> -<span class="literal">-connect</span> jdbc:mysql://master:<span class="number">3306</span>/ -<span class="literal">-username</span> root -<span class="literal">-password</span> xiwen123</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201123173512134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<p>第一个篇博客搭建集群</p>
 ]]></content>
   </entry>
 </search>
