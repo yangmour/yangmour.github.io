@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Java集合[TOC] 1.数组与集合1.集合与数组存储数据概述： 集合、数组都是对多个数据进行存储操作的结构，简称Java容器。 说明：此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt,.jpg,.avi，数据库中)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4-Java集合-shangguigu17day">
+<meta property="og:url" content="https://yangmour.github.io/2022/01/05/4-Java%E9%9B%86%E5%90%88-shangguigu17day/index.html">
+<meta property="og:site_name" content="希文的个人博客">
+<meta property="og:description" content="Java集合[TOC] 1.数组与集合1.集合与数组存储数据概述： 集合、数组都是对多个数据进行存储操作的结构，简称Java容器。 说明：此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt,.jpg,.avi，数据库中)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.3001.net/images/20220105/16413969058917.png">
+<meta property="og:image" content="https://image.3001.net/images/20220105/16413979474192.png">
+<meta property="og:image" content="https://image.3001.net/images/20220105/16413981664624.png">
+<meta property="og:image" content="https://image.3001.net/images/20220105/16413982373697.png">
+<meta property="og:image" content="https://image.3001.net/images/20220105/16413983451798.png">
+<meta property="og:image" content="https://image.3001.net/images/20220105/16413983528047.png">
+<meta property="og:image" content="https://image.3001.net/images/20220105/16413983609405.png">
+<meta property="og:image" content="https://image.3001.net/images/20220105/16413983698380.png">
+<meta property="article:published_time" content="2022-01-05T15:25:37.000Z">
+<meta property="article:modified_time" content="2022-01-05T16:00:15.864Z">
+<meta property="article:author" content="希文">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.3001.net/images/20220105/16413969058917.png">
+
+<link rel="canonical" href="https://yangmour.github.io/2022/01/05/4-Java%E9%9B%86%E5%90%88-shangguigu17day/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>4-Java集合-shangguigu17day | 希文的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="希文的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">希文的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">白日依山尽，黄河入海流。欲穷千里目，更上一层楼。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/4-Java%E9%9B%86%E5%90%88-shangguigu17day/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          4-Java集合-shangguigu17day
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-05 23:25:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:25:37+08:00">2022-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-06 00:00:15" itemprop="dateModified" datetime="2022-01-06T00:00:15+08:00">2022-01-06</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><p>[TOC]</p>
+<h2 id="1-数组与集合"><a href="#1-数组与集合" class="headerlink" title="1.数组与集合"></a>1.数组与集合</h2><h3 id="1-集合与数组存储数据概述："><a href="#1-集合与数组存储数据概述：" class="headerlink" title="1.集合与数组存储数据概述："></a>1.集合与数组存储数据概述：</h3><ul>
+<li>集合、数组都是对多个数据进行存储操作的结构，简称Java容器。</li>
+<li>说明：此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt,.jpg,.avi，数据库中)</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="2-数组存储的特点："><a href="#2-数组存储的特点：" class="headerlink" title="2.数组存储的特点："></a>2.数组存储的特点：</h3><blockquote>
+<ul>
+<li>一旦初始化以后，其长度就确定了。<br>数组一旦定义好，其元素的类型也就确定了。我们也就只能操作指定类型的数据了。</li>
+</ul>
+<ul>
+<li><pre><code>  比如：String[] arr;int[] arr1;Object[] arr2;
+</code></pre>
+</li>
+<li></li>
+</ul>
+</blockquote>
+<h3 id="3-数组存储的弊端："><a href="#3-数组存储的弊端：" class="headerlink" title="3.数组存储的弊端："></a>3.数组存储的弊端：</h3><ul>
+<li><blockquote>
+<p>一旦初始化以后，其长度就不可修改。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>数组中提供的方法非常限，对于添加、删除、插入数据等操作，非常不便，同时效率不高。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>获取数组中实际元素的个数的需求，数组没有现成的属性或方法可用</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>数组存储数据的特点：有序、可重复。对于无序、不可重复的需求，不能满足。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4-集合存储的优点："><a href="#4-集合存储的优点：" class="headerlink" title="4.集合存储的优点："></a>4.集合存储的优点：</h3><ul>
+<li>解决数组存储数据方面的弊端。</li>
+</ul>
+<h2 id="2-Iterator接口与foreach循环"><a href="#2-Iterator接口与foreach循环" class="headerlink" title="2.Iterator接口与foreach循环"></a>2.Iterator接口与foreach循环</h2><h3 id="1-遍历Collection的两种方式："><a href="#1-遍历Collection的两种方式：" class="headerlink" title="1.遍历Collection的两种方式："></a>1.遍历Collection的两种方式：</h3><h4 id="①-使用迭代器Iterator"><a href="#①-使用迭代器Iterator" class="headerlink" title="① 使用迭代器Iterator"></a>① 使用迭代器Iterator</h4><h4 id="②-foreach循环（或增强for循环）"><a href="#②-foreach循环（或增强for循环）" class="headerlink" title="② foreach循环（或增强for循环）"></a>② foreach循环（或增强for循环）</h4><h3 id="2-java-utils包下定义的迭代器接口：Iterator"><a href="#2-java-utils包下定义的迭代器接口：Iterator" class="headerlink" title="2.java.utils包下定义的迭代器接口：Iterator"></a>2.java.utils包下定义的迭代器接口：Iterator</h3><h4 id="2-1说明："><a href="#2-1说明：" class="headerlink" title="2.1说明："></a>2.1说明：</h4><p>Iterator对象称为迭代器(设计模式的一种)，主要用于遍历 Collection 集合中的元素。<br> GOF给迭代器模式的定义为：提供一种方法访问一个容器(container)对象中各个元素，而又不需暴露该对象的内部细节。迭代器模式，就是为容器而生。</p>
+<h4 id="2-2作用："><a href="#2-2作用：" class="headerlink" title="2.2作用："></a>2.2作用：</h4><p>遍历集合Collectiton元素</p>
+<h4 id="2-3如何获取实例："><a href="#2-3如何获取实例：" class="headerlink" title="2.3如何获取实例："></a>2.3如何获取实例：</h4><p>coll.iterator()返回一个迭代器实例</p>
+<h4 id="2-4遍历的代码实现："><a href="#2-4遍历的代码实现：" class="headerlink" title="2.4遍历的代码实现："></a>2.4遍历的代码实现：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Iterator iterator = coll.iterator();</span><br><span class="line"><span class="comment">//hasNext():判断是否还下一个元素</span></span><br><span class="line"><span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">    <span class="comment">//next():①指针下移 ②将下移以后集合位置上的元素返回</span></span><br><span class="line">    System.out.println(iterator.next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-5图示说明："><a href="#2-5图示说明：" class="headerlink" title="2.5图示说明："></a>2.5图示说明：</h4><p><img src="https://image.3001.net/images/20220105/16413969058917.png" alt="image-20220105233433510"></p>
+<h4 id="2-6-remove-的使用："><a href="#2-6-remove-的使用：" class="headerlink" title="2.6 remove()的使用："></a>2.6 remove()的使用：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试Iterator中的remove()</span></span><br><span class="line"><span class="comment">//如果还未调用next()或在上一次调用 next 方法之后已经调用了 remove 方法，再调用remove都会报IllegalStateException。</span></span><br><span class="line"><span class="comment">//内部定义了remove(),可以在遍历的时候，删除集合中的元素。此方法不同于集合直接调用remove()</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Collection coll = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        coll.add(<span class="number">123</span>);</span><br><span class="line">        coll.add(<span class="number">456</span>);</span><br><span class="line">        coll.add(<span class="keyword">new</span> Person(<span class="string">&quot;Jerry&quot;</span>,<span class="number">20</span>));</span><br><span class="line">        coll.add(<span class="keyword">new</span> String(<span class="string">&quot;Tom&quot;</span>));</span><br><span class="line">        coll.add(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//删除集合中&quot;Tom&quot;</span></span><br><span class="line">        Iterator iterator = coll.iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext())&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//            iterator.remove();</span></span><br><span class="line">            Object obj = iterator.next();</span><br><span class="line">            <span class="keyword">if</span>(<span class="string">&quot;Tom&quot;</span>.equals(obj))&#123;</span><br><span class="line">                iterator.remove();</span><br><span class="line"><span class="comment">//                iterator.remove();</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="comment">//遍历集合</span></span><br><span class="line">​    iterator = coll.iterator();</span><br><span class="line">​    <span class="keyword">while</span> (iterator.hasNext())&#123;</span><br><span class="line">​        System.out.println(iterator.next());</span><br><span class="line">​    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-jdk5-0新特性–增强for循环：-foreach循环"><a href="#3-jdk5-0新特性–增强for循环：-foreach循环" class="headerlink" title="3.jdk5.0新特性–增强for循环：(foreach循环)"></a>3.jdk5.0新特性–增强for循环：(foreach循环)</h3><h4 id="1-遍历集合举例："><a href="#1-遍历集合举例：" class="headerlink" title="1.遍历集合举例："></a>1.遍历集合举例：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Collection coll = <span class="keyword">new</span> ArrayList();</span><br><span class="line">    coll.add(<span class="number">123</span>);</span><br><span class="line">    coll.add(<span class="number">456</span>);</span><br><span class="line">    coll.add(<span class="keyword">new</span> Person(<span class="string">&quot;Jerry&quot;</span>,<span class="number">20</span>));</span><br><span class="line">    coll.add(<span class="keyword">new</span> String(<span class="string">&quot;Tom&quot;</span>));</span><br><span class="line">    coll.add(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//for(集合元素的类型 局部变量 : 集合对象)</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(Object obj : coll)&#123;</span><br><span class="line">        System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：<br>内部仍然调用了迭代器。</p>
+<h4 id="2-遍历数组举例："><a href="#2-遍历数组举例：" class="headerlink" title="2.遍历数组举例："></a>2.遍历数组举例：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line">    <span class="comment">//for(数组元素的类型 局部变量 : 数组对象)</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i : arr)&#123;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Collection子接口：List接口"><a href="#3-Collection子接口：List接口" class="headerlink" title="3.Collection子接口：List接口"></a>3.Collection子接口：List接口</h2><h3 id="1-存储的数据特点：存储序的、可重复的数据。"><a href="#1-存储的数据特点：存储序的、可重复的数据。" class="headerlink" title="1.存储的数据特点：存储序的、可重复的数据。"></a>1.存储的数据特点：存储序的、可重复的数据。</h3><h3 id="2-常用方法：-记住"><a href="#2-常用方法：-记住" class="headerlink" title="2.常用方法：(记住)"></a>2.常用方法：(记住)</h3><ul>
+<li>增：add(Object obj)</li>
+<li>删：remove(int index) / remove(Object obj)</li>
+<li>改：set(int index, Object ele)</li>
+<li>查：get(int index)</li>
+<li>插：add(int index, Object ele)</li>
+<li>长度：size()</li>
+<li>遍历：① Iterator迭代器方式<br>  ② 增强for循环<br>  ③ 普通的循环</li>
+</ul>
+<h3 id="3-常用实现类："><a href="#3-常用实现类：" class="headerlink" title="3.常用实现类："></a>3.常用实现类：</h3><h4 id="—-Collection接口：单列集合，用来存储一个一个的对象"><a href="#—-Collection接口：单列集合，用来存储一个一个的对象" class="headerlink" title="|—-Collection接口：单列集合，用来存储一个一个的对象"></a>|—-Collection接口：单列集合，用来存储一个一个的对象</h4><ul>
+<li>|—-List接口：存储序的、可重复的数据。  –&gt;“动态”数组,替换原的数组<ul>
+<li>|—-ArrayList：作为List接口的主要实现类；线程不安全的，效率高；底层使用Object[] elementData存储</li>
+<li>|—-LinkedList：对于频繁的插入、删除操作，使用此类效率比ArrayList高；底层使用双向链表存储</li>
+<li>|—-Vector：作为List接口的古老实现类；线程安全的，效率低；底层使用Object[] elementData存储</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-源码分析-难点"><a href="#4-源码分析-难点" class="headerlink" title="4.源码分析(难点)"></a>4.源码分析(难点)</h3><h4 id="4-1-ArrayList的源码分析："><a href="#4-1-ArrayList的源码分析：" class="headerlink" title="4.1 ArrayList的源码分析："></a>4.1 ArrayList的源码分析：</h4><h5 id="2-1-jdk-7情况下"><a href="#2-1-jdk-7情况下" class="headerlink" title="2.1 jdk 7情况下"></a>2.1 jdk 7情况下</h5><ul>
+<li><pre><code> ArrayList list = new ArrayList();//底层创建了长度是10的Object[]数组elementData
+</code></pre>
+</li>
+<li><pre><code> list.add(123);//elementData[0] = new Integer(123);
+</code></pre>
+</li>
+<li><pre><code> ...
+</code></pre>
+</li>
+<li><pre><code> list.add(11);//如果此次的添加导致底层elementData数组容量不够，则扩容。
+</code></pre>
+</li>
+<li><pre><code> 默认情况下，扩容为原来的容量的1.5倍，同时需要将原有数组中的数据复制到新的数组中。
+</code></pre>
+</li>
+<li></li>
+<li><p>结论：建议开发中使用带参的构造器：ArrayList list = new ArrayList(int capacity)<br>*</p>
+<h5 id="2-2-jdk-8中ArrayList的变化："><a href="#2-2-jdk-8中ArrayList的变化：" class="headerlink" title="2.2 jdk 8中ArrayList的变化："></a>2.2 jdk 8中ArrayList的变化：</h5></li>
+<li><pre><code> ArrayList list = new ArrayList();//底层Object[] elementData初始化为&#123;&#125;.并没创建长度为10的数组
+</code></pre>
+</li>
+<li></li>
+<li><pre><code> list.add(123);//第一次调用add()时，底层才创建了长度10的数组，并将数据123添加到elementData[0]
+</code></pre>
+</li>
+<li><pre><code> ...
+</code></pre>
+</li>
+<li><p>后续的添加和扩容操作与jdk 7 无异。</p>
+<h5 id="2-3-小结：jdk7中的ArrayList的对象的创建类似于单例的饿汉式，而jdk8中的ArrayList的对象"><a href="#2-3-小结：jdk7中的ArrayList的对象的创建类似于单例的饿汉式，而jdk8中的ArrayList的对象" class="headerlink" title="2.3 小结：jdk7中的ArrayList的对象的创建类似于单例的饿汉式，而jdk8中的ArrayList的对象"></a>2.3 小结：jdk7中的ArrayList的对象的创建类似于单例的饿汉式，而jdk8中的ArrayList的对象</h5></li>
+<li><pre><code>       的创建类似于单例的懒汉式，延迟了数组的创建，节省内存。
+</code></pre>
+</li>
+<li></li>
+</ul>
+<h4 id="4-2-LinkedList的源码分析："><a href="#4-2-LinkedList的源码分析：" class="headerlink" title="4.2 LinkedList的源码分析："></a>4.2 LinkedList的源码分析：</h4><ul>
+<li><p>LinkedList list = new LinkedList(); 内部声明了Node类型的first和last属性，默认值为null</p>
+</li>
+<li><p>list.add(123);//将123封装到Node中，创建了Node对象。<br>*</p>
+</li>
+<li><p>其中，Node定义为：体现了LinkedList的双向链表的说法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">     E item;</span><br><span class="line">     Node&lt;E&gt; next;</span><br><span class="line">     Node&lt;E&gt; prev;</span><br><span class="line"></span><br><span class="line">     Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span><br><span class="line">     <span class="keyword">this</span>.item = element;</span><br><span class="line">     <span class="keyword">this</span>.next = next;</span><br><span class="line">     <span class="keyword">this</span>.prev = prev;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-3-Vector的源码分析："><a href="#4-3-Vector的源码分析：" class="headerlink" title="4.3 Vector的源码分析："></a>4.3 Vector的源码分析：</h4><p>jdk7和jdk8中通过Vector()构造器创建对象时，底层都创建了长度为10的数组。<br>在扩容方面，默认扩容为原来的数组长度的2倍。</p>
+</li>
+</ul>
+<h3 id="5-存储的元素的要求："><a href="#5-存储的元素的要求：" class="headerlink" title="5.存储的元素的要求："></a>5.存储的元素的要求：</h3><p>添加的对象，所在的类要重写equals()方法<br>[面试题]</p>
+<ul>
+<li> 面试题：ArrayList、LinkedList、Vector者的异同？</li>
+<li> 同：三个类都是实现了List接口，存储数据的特点相同：存储序的、可重复的数据</li>
+<li> 不同：见上（第3部分+第4部分）</li>
+</ul>
+<h2 id="4-Collection子接口：Set接口"><a href="#4-Collection子接口：Set接口" class="headerlink" title="4.Collection子接口：Set接口"></a>4.Collection子接口：Set接口</h2><h3 id="1-存储的数据特点：无序的、不可重复的元素"><a href="#1-存储的数据特点：无序的、不可重复的元素" class="headerlink" title="1.存储的数据特点：无序的、不可重复的元素"></a>1.存储的数据特点：无序的、不可重复的元素</h3><p>具体的：<br>以HashSet为例说明：</p>
+<ol>
+<li>无序性：不等于随机性。存储的数据在底层数组中并非照数组索引的顺序添加，而是根据数据的哈希值决定的。</li>
+<li>不可重复性：保证添加的元素照equals()判断时，不能返回true.即：相同的元素只能添加一个。</li>
+</ol>
+<h3 id="2-元素添加过程：-以HashSet为例"><a href="#2-元素添加过程：-以HashSet为例" class="headerlink" title="2.元素添加过程：(以HashSet为例)"></a>2.元素添加过程：(以HashSet为例)</h3><p>我们向HashSet中添加元素a,首先调用元素a所在类的hashCode()方法，计算元素a的哈希值，<br>此哈希值接着通过某种算法计算出在HashSet底层数组中的存放位置（即为：索引位置，判断<br>数组此位置上是否已经元素：<br> 如果此位置上没其他元素，则元素a添加成功。 —&gt;情况1<br> 如果此位置上其他元素b(或以链表形式存在的多个元素，则比较元素a与元素b的hash值：<br>     如果hash值不相同，则元素a添加成功。—&gt;情况2<br>     如果hash值相同，进而需要调用元素a所在类的equals()方法：<br>            equals()返回true,元素a添加失败<br>            equals()返回false,则元素a添加成功。—&gt;情况2</p>
+<p>对于添加成功的情况2和情况3而言：元素a 与已经存在指定索引位置上数据以链表的方式存储。<br>jdk 7 :元素a放到数组中，指向原来的元素。<br>jdk 8 :原来的元素在数组中，指向元素a<br>总结：七上八下</p>
+<p>HashSet底层：数组+链表的结构。（前提：jdk7)</p>
+<h3 id="3-常用方法"><a href="#3-常用方法" class="headerlink" title="3.常用方法"></a>3.常用方法</h3><p>Set接口中没额外定义新的方法，使用的都是Collection中声明过的方法。</p>
+<h3 id="4-常用实现类："><a href="#4-常用实现类：" class="headerlink" title="4.常用实现类："></a>4.常用实现类：</h3><p>|—-Collection接口：单列集合，用来存储一个一个的对象</p>
+<ul>
+<li><pre><code>   |----Set接口：存储无序的、不可重复的数据   --&gt;高中讲的“集合”
+     - |----HashSet：作为Set接口的主要实现类；线程不安全的；可以存储null值
+     - |----LinkedHashSet：作为HashSet的子类；遍历其内部数据时，可以按照添加的顺序遍历
+     - 在添加数据的同时，每个数据还维护了两个引用，记录此数据前一个数据和后一个数据。                   对于频繁的遍历操作，LinkedHashSet效率高于HashSet.
+     - |----TreeSet：可以照添加对象的指定属性，进行排序。
+</code></pre>
+</li>
+</ul>
+<h3 id="5-存储对象所在类的要求："><a href="#5-存储对象所在类的要求：" class="headerlink" title="5.存储对象所在类的要求："></a>5.存储对象所在类的要求：</h3><h4 id="HashSet-LinkedHashSet"><a href="#HashSet-LinkedHashSet" class="headerlink" title="HashSet/LinkedHashSet:"></a>HashSet/LinkedHashSet:</h4><p>要求：向Set(主要指：HashSet、LinkedHashSet)中添加的数据，其所在的类一定要重写hashCode()和equals()<br>要求：重写的hashCode()和equals()尽可能保持一致性：相等的对象必须具有相等的散列码</p>
+<ul>
+<li>   重写两个方法的小技巧：对象中用作 equals() 方法比较的 Field，都应该用来计算 hashCode 值。</li>
+<li></li>
+</ul>
+<h4 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet:"></a>TreeSet:</h4><h5 id="1-自然排序中，比较两个对象是否相同的标准为：compareTo-返回0-不再是equals"><a href="#1-自然排序中，比较两个对象是否相同的标准为：compareTo-返回0-不再是equals" class="headerlink" title="1.自然排序中，比较两个对象是否相同的标准为：compareTo()返回0.不再是equals()."></a>1.自然排序中，比较两个对象是否相同的标准为：compareTo()返回0.不再是equals().</h5><h5 id="2-定制排序中，比较两个对象是否相同的标准为：compare-返回0-不再是equals"><a href="#2-定制排序中，比较两个对象是否相同的标准为：compare-返回0-不再是equals" class="headerlink" title="2.定制排序中，比较两个对象是否相同的标准为：compare()返回0.不再是equals()."></a>2.定制排序中，比较两个对象是否相同的标准为：compare()返回0.不再是equals().</h5><h3 id="6-TreeSet的使用"><a href="#6-TreeSet的使用" class="headerlink" title="6.TreeSet的使用"></a>6.TreeSet的使用</h3><h4 id="6-1-使用说明"><a href="#6-1-使用说明" class="headerlink" title="6.1 使用说明:"></a>6.1 使用说明:</h4><p>1.向TreeSet中添加的数据，要求是相同类的对象。<br>2.两种排序方式：自然排序（实现Comparable接口 和 定制排序（Comparator）</p>
+<h4 id="6-2-常用的排序方式"><a href="#6-2-常用的排序方式" class="headerlink" title="6.2 常用的排序方式:"></a>6.2 常用的排序方式:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式一：自然排序</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        TreeSet set = <span class="keyword">new</span> TreeSet();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//失败：不能添加不同类的对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        set.add(123);</span></span><br><span class="line"><span class="comment">//        set.add(456);</span></span><br><span class="line"><span class="comment">//        set.add(&quot;AA&quot;);</span></span><br><span class="line"><span class="comment">//        set.add(new User(&quot;Tom&quot;,12));</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//举例一：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        set.add(34);</span></span><br><span class="line"><span class="comment">//        set.add(-34);</span></span><br><span class="line"><span class="comment">//        set.add(43);</span></span><br><span class="line"><span class="comment">//        set.add(11);</span></span><br><span class="line"><span class="comment">//        set.add(8);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//举例二：</span></span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Tom&quot;</span>,<span class="number">12</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Jerry&quot;</span>,<span class="number">32</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Jim&quot;</span>,<span class="number">2</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Mike&quot;</span>,<span class="number">65</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Jack&quot;</span>,<span class="number">33</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Jack&quot;</span>,<span class="number">56</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Iterator iterator = set.iterator();</span><br><span class="line">        <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">            System.out.println(iterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式二：定制排序</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Comparator com = <span class="keyword">new</span> Comparator() &#123;</span><br><span class="line">            <span class="comment">//照年龄从小到大排列</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Object o1, Object o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(o1 <span class="keyword">instanceof</span> User &amp;&amp; o2 <span class="keyword">instanceof</span> User)&#123;</span><br><span class="line">                    User u1 = (User)o1;</span><br><span class="line">                    User u2 = (User)o2;</span><br><span class="line">                    <span class="keyword">return</span> Integer.compare(u1.getAge(),u2.getAge());</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;输入的数据类型不匹配&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        TreeSet set = <span class="keyword">new</span> TreeSet(com);</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Tom&quot;</span>,<span class="number">12</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Jerry&quot;</span>,<span class="number">32</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Jim&quot;</span>,<span class="number">2</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Mike&quot;</span>,<span class="number">65</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Mary&quot;</span>,<span class="number">33</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Jack&quot;</span>,<span class="number">33</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> User(<span class="string">&quot;Jack&quot;</span>,<span class="number">56</span>));</span><br><span class="line"></span><br><span class="line">​    Iterator iterator = set.iterator();</span><br><span class="line">​    <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">​        System.out.println(iterator.next());</span><br><span class="line">​    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Map接口"><a href="#5-Map接口" class="headerlink" title="5.Map接口"></a>5.Map接口</h2><h3 id="双列集合框架：Map"><a href="#双列集合框架：Map" class="headerlink" title="双列集合框架：Map"></a>双列集合框架：Map</h3><h3 id="1-常用实现类结构"><a href="#1-常用实现类结构" class="headerlink" title="1.常用实现类结构"></a>1.常用实现类结构</h3><p>|—-Map:双列数据，存储key-value对的数据   —类似于高中的函数：y = f(x)</p>
+<ul>
+<li><p>|—-HashMap:作为Map的主要实现类；线程不安全的，效率高；存储null的key和value</p>
+</li>
+<li><p>|—-LinkedHashMap:保证在遍历map元素时，可以照添加的顺序实现遍历。</p>
+<ul>
+<li><p>原因：在原的HashMap底层结构基础上，添加了一对指针，指向前一个和后一个元素。</p>
+</li>
+<li><p>对于频繁的遍历操作，此类执行效率高于HashMap。</p>
+</li>
+</ul>
+</li>
+<li><p>|—-TreeMap:保证照添加的key-value对进行排序，实现排序遍历。此时考虑key的自然排序或定制排序</p>
+<ul>
+<li>底层使用红黑树</li>
+</ul>
+</li>
+<li><p>|—-Hashtable:作为古老的实现类；线程安全的，效率低；不能存储null的key和value</p>
+<ul>
+<li>|—-Properties:常用来处理配置文件。key和value都是String类型<br>*<br>*</li>
+</ul>
+</li>
+<li><p>HashMap的底层：数组+链表  （jdk7及之前)</p>
+</li>
+<li><pre><code>               数组+链表+红黑树 （jdk 8)
+</code></pre>
+</li>
+</ul>
+<p>[面试题]</p>
+<ul>
+<li><ol>
+<li>HashMap的底层实现原理？</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>HashMap 和 Hashtable的异同？</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>CurrentHashMap 与 Hashtable的异同？（暂时不讲)</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-存储结构的理解："><a href="#2-存储结构的理解：" class="headerlink" title="2.存储结构的理解："></a>2.存储结构的理解：</h3><blockquote>
+<p>Map中的key:无序的、不可重复的，使用Set存储所的key  —&gt; key所在的类要重写equals()和hashCode() （以HashMap为例)<br>Map中的value:无序的、可重复的，使用Collection存储所的value —&gt;value所在的类要重写equals()<br>一个键值对：key-value构成了一个Entry对象。<br>Map中的entry:无序的、不可重复的，使用Set存储所的entry</p>
+</blockquote>
+<p>图示：<img src="https://image.3001.net/images/20220105/16413979474192.png" alt="image-20220105235231739"></p>
+<h3 id="3-常用方法-1"><a href="#3-常用方法-1" class="headerlink" title="3.常用方法"></a>3.常用方法</h3><ul>
+<li>添加：put(Object key,Object value)</li>
+<li>删除：remove(Object key)</li>
+<li>修改：put(Object key,Object value)</li>
+<li>查询：get(Object key)</li>
+<li>长度：size()</li>
+<li>遍历：keySet() / values() / entrySet()</li>
+</ul>
+<h3 id="4-内存结构说明：（难点）"><a href="#4-内存结构说明：（难点）" class="headerlink" title="4.内存结构说明：（难点）"></a>4.内存结构说明：（难点）</h3><h4 id="4-1-HashMap在jdk7中实现原理："><a href="#4-1-HashMap在jdk7中实现原理：" class="headerlink" title="4.1 HashMap在jdk7中实现原理："></a>4.1 HashMap在jdk7中实现原理：</h4><p>HashMap map = new HashMap():</p>
+<ul>
+<li><pre><code> 在实例化以后，底层创建了长度是16的一维数组Entry[] table。
+</code></pre>
+</li>
+<li><pre><code> ...可能已经执行过多次put...
+</code></pre>
+</li>
+<li><pre><code> map.put(key1,value1):
+</code></pre>
+</li>
+<li><pre><code> 首先，调用key1所在类的hashCode()计算key1哈希值，此哈希值经过某种算法计算以后，得到在Entry数组中的存放位置。
+</code></pre>
+</li>
+<li><pre><code> 如果此位置上的数据为空，此时的key1-value1添加成功。 ----情况1
+</code></pre>
+</li>
+<li><pre><code> 如果此位置上的数据不为空，(意味着此位置上存在一个或多个数据(以链表形式存在)),比较key1和已经存在的一个或多个数据的哈希值：
+</code></pre>
+</li>
+<li><pre><code>         如果key1的哈希值与已经存在的数据的哈希值都不相同，此时key1-value1添加成功。----情况2
+</code></pre>
+</li>
+<li><p>如果key1的哈希值和已经存在的某一个数据(key2-value2)的哈希值相同，继续比较：调用key1所在类的equals(key2)方法，比较：</p>
+<ul>
+<li><p>如果equals()返回false:此时key1-value1添加成功。—-情况3</p>
+</li>
+<li><p>如果equals()返回true:使用value1替换value2。<br>*</p>
+</li>
+</ul>
+</li>
+<li><pre><code> 补充：关于情况2和情况3：此时key1-value1和原来的数据以链表的方式存储。
+</code></pre>
+</li>
+<li></li>
+<li><pre><code>在不断的添加过程中，会涉及到扩容问题，当超出临界值(且要存放的位置非空)时，扩容。默认的扩容方式：扩容为原来容量的2倍，并将原的数据复制过来。
+</code></pre>
+</li>
+</ul>
+<h4 id="4-2-HashMap在jdk8中相较于jdk7在底层实现方面的不同："><a href="#4-2-HashMap在jdk8中相较于jdk7在底层实现方面的不同：" class="headerlink" title="4.2 HashMap在jdk8中相较于jdk7在底层实现方面的不同："></a>4.2 HashMap在jdk8中相较于jdk7在底层实现方面的不同：</h4><h5 id="1-new-HashMap-底层没创建一个长度为16的数组"><a href="#1-new-HashMap-底层没创建一个长度为16的数组" class="headerlink" title="1.new HashMap():底层没创建一个长度为16的数组"></a>1.new HashMap():底层没创建一个长度为16的数组</h5><h5 id="2-jdk-8底层的数组是：Node-而非Entry"><a href="#2-jdk-8底层的数组是：Node-而非Entry" class="headerlink" title="2.jdk 8底层的数组是：Node[],而非Entry[]"></a>2.jdk 8底层的数组是：Node[],而非Entry[]</h5><h5 id="3-首次调用put-方法时，底层创建长度为16的数组"><a href="#3-首次调用put-方法时，底层创建长度为16的数组" class="headerlink" title="3.首次调用put()方法时，底层创建长度为16的数组"></a>3.首次调用put()方法时，底层创建长度为16的数组</h5><h5 id="4-jdk7底层结构只：数组-链表。jdk8中底层结构：数组-链表-红黑树。"><a href="#4-jdk7底层结构只：数组-链表。jdk8中底层结构：数组-链表-红黑树。" class="headerlink" title="4.jdk7底层结构只：数组+链表。jdk8中底层结构：数组+链表+红黑树。"></a>4.jdk7底层结构只：数组+链表。jdk8中底层结构：数组+链表+红黑树。</h5><ol>
+<li>形成链表时，七上八下（jdk7:新的元素指向旧的元素。jdk8：旧的元素指向新的元素）</li>
+<li>当数组的某一个索引位置上的元素以链表形式存在的数据个数 &gt; 8 且当前数组的长度 &gt; 64时，此时此索引位置上的所数据改为使用红黑树存储。</li>
+</ol>
+<h4 id="4-3-HashMap底层典型属性的属性的说明："><a href="#4-3-HashMap底层典型属性的属性的说明：" class="headerlink" title="4.3 HashMap底层典型属性的属性的说明："></a>4.3 HashMap底层典型属性的属性的说明：</h4><p>DEFAULT_INITIAL_CAPACITY : HashMap的默认容量，16<br>DEFAULT_LOAD_FACTOR：HashMap的默认加载因子：0.75<br>threshold：扩容的临界值，=容量*填充因子：16 * 0.75 =&gt; 12<br>TREEIFY_THRESHOLD：Bucket中链表长度大于该默认值，转化为红黑树:8<br>MIN_TREEIFY_CAPACITY：桶中的Node被树化时最小的hash表容量:64</p>
+<h4 id="4-4-LinkedHashMap的底层实现原理-了解"><a href="#4-4-LinkedHashMap的底层实现原理-了解" class="headerlink" title="4.4 LinkedHashMap的底层实现原理(了解)"></a>4.4 LinkedHashMap的底层实现原理(了解)</h4><p>LinkedHashMap底层使用的结构与HashMap相同，因为LinkedHashMap继承于HashMap.<br>区别就在于：LinkedHashMap内部提供了Entry，替换HashMap中的Node.</p>
+<p><img src="https://image.3001.net/images/20220105/16413981664624.png" alt="image-20220105235613026"></p>
+<h3 id="5-TreeMap的使用"><a href="#5-TreeMap的使用" class="headerlink" title="5.TreeMap的使用"></a>5.TreeMap的使用</h3><p>//向TreeMap中添加key-value，要求key必须是由同一个类创建的对象<br>//因为要照key进行排序：自然排序 、定制排序</p>
+<h3 id="6-使用Properties读取配置文件"><a href="#6-使用Properties读取配置文件" class="headerlink" title="6.使用Properties读取配置文件"></a>6.使用Properties读取配置文件</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Properties:常用来处理配置文件。key和value都是String类型</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">    FileInputStream fis = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Properties pros = <span class="keyword">new</span> Properties();</span><br><span class="line"></span><br><span class="line">        fis = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;jdbc.properties&quot;</span>);</span><br><span class="line">        pros.load(fis);<span class="comment">//加载流对应的文件</span></span><br><span class="line">    </span><br><span class="line">        String name = pros.getProperty(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        String password = pros.getProperty(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">    </span><br><span class="line">        System.out.println(<span class="string">&quot;name = &quot;</span> + name + <span class="string">&quot;, password = &quot;</span> + password);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(fis != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                fis.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Collections工具类的使用"><a href="#6-Collections工具类的使用" class="headerlink" title="6.Collections工具类的使用"></a>6.Collections工具类的使用</h2><h3 id="Collections工具类"><a href="#Collections工具类" class="headerlink" title="Collections工具类"></a>Collections工具类</h3><h3 id="1-作用：操作Collection和Map的工具类"><a href="#1-作用：操作Collection和Map的工具类" class="headerlink" title="1.作用：操作Collection和Map的工具类"></a>1.作用：操作Collection和Map的工具类</h3><h3 id="2-常用方法："><a href="#2-常用方法：" class="headerlink" title="2.常用方法："></a>2.常用方法：</h3><ul>
+<li>reverse(List)：反转 List 中元素的顺序</li>
+<li>shuffle(List)：对 List 集合元素进行随机排序</li>
+<li>sort(List)：根据元素的自然顺序对指定 List 集合元素升序排序</li>
+<li>sort(List，Comparator)：根据指定的 Comparator 产生的顺序对 List 集合元素进行排序</li>
+<li>swap(List，int， int)：将指定 list 集合中的 i 处元素和 j 处元素进行交换</li>
+<li>Object max(Collection)：根据元素的自然顺序，返回给定集合中的最大元素</li>
+<li>Object max(Collection，Comparator)：根据 Comparator 指定的顺序，返回给定集合中的最大元素</li>
+<li>Object min(Collection)</li>
+<li>Object min(Collection，Comparator)<br>int frequency(Collection，Object)：返回指定集合中指定元素的出现次数</li>
+<li>void copy(List dest,List src)：将src中的内容复制到dest中</li>
+<li>boolean replaceAll(List list，Object oldVal，Object newVal)：使用新值替换 List 对象的所旧值</li>
+</ul>
+<p><img src="https://image.3001.net/images/20220105/16413982373697.png" alt="image-20220105235722379"></p>
+<ul>
+<li>说明：ArrayList和HashMap都是线程不安全的，如果程序要求线程安全，我们可以将ArrayList、HashMap转换为线程的。</li>
+<li>使用synchronizedList(List list） 和 synchronizedMap(Map map）</li>
+</ul>
+<h3 id="3-面试题："><a href="#3-面试题：" class="headerlink" title="3.面试题："></a>3.面试题：</h3><p>面试题：Collection 和 Collections的区别？</p>
+<h2 id="7-数据结构简述"><a href="#7-数据结构简述" class="headerlink" title="7.数据结构简述"></a>7.数据结构简述</h2><h3 id="1-数据结构概述"><a href="#1-数据结构概述" class="headerlink" title="1.数据结构概述"></a>1.数据结构概述</h3><ul>
+<li>数据结构（Data Structure是一门和计算机硬件与软件都密切相关的学科，它的研究重点是在计算机的程序设计领域中探讨如何在计算机中组织和存储数据并进行高效率的运用，涉及的内容包含：数据的逻辑关系、数据的存储结构、排序算法（Algorithm）、查找（或搜索）等。</li>
+</ul>
+<h3 id="2-数据结构与算法的理解"><a href="#2-数据结构与算法的理解" class="headerlink" title="2.数据结构与算法的理解"></a>2.数据结构与算法的理解</h3><ul>
+<li><p>程序能否快速而高效地完成预定的任务，取决于是否选对了数据结构，而程序是否能清楚而正确地把问题解决，则取决于算法。</p>
+</li>
+<li><p>所以大家认为：“Algorithms + Data Structures = Programs”（出自：Pascal之父Nicklaus Wirth）</p>
+</li>
+<li><p>总结：算法是为了解决实际问题而设计的，数据结构是算法需要处理的问题载体。</p>
+</li>
+</ul>
+<h3 id="3-数据结构的研究对象"><a href="#3-数据结构的研究对象" class="headerlink" title="3.数据结构的研究对象"></a>3.数据结构的研究对象</h3><h4 id="3-1-数据间的逻辑结构"><a href="#3-1-数据间的逻辑结构" class="headerlink" title="3.1 数据间的逻辑结构"></a>3.1 数据间的逻辑结构</h4><p><img src="https://image.3001.net/images/20220105/16413983451798.png" alt="image-20220105235911087"></p>
+<p>集合结构            </p>
+<p><img src="https://image.3001.net/images/20220105/16413983528047.png" alt="image-20220105235918961"></p>
+<p>一对一：线性结构</p>
+<p><img src="https://image.3001.net/images/20220105/16413983609405.png" alt="image-20220105235927240"></p>
+<p>​      一对多：树形结构      </p>
+<p><img src="https://image.3001.net/images/20220105/16413983698380.png" alt="image-20220105235934451"></p>
+<p>多对多：图形结构</p>
+<h4 id="3-2-数据的存储结构："><a href="#3-2-数据的存储结构：" class="headerlink" title="3.2 数据的存储结构："></a>3.2 数据的存储结构：</h4><p>线性表（顺序表、链表、栈、队列）<br>树<br>图</p>
+<p>说明：习惯上把顺序表和链表看做基本数据结构（或真实数据结构）<br>      习惯上把栈、队列、树、图看做抽象数据类型，简称ADT</p>
+<ol start="4">
+<li>使用详情见思维导图：<br>《附录：尚硅谷_宋红康_数据结构概述-Java版.xmind》</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>希文
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yangmour.github.io/2022/01/05/4-Java%E9%9B%86%E5%90%88-shangguigu17day/" title="4-Java集合-shangguigu17day">https://yangmour.github.io/2022/01/05/4-Java集合-shangguigu17day/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/21/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/3-%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%92%8C%E6%B3%A8%E8%A7%A3-shangguigu16day/" rel="prev" title="3-枚举类和注解-shangguigu16day">
+      <i class="fa fa-chevron-left"></i> 3-枚举类和注解-shangguigu16day
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/05/5-%E6%B3%9B%E5%9E%8B-shangguigu18day/" rel="next" title="5-泛型-shangguigu18day">
+      5-泛型-shangguigu18day <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%9B%86%E5%90%88"><span class="nav-number">1.</span> <span class="nav-text">Java集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%95%B0%E7%BB%84%E4%B8%8E%E9%9B%86%E5%90%88"><span class="nav-number">1.1.</span> <span class="nav-text">1.数组与集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%9B%86%E5%90%88%E4%B8%8E%E6%95%B0%E7%BB%84%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E6%A6%82%E8%BF%B0%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.集合与数组存储数据概述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E7%BB%84%E5%AD%98%E5%82%A8%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.数组存储的特点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E7%BB%84%E5%AD%98%E5%82%A8%E7%9A%84%E5%BC%8A%E7%AB%AF%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.数组存储的弊端：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%9B%86%E5%90%88%E5%AD%98%E5%82%A8%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9A"><span class="nav-number">1.1.4.</span> <span class="nav-text">4.集合存储的优点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Iterator%E6%8E%A5%E5%8F%A3%E4%B8%8Eforeach%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.2.</span> <span class="nav-text">2.Iterator接口与foreach循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%81%8D%E5%8E%86Collection%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.遍历Collection的两种方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A0-%E4%BD%BF%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8Iterator"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">① 使用迭代器Iterator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A1-foreach%E5%BE%AA%E7%8E%AF%EF%BC%88%E6%88%96%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF%EF%BC%89"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">② foreach循环（或增强for循环）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-java-utils%E5%8C%85%E4%B8%8B%E5%AE%9A%E4%B9%89%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%8E%A5%E5%8F%A3%EF%BC%9AIterator"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.java.utils包下定义的迭代器接口：Iterator</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.1说明：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2.2作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%AE%9E%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">2.3如何获取实例：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4%E9%81%8D%E5%8E%86%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">2.4遍历的代码实现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5%E5%9B%BE%E7%A4%BA%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">2.5图示说明：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-remove-%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">2.6 remove()的使用：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-jdk5-0%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%93%E5%A2%9E%E5%BC%BAfor%E5%BE%AA%E7%8E%AF%EF%BC%9A-foreach%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.jdk5.0新特性–增强for循环：(foreach循环)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88%E4%B8%BE%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1.遍历集合举例：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84%E4%B8%BE%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2.遍历数组举例：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Collection%E5%AD%90%E6%8E%A5%E5%8F%A3%EF%BC%9AList%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.3.</span> <span class="nav-text">3.Collection子接口：List接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%98%E5%82%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E7%89%B9%E7%82%B9%EF%BC%9A%E5%AD%98%E5%82%A8%E5%BA%8F%E7%9A%84%E3%80%81%E5%8F%AF%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E6%8D%AE%E3%80%82"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.存储的数据特点：存储序的、可重复的数据。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A-%E8%AE%B0%E4%BD%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.常用方法：(记住)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%B8%B8%E7%94%A8%E5%AE%9E%E7%8E%B0%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.常用实现类：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%94-Collection%E6%8E%A5%E5%8F%A3%EF%BC%9A%E5%8D%95%E5%88%97%E9%9B%86%E5%90%88%EF%BC%8C%E7%94%A8%E6%9D%A5%E5%AD%98%E5%82%A8%E4%B8%80%E4%B8%AA%E4%B8%80%E4%B8%AA%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">|—-Collection接口：单列集合，用来存储一个一个的对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E9%9A%BE%E7%82%B9"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.源码分析(难点)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-ArrayList%E7%9A%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">4.1 ArrayList的源码分析：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-jdk-7%E6%83%85%E5%86%B5%E4%B8%8B"><span class="nav-number">1.3.4.1.1.</span> <span class="nav-text">2.1 jdk 7情况下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-jdk-8%E4%B8%ADArrayList%E7%9A%84%E5%8F%98%E5%8C%96%EF%BC%9A"><span class="nav-number">1.3.4.1.2.</span> <span class="nav-text">2.2 jdk 8中ArrayList的变化：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-%E5%B0%8F%E7%BB%93%EF%BC%9Ajdk7%E4%B8%AD%E7%9A%84ArrayList%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E4%BA%8E%E5%8D%95%E4%BE%8B%E7%9A%84%E9%A5%BF%E6%B1%89%E5%BC%8F%EF%BC%8C%E8%80%8Cjdk8%E4%B8%AD%E7%9A%84ArrayList%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.4.1.3.</span> <span class="nav-text">2.3 小结：jdk7中的ArrayList的对象的创建类似于单例的饿汉式，而jdk8中的ArrayList的对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-LinkedList%E7%9A%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">4.2 LinkedList的源码分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-Vector%E7%9A%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">4.3 Vector的源码分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AD%98%E5%82%A8%E7%9A%84%E5%85%83%E7%B4%A0%E7%9A%84%E8%A6%81%E6%B1%82%EF%BC%9A"><span class="nav-number">1.3.5.</span> <span class="nav-text">5.存储的元素的要求：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Collection%E5%AD%90%E6%8E%A5%E5%8F%A3%EF%BC%9ASet%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.4.</span> <span class="nav-text">4.Collection子接口：Set接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%98%E5%82%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E7%89%B9%E7%82%B9%EF%BC%9A%E6%97%A0%E5%BA%8F%E7%9A%84%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.存储的数据特点：无序的、不可重复的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0%E8%BF%87%E7%A8%8B%EF%BC%9A-%E4%BB%A5HashSet%E4%B8%BA%E4%BE%8B"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.元素添加过程：(以HashSet为例)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B8%B8%E7%94%A8%E5%AE%9E%E7%8E%B0%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.常用实现类：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AD%98%E5%82%A8%E5%AF%B9%E8%B1%A1%E6%89%80%E5%9C%A8%E7%B1%BB%E7%9A%84%E8%A6%81%E6%B1%82%EF%BC%9A"><span class="nav-number">1.4.5.</span> <span class="nav-text">5.存储对象所在类的要求：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet-LinkedHashSet"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">HashSet&#x2F;LinkedHashSet:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeSet"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">TreeSet:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E8%87%AA%E7%84%B6%E6%8E%92%E5%BA%8F%E4%B8%AD%EF%BC%8C%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%87%E5%87%86%E4%B8%BA%EF%BC%9AcompareTo-%E8%BF%94%E5%9B%9E0-%E4%B8%8D%E5%86%8D%E6%98%AFequals"><span class="nav-number">1.4.5.2.1.</span> <span class="nav-text">1.自然排序中，比较两个对象是否相同的标准为：compareTo()返回0.不再是equals().</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%AE%9A%E5%88%B6%E6%8E%92%E5%BA%8F%E4%B8%AD%EF%BC%8C%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%87%E5%87%86%E4%B8%BA%EF%BC%9Acompare-%E8%BF%94%E5%9B%9E0-%E4%B8%8D%E5%86%8D%E6%98%AFequals"><span class="nav-number">1.4.5.2.2.</span> <span class="nav-text">2.定制排序中，比较两个对象是否相同的标准为：compare()返回0.不再是equals().</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-TreeSet%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.6.</span> <span class="nav-text">6.TreeSet的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">6.1 使用说明:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8E%92%E5%BA%8F%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">6.2 常用的排序方式:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Map%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.5.</span> <span class="nav-text">5.Map接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E5%88%97%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%EF%BC%9AMap"><span class="nav-number">1.5.1.</span> <span class="nav-text">双列集合框架：Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B8%B8%E7%94%A8%E5%AE%9E%E7%8E%B0%E7%B1%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.2.</span> <span class="nav-text">1.常用实现类结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9A"><span class="nav-number">1.5.3.</span> <span class="nav-text">2.存储结构的理解：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95-1"><span class="nav-number">1.5.4.</span> <span class="nav-text">3.常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E%EF%BC%9A%EF%BC%88%E9%9A%BE%E7%82%B9%EF%BC%89"><span class="nav-number">1.5.5.</span> <span class="nav-text">4.内存结构说明：（难点）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-HashMap%E5%9C%A8jdk7%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="nav-number">1.5.5.1.</span> <span class="nav-text">4.1 HashMap在jdk7中实现原理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-HashMap%E5%9C%A8jdk8%E4%B8%AD%E7%9B%B8%E8%BE%83%E4%BA%8Ejdk7%E5%9C%A8%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E6%96%B9%E9%9D%A2%E7%9A%84%E4%B8%8D%E5%90%8C%EF%BC%9A"><span class="nav-number">1.5.5.2.</span> <span class="nav-text">4.2 HashMap在jdk8中相较于jdk7在底层实现方面的不同：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-new-HashMap-%E5%BA%95%E5%B1%82%E6%B2%A1%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%95%BF%E5%BA%A6%E4%B8%BA16%E7%9A%84%E6%95%B0%E7%BB%84"><span class="nav-number">1.5.5.2.1.</span> <span class="nav-text">1.new HashMap():底层没创建一个长度为16的数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-jdk-8%E5%BA%95%E5%B1%82%E7%9A%84%E6%95%B0%E7%BB%84%E6%98%AF%EF%BC%9ANode-%E8%80%8C%E9%9D%9EEntry"><span class="nav-number">1.5.5.2.2.</span> <span class="nav-text">2.jdk 8底层的数组是：Node[],而非Entry[]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E9%A6%96%E6%AC%A1%E8%B0%83%E7%94%A8put-%E6%96%B9%E6%B3%95%E6%97%B6%EF%BC%8C%E5%BA%95%E5%B1%82%E5%88%9B%E5%BB%BA%E9%95%BF%E5%BA%A6%E4%B8%BA16%E7%9A%84%E6%95%B0%E7%BB%84"><span class="nav-number">1.5.5.2.3.</span> <span class="nav-text">3.首次调用put()方法时，底层创建长度为16的数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-jdk7%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84%E5%8F%AA%EF%BC%9A%E6%95%B0%E7%BB%84-%E9%93%BE%E8%A1%A8%E3%80%82jdk8%E4%B8%AD%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84%EF%BC%9A%E6%95%B0%E7%BB%84-%E9%93%BE%E8%A1%A8-%E7%BA%A2%E9%BB%91%E6%A0%91%E3%80%82"><span class="nav-number">1.5.5.2.4.</span> <span class="nav-text">4.jdk7底层结构只：数组+链表。jdk8中底层结构：数组+链表+红黑树。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-HashMap%E5%BA%95%E5%B1%82%E5%85%B8%E5%9E%8B%E5%B1%9E%E6%80%A7%E7%9A%84%E5%B1%9E%E6%80%A7%E7%9A%84%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">1.5.5.3.</span> <span class="nav-text">4.3 HashMap底层典型属性的属性的说明：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-LinkedHashMap%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86-%E4%BA%86%E8%A7%A3"><span class="nav-number">1.5.5.4.</span> <span class="nav-text">4.4 LinkedHashMap的底层实现原理(了解)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-TreeMap%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.6.</span> <span class="nav-text">5.TreeMap的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%BD%BF%E7%94%A8Properties%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.7.</span> <span class="nav-text">6.使用Properties读取配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Collections%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">6.Collections工具类的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Collections%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-number">1.6.1.</span> <span class="nav-text">Collections工具类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BD%9C%E7%94%A8%EF%BC%9A%E6%93%8D%E4%BD%9CCollection%E5%92%8CMap%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-number">1.6.2.</span> <span class="nav-text">1.作用：操作Collection和Map的工具类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.6.3.</span> <span class="nav-text">2.常用方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A"><span class="nav-number">1.6.4.</span> <span class="nav-text">3.面试题：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%80%E8%BF%B0"><span class="nav-number">1.7.</span> <span class="nav-text">7.数据结构简述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0"><span class="nav-number">1.7.1.</span> <span class="nav-text">1.数据结构概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.7.2.</span> <span class="nav-text">2.数据结构与算法的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E7%A0%94%E7%A9%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.7.3.</span> <span class="nav-text">3.数据结构的研究对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E6%95%B0%E6%8D%AE%E9%97%B4%E7%9A%84%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">3.1 数据间的逻辑结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">3.2 数据的存储结构：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="希文"
+      src="/images/%E5%A4%B4%E5%83%8F.gif">
+  <p class="site-author-name" itemprop="name">希文</p>
+  <div class="site-description" itemprop="description">日常笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yangmour" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangmour" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiwenya999@gmail.com" title="E-Mail → mailto:xiwenya999@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://poc10.cn/" title="http:&#x2F;&#x2F;poc10.cn&#x2F;" rel="noopener" target="_blank">网络安全方面</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">希文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">48k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">44 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
