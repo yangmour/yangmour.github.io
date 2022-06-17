@@ -68,24 +68,13 @@
       </tags>
   </entry>
   <entry>
-    <title>右键创建cmd管理员运行cmd</title>
-    <url>/2021/12/21/%E5%85%B6%E4%BB%96/%E5%B0%8F%E5%B7%A5%E5%85%B7/%E5%8F%B3%E9%94%AE%E5%88%9B%E5%BB%BAcmd%E7%AE%A1%E7%90%86%E5%91%98%E8%BF%90%E8%A1%8Ccmd/</url>
-    <content><![CDATA[<h1 id="常用类"><a href="#常用类" class="headerlink" title="常用类"></a>常用类</h1><p>作用：右键创建cmd管理员运行cmd</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\Background\shell\runas]</span><br><span class="line">&quot;ShowBasedOnVelocityId&quot;=dword:00639bc8</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\Background\shell\runas\command]</span><br><span class="line">@=&quot;cmd.exe /s /k pushd \&quot;%V\&quot;&quot;</span><br></pre></td></tr></table></figure>
-
-<p>&lt;– more –&gt;</p>
-]]></content>
-      <tags>
-        <tag>小工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
+    <title>Git版本流程控制基础命令</title>
     <url>/2022/06/17/%E5%A4%A7%E6%95%B0%E6%8D%AE/git/Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="Git版本流程控制"><a href="#Git版本流程控制" class="headerlink" title="Git版本流程控制"></a>Git版本流程控制</h1><p>整体架构</p>
+    <content><![CDATA[<h1 id="Git版本流程控制基础命令"><a href="#Git版本流程控制基础命令" class="headerlink" title="Git版本流程控制基础命令"></a>Git版本流程控制基础命令</h1><p>[TOC]</p>
+<h2 id="Git整体架构"><a href="#Git整体架构" class="headerlink" title="Git整体架构"></a>Git整体架构</h2><p>整体架构</p>
 <p><img src="https://image.3001.net/images/20220523/16532661467811.png" alt="image-20220523083544677"></p>
 <span id="more"></span>
-<p>=======</p>
+
 <p>工作流程</p>
 <p><img src="https://image.3001.net/images/20220519/16529403685752.png" alt="image-20220519140535979"></p>
 <h2 id="1-基础命令学习"><a href="#1-基础命令学习" class="headerlink" title="1.基础命令学习"></a>1.基础命令学习</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//查看git 版本号</span><br><span class="line">git --version</span><br><span class="line">//仓库初始化</span><br><span class="line">git init</span><br><span class="line">//查看仓库状态</span><br><span class="line">git status</span><br><span class="line">//把文件添加到暂存区(注意:如果你的只添加到暂存区没有提交过文件，可以使用git checkout ./(这个可以恢复所有删除的文件或文件夹)或者**文件名或者**文件夹名，用暂存中的文件恢复到本地工作目录中。如果恢复了一个文件其他文件没有恢复，并且又把文件添加到暂存没法找回)</span><br><span class="line">git add 文件名或者./</span><br><span class="line">//配置用户名</span><br><span class="line">git config user.name &quot;**&quot;</span><br><span class="line">//配置邮箱</span><br><span class="line">git config user.emil &quot;**&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//克隆仓库</span><br><span class="line">git clone &quot;gitee地址&quot;</span><br><span class="line">//提交到仓库</span><br><span class="line">git commit -m &quot;一句话&quot;</span><br><span class="line">//提交先添加到暂存区在提交到仓库</span><br><span class="line">git commit -a -m &quot;一句话&quot;</span><br><span class="line">//修改提交信息</span><br><span class="line">git commit --amend</span><br><span class="line"></span><br><span class="line">//查看远程仓库地址</span><br><span class="line">git remote</span><br><span class="line">//先有本地仓库上传到远程仓库</span><br><span class="line"> git remote add origin ***.git</span><br><span class="line">//查看上传拉取仓库</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">//下拉到本地(git pull=git fetch+git merge)</span><br><span class="line">git pull</span><br><span class="line">//上传到远程仓库</span><br><span class="line">git push</span><br><span class="line">//1.拉取远程仓库的文件</span><br><span class="line">git fetch </span><br><span class="line">//2.拉取完成之后要在本地合并提交才可以</span><br><span class="line">git merge</span><br><span class="line"></span><br><span class="line">//查看提交了几次</span><br><span class="line">git log</span><br><span class="line">//查看简略信息</span><br><span class="line">git log --oneline</span><br><span class="line">//把所有的次数提交都显示出来</span><br><span class="line">git reflog --oneline</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//回滚到之前的某个版本(就不是主分支了)</span><br><span class="line">git checkout 哈希值</span><br><span class="line">//如果需要回到之前最新的版本继续回滚到主分支</span><br><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line">//创建标签(v0.1是版本号)</span><br><span class="line">git tag -a v0.1 -m &quot;一句信息&quot;</span><br><span class="line">//创建标签给某个版本，根据提交的某个版本的哈希值来创建</span><br><span class="line">git tag -a v0.0 哈希值</span><br><span class="line">//查看标签</span><br><span class="line">git tag</span><br><span class="line">//查看最新标签具体信息</span><br><span class="line">git show</span><br><span class="line">//查看某个版本的信息</span><br><span class="line">git show v0.1 g</span><br><span class="line">//删除标签</span><br><span class="line">git tag -d v0.1版本号</span><br><span class="line">git push</span><br><span class="line"></span><br><span class="line">//上传到远程仓库某个具体标签</span><br><span class="line">git push origin v0.1</span><br><span class="line">//上传到远程仓库全部的标签</span><br><span class="line">git push origin --tags</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//查看当前文件和暂存区的区别</span><br><span class="line">git diff </span><br><span class="line">//查看暂存区与最后一个次提交</span><br><span class="line">git diff --staged</span><br><span class="line">	</span><br><span class="line">//从暂存区中删除，工作区保留文件</span><br><span class="line">git rm --cached &quot;file&quot;</span><br><span class="line">//强制删除文件，加工作区都删除(得先添加到暂存区才行)</span><br><span class="line">git rm -f &quot;file&quot;</span><br></pre></td></tr></table></figure>
@@ -176,10 +165,14 @@
 
 <p><img src="https://image.3001.net/images/20220606/16544787052452.png" alt="image-20220606092500185"></p>
 <h5 id="3-更新工作目录-–hard-危险"><a href="#3-更新工作目录-–hard-危险" class="headerlink" title="3.更新工作目录(–hard)    危险"></a>3.更新工作目录(–hard)    危险</h5><p>//！注意：危险</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">//会用暂存区的文件覆盖掉本地工作区的文件，被覆盖掉的数据无法恢复</span><br><span class="line">git reset --hard HEAD~</span><br><span class="line"></span><br><span class="line">git reset --hard 哈希值</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">//会用暂存区的文件覆盖掉本地工作区的文件，被覆盖掉的数据无法恢复</span><br><span class="line">git reset --hard HEAD~</span><br><span class="line"></span><br><span class="line">git reset --hard 哈希值</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://image.3001.net/images/20220606/1654479055651.png" alt="image-20220606093054648"></p>
+<!-- more -->
 ]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
   </entry>
   <entry>
     <title>1.多线性</title>
@@ -675,6 +668,18 @@
 ]]></content>
       <tags>
         <tag>上班需要的看的</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>右键创建cmd管理员运行cmd</title>
+    <url>/2021/12/21/%E5%85%B6%E4%BB%96/%E5%B0%8F%E5%B7%A5%E5%85%B7/%E5%8F%B3%E9%94%AE%E5%88%9B%E5%BB%BAcmd%E7%AE%A1%E7%90%86%E5%91%98%E8%BF%90%E8%A1%8Ccmd/</url>
+    <content><![CDATA[<h1 id="常用类"><a href="#常用类" class="headerlink" title="常用类"></a>常用类</h1><p>作用：右键创建cmd管理员运行cmd</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\Background\shell\runas]</span><br><span class="line">&quot;ShowBasedOnVelocityId&quot;=dword:00639bc8</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\Background\shell\runas\command]</span><br><span class="line">@=&quot;cmd.exe /s /k pushd \&quot;%V\&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>&lt;– more –&gt;</p>
+]]></content>
+      <tags>
+        <tag>小工具</tag>
       </tags>
   </entry>
   <entry>
