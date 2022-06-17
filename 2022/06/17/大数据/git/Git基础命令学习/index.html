@@ -20,30 +20,65 @@
     var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="日常笔记">
-<meta property="og:type" content="website">
+  <meta name="description" content="Git版本流程控制整体架构  工作流程  1.基础命令学习12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182&#x2F;&#x2F;查看git 版本号git -">
+<meta property="og:type" content="article">
 <meta property="og:title" content="希文的个人博客">
-<meta property="og:url" content="https://yangmour.github.io/index.html">
+<meta property="og:url" content="https://yangmour.github.io/2022/06/17/%E5%A4%A7%E6%95%B0%E6%8D%AE/git/Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="希文的个人博客">
-<meta property="og:description" content="日常笔记">
+<meta property="og:description" content="Git版本流程控制整体架构  工作流程  1.基础命令学习12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182&#x2F;&#x2F;查看git 版本号git -">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.3001.net/images/20220523/16532661467811.png">
+<meta property="og:image" content="https://image.3001.net/images/20220519/16529403685752.png">
+<meta property="og:image" content="https://image.3001.net/images/20220602/16541545846894.png">
+<meta property="og:image" content="https://image.3001.net/images/20220526/16535441137064.png">
+<meta property="og:image" content="https://image.3001.net/images/20220526/16535442281581.png">
+<meta property="og:image" content="https://image.3001.net/images/20220526/16535444045671.png">
+<meta property="og:image" content="https://image.3001.net/images/20220526/16535444349214.png">
+<meta property="og:image" content="https://image.3001.net/images/20220526/16535444749484.png">
+<meta property="og:image" content="https://image.3001.net/images/20220526/16535456515622.png">
+<meta property="og:image" content="https://image.3001.net/images/20220526/16535465355746.png">
+<meta property="og:image" content="https://image.3001.net/images/20220602/1654150263138.png">
+<meta property="og:image" content="https://image.3001.net/images/20220602/16541503237375.png">
+<meta property="og:image" content="https://image.3001.net/images/20220602/16541504801347.png">
+<meta property="og:image" content="https://image.3001.net/images/20220602/16541511923615.png">
+<meta property="og:image" content="https://image.3001.net/images/20220602/16541535515301.png">
+<meta property="og:image" content="https://image.3001.net/images/20220602/16541536724322.png">
+<meta property="og:image" content="https://image.3001.net/images/20220609/16547539959720.png">
+<meta property="og:image" content="https://image.3001.net/images/20220609/16547549326418.png">
+<meta property="og:image" content="https://image.3001.net/images/20220609/16547549297694.png">
+<meta property="og:image" content="https://image.3001.net/images/20220609/16547581811666.png">
+<meta property="og:image" content="https://image.3001.net/images/20220609/16547582881172.png">
+<meta property="og:image" content="https://image.3001.net/images/20220609/165475868590.png">
+<meta property="og:image" content="https://image.3001.net/images/20220609/16547588534456.png">
+<meta property="og:image" content="https://image.3001.net/images/20220606/16544760293989.png">
+<meta property="og:image" content="https://image.3001.net/images/20220606/1654476148460.png">
+<meta property="og:image" content="https://image.3001.net/images/20220606/16544762182028.png">
+<meta property="og:image" content="https://image.3001.net/images/20220606/16544762612593.png">
+<meta property="og:image" content="https://image.3001.net/images/20220606/16544769125884.png">
+<meta property="og:image" content="https://image.3001.net/images/20220606/16544770059691.png">
+<meta property="og:image" content="https://image.3001.net/images/20220613/16550978609298.png">
+<meta property="og:image" content="https://image.3001.net/images/20220606/16544787052452.png">
+<meta property="og:image" content="https://image.3001.net/images/20220606/1654479055651.png">
+<meta property="article:published_time" content="2022-06-17T08:44:20.511Z">
+<meta property="article:modified_time" content="2022-06-17T08:49:47.291Z">
 <meta property="article:author" content="希文">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.3001.net/images/20220523/16532661467811.png">
 
-<link rel="canonical" href="https://yangmour.github.io/">
+<link rel="canonical" href="https://yangmour.github.io/2022/06/17/%E5%A4%A7%E6%95%B0%E6%8D%AE/git/Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>希文的个人博客</title>
+  <title> | 希文的个人博客</title>
   
 
 
@@ -191,9 +226,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -209,10 +245,9 @@
       <meta itemprop="name" content="希文的个人博客">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/17/%E5%A4%A7%E6%95%B0%E6%8D%AE/git/Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -250,7 +285,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Git版本流程控制"><a href="#Git版本流程控制" class="headerlink" title="Git版本流程控制"></a>Git版本流程控制</h1><p>整体架构</p>
+        <h1 id="Git版本流程控制"><a href="#Git版本流程控制" class="headerlink" title="Git版本流程控制"></a>Git版本流程控制</h1><p>整体架构</p>
 <p><img src="https://image.3001.net/images/20220523/16532661467811.png" alt="image-20220523083544677"></p>
 <p>工作流程</p>
 <p><img src="https://image.3001.net/images/20220519/16529403685752.png" alt="image-20220519140535979"></p>
@@ -346,810 +381,31 @@
 
 <p><img src="https://image.3001.net/images/20220606/1654479055651.png" alt="image-20220606093054648"></p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/10/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/10/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-10 14:32:39" itemprop="dateCreated datePublished" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>212</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>测试文档</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/10/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/09/%E5%85%B6%E4%BB%96/idea/2022%E5%B9%B4IDEA%E6%9C%80%E6%96%B0%E6%95%99%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/09/%E5%85%B6%E4%BB%96/idea/2022%E5%B9%B4IDEA%E6%9C%80%E6%96%B0%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">科学使用工具</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-09 21:26:17" itemprop="dateCreated datePublished" datetime="2022-06-09T21:26:17+08:00">2022-06-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:39" itemprop="dateModified" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="2022年IDEA"><a href="#2022年IDEA" class="headerlink" title="2022年IDEA"></a>2022年IDEA</h1><p>[TOC]</p>
-<h2 id="科学使用工具"><a href="#科学使用工具" class="headerlink" title="科学使用工具"></a>科学使用工具</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/09/%E5%85%B6%E4%BB%96/idea/2022%E5%B9%B4IDEA%E6%9C%80%E6%96%B0%E6%95%99%E7%A8%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/10/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/10-java9&10&11%E6%96%B0%E7%89%B9%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/10-java9&10&11%E6%96%B0%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">10-java9&10&11新特性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-05 23:30:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:30:37+08:00">2022-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:39" itemprop="dateModified" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>82</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="java9-amp-10-amp-11新特性"><a href="#java9-amp-10-amp-11新特性" class="headerlink" title="java9&amp;10&amp;11新特性"></a>java9&amp;10&amp;11新特性</h1><p>[TOC]</p>
-<h2 id="Java9-amp-10-amp-11新特性概述（看视频或者查资料文档）"><a href="#Java9-amp-10-amp-11新特性概述（看视频或者查资料文档）" class="headerlink" title="Java9&amp;10&amp;11新特性概述（看视频或者查资料文档）"></a>Java9&amp;10&amp;11新特性概述（看视频或者查资料文档）</h2><p>具体特性可直接查看第17章ppt即可。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/9-java8%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B0%E7%89%B9%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/9-java8%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B0%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">9-java8的其他新特性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-05 23:29:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:29:37+08:00">2022-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:39" itemprop="dateModified" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>10k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="java8的其他新特性"><a href="#java8的其他新特性" class="headerlink" title="java8的其他新特性"></a>java8的其他新特性</h1><p>[TOC]</p>
-<h2 id="Java8新特性概述"><a href="#Java8新特性概述" class="headerlink" title="Java8新特性概述"></a>Java8新特性概述</h2><h3 id=""><a href="#" class="headerlink" title=""></a><img src="https://image.3001.net/images/20220110/16417497217282.png" alt="image-20220110013500426"></h3><p><img src="https://image.3001.net/images/20220110/16417497187260.png" alt="image-20220110013516751"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/9-java8%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B0%E7%89%B9%E6%80%A7/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/8-java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/8-java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">8-java反射机制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-05 23:28:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:28:37+08:00">2022-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:39" itemprop="dateModified" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>11k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="java反射机制"><a href="#java反射机制" class="headerlink" title="java反射机制"></a>java反射机制</h1><p>[TOC]</p>
-<h2 id="反射的概述"><a href="#反射的概述" class="headerlink" title="反射的概述"></a>反射的概述</h2><h3 id="1-本章的主要内容"><a href="#1-本章的主要内容" class="headerlink" title="1.本章的主要内容"></a>1.本章的主要内容</h3><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://image.3001.net/images/20220110/16417490937305.png" alt="image-20220110012451398"></h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/8-java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/7-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/7-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">7-网络编程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-05 23:27:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:27:37+08:00">2022-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:39" itemprop="dateModified" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h1><p>[TOC]</p>
-<h2 id="InetAddress类的使用"><a href="#InetAddress类的使用" class="headerlink" title="InetAddress类的使用"></a>InetAddress类的使用</h2><h3 id="一、实现网络通信需要解决的两个问题"><a href="#一、实现网络通信需要解决的两个问题" class="headerlink" title="一、实现网络通信需要解决的两个问题"></a>一、实现网络通信需要解决的两个问题</h3><ul>
-<li><h4 id="1-如何准确地定位网络上一台或多台主机；定位主机上的特定的应用"><a href="#1-如何准确地定位网络上一台或多台主机；定位主机上的特定的应用" class="headerlink" title="1.如何准确地定位网络上一台或多台主机；定位主机上的特定的应用"></a>1.如何准确地定位网络上一台或多台主机；定位主机上的特定的应用</h4></li>
-<li><h4 id="2-找到主机后如何可靠高效地进行数据传输"><a href="#2-找到主机后如何可靠高效地进行数据传输" class="headerlink" title="2.找到主机后如何可靠高效地进行数据传输"></a>2.找到主机后如何可靠高效地进行数据传输</h4></li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/7-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/6-IO%E6%B5%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/6-IO%E6%B5%81/" class="post-title-link" itemprop="url">6-IO流</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-05 23:26:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:26:37+08:00">2022-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:39" itemprop="dateModified" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h1><p>[TOC]</p>
-<h2 id="IO流-1"><a href="#IO流-1" class="headerlink" title="IO流"></a>IO流</h2><h3 id="1-File类的理解"><a href="#1-File类的理解" class="headerlink" title="1.File类的理解"></a>1.File类的理解</h3><ul>
-<li><ol>
-<li><h4 id="File类的一个对象，代表一个文件或一个文件目录-俗称：文件夹"><a href="#File类的一个对象，代表一个文件或一个文件目录-俗称：文件夹" class="headerlink" title="File类的一个对象，代表一个文件或一个文件目录(俗称：文件夹)"></a>File类的一个对象，代表一个文件或一个文件目录(俗称：文件夹)</h4></li>
-</ol>
-</li>
-<li><ol start="2">
-<li><h4 id="File类声明在java-io包下"><a href="#File类声明在java-io包下" class="headerlink" title="File类声明在java.io包下"></a>File类声明在java.io包下</h4></li>
-</ol>
-</li>
-<li><ol start="3">
-<li><h4 id="File类中涉及到关于文件或文件目录的创建、删除、重命名、修改时间、文件大小等方法，"><a href="#File类中涉及到关于文件或文件目录的创建、删除、重命名、修改时间、文件大小等方法，" class="headerlink" title="File类中涉及到关于文件或文件目录的创建、删除、重命名、修改时间、文件大小等方法，"></a>File类中涉及到关于文件或文件目录的创建、删除、重命名、修改时间、文件大小等方法，</h4></li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/6-IO%E6%B5%81/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/5-%E6%B3%9B%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/5-%E6%B3%9B%E5%9E%8B/" class="post-title-link" itemprop="url">5-泛型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-05 23:25:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:25:37+08:00">2022-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:39" itemprop="dateModified" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h1><p>[TOC]</p>
-<h2 id="泛型的概念"><a href="#泛型的概念" class="headerlink" title="泛型的概念"></a>泛型的概念</h2><h3 id="1-泛型的概念"><a href="#1-泛型的概念" class="headerlink" title="1.泛型的概念"></a>1.泛型的概念</h3><p>所谓泛型，就是允许在定义类、接口时通过一个标识表示类中某个属性的类型或者是某个方法的返<br>回值及参数类型。这个类型参数将在使用时（例如，继承或实现这个接口，用这个类型声明变量、<br>创建对象时确定（即传入实际的类型参数，也称为类型实参）。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/5-%E6%B3%9B%E5%9E%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/4-Java%E9%9B%86%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/4-Java%E9%9B%86%E5%90%88/" class="post-title-link" itemprop="url">4-Java集合</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-05 23:25:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:25:37+08:00">2022-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:39" itemprop="dateModified" datetime="2022-06-10T14:32:39+08:00">2022-06-10</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>11k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><p>[TOC]</p>
-<h2 id="1-数组与集合"><a href="#1-数组与集合" class="headerlink" title="1.数组与集合"></a>1.数组与集合</h2><h3 id="1-集合与数组存储数据概述："><a href="#1-集合与数组存储数据概述：" class="headerlink" title="1.集合与数组存储数据概述："></a>1.集合与数组存储数据概述：</h3><ul>
-<li>集合、数组都是对多个数据进行存储操作的结构，简称Java容器。</li>
-<li>说明：此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt,.jpg,.avi，数据库中)</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java%E9%AB%98%E7%BA%A7/4-Java%E9%9B%86%E5%90%88/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -1201,6 +457,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%E7%89%88%E6%9C%AC%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">Git版本流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.</span> <span class="nav-text">1.基础命令学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%92%A4%E9%94%80%E5%91%BD%E4%BB%A4-%E5%8D%B1%E9%99%A9"><span class="nav-number">1.2.</span> <span class="nav-text">2.撤销命令(危险)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E4%B8%8A%E4%BC%A0%E5%88%B0gitee%E4%BB%93%E5%BA%93%E4%B8%8A"><span class="nav-number">1.3.</span> <span class="nav-text">3.本地仓库上传到gitee仓库上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-gitee%E4%BB%93%E5%BA%93%E4%B8%8A%E4%B8%8B%E8%BD%BD%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.4.</span> <span class="nav-text">4.gitee仓库上下载项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-git%E5%88%86%E6%94%AF"><span class="nav-number">1.5.</span> <span class="nav-text">5.git分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%87%E6%8D%A2%E5%88%B0master%E5%88%86%E6%94%AF"><span class="nav-number">1.5.3.</span> <span class="nav-text">3.切换到master分支</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">1.介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%86%E5%8F%89%E5%8E%86%E5%8F%B2"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">2.分叉历史</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%89%8B%E7%94%BB%E5%9B%BE"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">3.手画图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%88%86%E6%94%AF%E5%91%BD%E4%BB%A4"><span class="nav-number">1.5.3.4.</span> <span class="nav-text">5.分支命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E5%88%87%E6%8D%A2"><span class="nav-number">1.5.3.4.1.</span> <span class="nav-text">1.创建切换</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%88%86%E6%94%AF%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.6.</span> <span class="nav-text">6.分支模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%8F%AF%E4%BB%A5%E5%90%8C%E6%97%B6%E8%BF%9B%E8%A1%8C%E6%9B%B4%E6%96%B0"><span class="nav-number">1.6.1.</span> <span class="nav-text">1.远程分支可以同时进行更新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.6.1.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8A%8A%E8%BF%9C%E7%A8%8B%E7%9A%84master%E5%88%86%E6%94%AF%E6%8B%89%E5%8F%96%E4%B8%8B%E6%9D%A5%EF%BC%8C%E7%84%B6%E5%90%8E%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6merge"><span class="nav-number">1.6.2.</span> <span class="nav-text">2.把远程的master分支拉取下来，然后本地合并merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%AF%E4%BB%A5%E8%B7%9F%E8%B8%AA%E8%BF%9C%E7%A8%8B%E4%B8%8D%E5%90%8C%E7%9A%84%E5%88%86%E6%94%AF"><span class="nav-number">1.6.3.</span> <span class="nav-text">3.可以跟踪远程不同的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%8E%A8%E9%80%81"><span class="nav-number">1.6.4.</span> <span class="nav-text">4.推送</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.6.4.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.4.2.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E6%A0%B7%E5%AD%90"><span class="nav-number">1.6.4.3.</span> <span class="nav-text">远程仓库的样子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%88%86%E6%94%AF%E6%A8%A1%E5%9E%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.5.</span> <span class="nav-text">5.分支模型命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%88%86%E6%94%AF%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.6.6.</span> <span class="nav-text">6.分支模型的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%86%E6%94%AF%E6%9D%83%E9%99%90%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.6.6.1.</span> <span class="nav-text">1.分支权限讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%9C%AC%E5%9C%B0%E5%89%AA%E5%87%BA%E4%BA%86%E5%A4%9A%E4%B8%AA%E5%88%86%E6%94%AF%E4%B8%8A%E4%BC%A0%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="nav-number">1.6.6.2.</span> <span class="nav-text">2.本地剪出了多个分支上传到远程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%9C%AC%E5%9C%B0"><span class="nav-number">1.6.6.2.1.</span> <span class="nav-text">1.本地</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E8%BF%9C%E7%A8%8B"><span class="nav-number">1.6.6.2.2.</span> <span class="nav-text">2.远程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E4%B8%8A%E4%BC%A0%E5%88%B0%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="nav-number">1.6.6.2.3.</span> <span class="nav-text">3.本地上传到远程分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="nav-number">1.6.6.2.4.</span> <span class="nav-text">4.合并分支</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-%E5%91%BD%E4%BB%A4%E7%89%88"><span class="nav-number">1.6.6.2.4.1.</span> <span class="nav-text">1.命令版</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-%E7%BD%91%E9%A1%B5%E7%89%88"><span class="nav-number">1.6.6.2.4.2.</span> <span class="nav-text">2.网页版</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-git%E5%B7%A5%E5%85%B7-%E9%87%8D%E7%BD%AE"><span class="nav-number">1.7.</span> <span class="nav-text">7.git工具-重置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE%E8%A7%A3"><span class="nav-number">1.7.1.</span> <span class="nav-text">工作流程图解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">1.工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-git-init"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">2.git init</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-git-add"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">3.git add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-git-commit"><span class="nav-number">1.7.1.4.</span> <span class="nav-text">4.git commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="nav-number">1.7.1.5.</span> <span class="nav-text">5.修改文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.7.2.</span> <span class="nav-text">2.命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%87%8D%E7%BD%AE%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">6.重置的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E7%A7%BB%E5%8A%A8head%EF%BC%88%E6%8C%87%E5%90%91%EF%BC%89"><span class="nav-number">1.7.2.1.1.</span> <span class="nav-text">1.移动head（指向）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%9B%B4%E6%96%B0%E6%89%80%E4%BB%A5-%E2%80%93mixed"><span class="nav-number">1.7.2.1.2.</span> <span class="nav-text">2.更新所以(–mixed)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E6%9B%B4%E6%96%B0%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95-%E2%80%93hard-%E5%8D%B1%E9%99%A9"><span class="nav-number">1.7.2.1.3.</span> <span class="nav-text">3.更新工作目录(–hard)    危险</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
