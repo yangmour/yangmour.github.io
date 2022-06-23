@@ -55,8 +55,15 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201123171846372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201123173050203.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201123173512134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832068681.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/1655983208379.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832113265.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832132688.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832229768.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832309686.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832346107.png">
 <meta property="article:published_time" content="2021-11-23T13:37:37.000Z">
-<meta property="article:modified_time" content="2022-06-10T06:32:40.141Z">
+<meta property="article:modified_time" content="2022-06-23T11:20:38.585Z">
 <meta property="article:author" content="希文">
 <meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
@@ -260,7 +267,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-10 14:32:40" itemprop="dateModified" datetime="2022-06-10T14:32:40+08:00">2022-06-10</time>
+                <time title="修改时间：2022-06-23 19:20:38" itemprop="dateModified" datetime="2022-06-23T19:20:38+08:00">2022-06-23</time>
               </span>
 
           <br>
@@ -269,14 +276,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9.6k</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
+              <span>10 分钟</span>
             </span>
 
         </div>
@@ -315,11 +322,12 @@
 <p><img src="https://img-blog.csdnimg.cn/20201005185246861.png#pic_center" alt="在这里插入图片描述"><br>7.常用软件安装</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="literal">-y</span> install vim</span><br><span class="line">yum <span class="literal">-y</span> install <span class="built_in">wget</span></span><br><span class="line">yum <span class="literal">-y</span> install lrzsz</span><br><span class="line">yum <span class="literal">-y</span> install net<span class="literal">-tools</span></span><br><span class="line">yum <span class="literal">-y</span> install psmisc</span><br></pre></td></tr></table></figure>
 
-<p>8.配置阿里yum源<br>   备份当前yun源</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+<p>8.配置阿里yum源</p>
+<p>备份/etc/yum .repos.d/CentOS-Base.repo文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d/</span><br><span class="line"></span><br><span class="line">mv CentOS-Base.repo CentOS-Base.repo.back</span><br></pre></td></tr></table></figure>
 
 <p>下载阿里云的yum源配置</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">wget</span> <span class="literal">-O</span> /etc/yum.repos.d/CentOS<span class="literal">-Base</span>.repo http://mirrors.aliyun.com/repo/Centos<span class="literal">-7</span>.repo</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
 
 <p>清楚原来的缓存，构建新缓存</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
@@ -345,16 +353,18 @@
 <p>12.节点间免密访问测试（任意两台节点都需要测试，第一次需要输入“yes”）<br>    <img src="https://img-blog.csdnimg.cn/20201006120052937.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <h2 id="二-开始安装jdk（可以去官网下载jdk）"><a href="#二-开始安装jdk（可以去官网下载jdk）" class="headerlink" title="二.开始安装jdk（可以去官网下载jdk）"></a>二.开始安装jdk（可以去官网下载jdk）</h2><ol>
 <li><h2 id="自行选择下载jdk（点击百度网盘可以下载-jdk百度网盘链接-提取码：d4cf"><a href="#自行选择下载jdk（点击百度网盘可以下载-jdk百度网盘链接-提取码：d4cf" class="headerlink" title="自行选择下载jdk（点击百度网盘可以下载) jdk百度网盘链接 提取码：d4cf"></a>自行选择下载jdk（点击百度网盘可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1rDrzMUO04_6UHNLAiDq-OA">jdk百度网盘链接</a> 提取码：d4cf</h2></li>
-<li>用xftp上传jdk-8u162-linux-x64.tar.gz文件到/usr/local/java(上传完解压文件,然后改名)</li>
+<li><p>用xftp上传jdk-8u162-linux-x64.tar.gz文件到/opt/java(上传完解压文件,然后改名)</p>
+<p><em><strong>/usr/local/java之前用这个目录</strong></em></p>
+</li>
 </ol>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/local/java</span><br><span class="line"><span class="built_in">cd</span> /usr/local/java</span><br><span class="line">tar <span class="literal">-zxvf</span> jdk<span class="literal">-8u162</span><span class="literal">-linux</span><span class="literal">-x64</span>.tar.gz</span><br><span class="line"><span class="built_in">mv</span> jdk1.<span class="number">8.0</span>_162 jdk</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/java</span><br><span class="line"><span class="built_in">cd</span> /opt/java</span><br><span class="line">tar <span class="literal">-zxvf</span> jdk<span class="literal">-8u162</span><span class="literal">-linux</span><span class="literal">-x64</span>.tar.gz</span><br><span class="line"><span class="built_in">mv</span> jdk1.<span class="number">8.0</span>_162 jdk</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>设置环境变量</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加入下面内容</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk</span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加入下面内容</span></span><br><span class="line">export JAVA_HOME=/opt/java/jdk</span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
 
 <ol start="4">
 <li>执行命令使设置生效</li>
@@ -368,9 +378,9 @@
 
 <p><img src="https://img-blog.csdnimg.cn/20201008002344331.png#pic_center" alt="在这里插入图片描述"></p>
 <p> 6.执行以下命令，在其他两台节点安装(如果ssh没有使文件生效就去子节点再去执行一下)</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#给子节点创建java文件夹</span></span><br><span class="line">ssh slave1 mkdir /usr/local/java</span><br><span class="line">ssh slave2 mkdir /usr/local/java</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点上的安装包分发到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /usr/local/java slave1:/usr/local</span><br><span class="line">scp <span class="literal">-r</span> /usr/local/java slave2:/usr/local</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点的配置好的环境变量覆盖到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave1:/etc/profile</span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave2:/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#使修改生效</span></span><br><span class="line">ssh slave1 source /etc/profile</span><br><span class="line">ssh slave2 source /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看是否安装成功</span></span><br><span class="line">ssh slave1 java <span class="literal">-version</span></span><br><span class="line">ssh slave2 java <span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#给子节点创建java文件夹</span></span><br><span class="line">ssh slave1 mkdir /opt/java</span><br><span class="line">ssh slave2 mkdir /opt/java</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点上的安装包分发到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /opt/java slave1:/usr/local</span><br><span class="line">scp <span class="literal">-r</span> /opt/java slave2:/usr/local</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点的配置好的环境变量覆盖到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave1:/etc/profile</span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave2:/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#使修改生效</span></span><br><span class="line">ssh slave1 source /etc/profile</span><br><span class="line">ssh slave2 source /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看是否安装成功</span></span><br><span class="line">ssh slave1 java <span class="literal">-version</span></span><br><span class="line">ssh slave2 java <span class="literal">-version</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="三-Hadoop安装"><a href="#三-Hadoop安装" class="headerlink" title="三.Hadoop安装"></a>三.Hadoop安装</h2><ol>
+<h2 id="三-mysql安装"><a href="#三-mysql安装" class="headerlink" title="三.mysql安装"></a>三.mysql安装</h2><h2 id="四-Hadoop安装"><a href="#四-Hadoop安装" class="headerlink" title="四.Hadoop安装"></a>四.Hadoop安装</h2><ol>
 <li>自行选择下载jdk（点击百度网盘可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1FqJ0AgykeHqj2o2oOh5xuA">hadoop百度网盘链接</a> 提取码：3bq4</li>
 <li>用xftp上传hadoop文件到/opt/hadoop(上传完解压文件,然后改名)</li>
 </ol>
@@ -384,7 +394,7 @@
 <ol start="4">
 <li>配置env文件（打开hadoop-env.sh，找到“export JAVA_HOME”这行配制jdk路径。）</li>
 </ol>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/hadoop/hadoop/etc/hadoop/hadoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#写入下列路径(编辑完保存退出即可。)</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/hadoop/hadoop/etc/hadoop/hadoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#写入下列路径(编辑完保存退出即可。)</span></span><br><span class="line">export JAVA_HOME=/opt/java/jdk</span><br></pre></td></tr></table></figure>
 
 <ol start="5">
 <li>配置核心组件文件（/opt/hadoop/hadoop/etc/hadoop/core-site.xml）</li>
@@ -463,7 +473,7 @@
 <ul>
 <li>在 Slave0 节点执行 jps 命令，打印的结果中会显示三个进程，分别是 NodeManager、<br>Jps 和 DataNode ，如下图所示，表明从节点（Slave0）启动成功。其他节点可以类似验证。<br><img src="https://img-blog.csdnimg.cn/20201008020448168.png#pic_center" alt="在这里插入图片描述"></li>
 </ul>
-<h2 id="四-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）"><a href="#四-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）" class="headerlink" title="四.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）"></a>四.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）</h2><p>1.自行选择下载hive（点击百度网盘链接可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ICqytI-qI6Xa1A4jg2mBqg">百度网盘链接</a> 提取码：vauh</p>
+<h2 id="五-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）"><a href="#五-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）" class="headerlink" title="五.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）"></a>五.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）</h2><p>1.自行选择下载hive（点击百度网盘链接可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ICqytI-qI6Xa1A4jg2mBqg">百度网盘链接</a> 提取码：vauh</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建文件夹</span></span><br><span class="line">mkdir /opt/Hive</span><br></pre></td></tr></table></figure>
 
 <p>2.用xftp上传压缩文件.gz文件到/opt/Hive(上传完解压文件,然后改名)<br><img src="https://img-blog.csdnimg.cn/20201122143223428.png#pic_center" alt="在这里插入图片描述"></p>
@@ -506,7 +516,7 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">修改前：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="variable">$</span>&#123;system:java.io.tmpdir&#125;/<span class="variable">$</span>&#123;system:user.name&#125;&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;Local scratch space <span class="keyword">for</span> Hive jobs&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">修改后：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="variable">$</span>&#123;system:java.io.tmpdir&#125;/<span class="variable">$</span>&#123;user.name&#125;&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;Local scratch space <span class="keyword">for</span> Hive jobs&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
 
 <p>在查看测试成功<br><img src="https://img-blog.csdnimg.cn/20201122190339706.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="五-Sqoop安装"><a href="#五-Sqoop安装" class="headerlink" title="五.Sqoop安装"></a>五.Sqoop安装</h2><p>1.自行选择下载sqoop（点击百度网盘链接可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Df7hy1i_Sfvf29yZKp5dsw">百度网盘链接</a> 提取码：bhpf  </p>
+<h2 id="六-Sqoop安装"><a href="#六-Sqoop安装" class="headerlink" title="六.Sqoop安装"></a>六.Sqoop安装</h2><p>1.自行选择下载sqoop（点击百度网盘链接可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Df7hy1i_Sfvf29yZKp5dsw">百度网盘链接</a> 提取码：bhpf  </p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建文件夹</span></span><br><span class="line">mkdir /opt/Sqoop</span><br></pre></td></tr></table></figure>
 
 <p>2.用xftp上传压缩文件.gz文件到/opt/Sqoop(上传完解压文件,然后改名)</p>
@@ -528,7 +538,55 @@
 
 <p><img src="https://img-blog.csdnimg.cn/20201123173512134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <hr>
-<p>第一个篇博客搭建集群</p>
+<h2 id="七-安装Tomcat"><a href="#七-安装Tomcat" class="headerlink" title="七.安装Tomcat"></a>七.安装Tomcat</h2><ul>
+<li>下载Tomcat8.5安装文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.huaweicloud.com/apache/tomcat/tomcat-8/v8.5.63/bin/apache-tomcat-8.5.63.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20220623/16559832068681.png"></p>
+<ul>
+<li>解压缩</li>
+</ul>
+<p>将Tomcat安装文件解压缩到<code>/opt</code>目录下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxf apache-tomcat-8.5.63.tar.gz -C /opt/</span><br></pre></td></tr></table></figure>
+
+<p>查看并将文件夹重命名为<code>tomcat-8.5</code></p>
+<p><img src="https://image.3001.net/images/20220623/1655983208379.png"></p>
+<ul>
+<li>配置环境变量</li>
+</ul>
+<p>编辑<code>/etc/profile</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>vim会开启文档查看窗口，默认情况下不可修改文档内容，可以使用键盘的方向键浏览文档。这里使用<code>↓</code>移动到文档的最后一行，按键盘上的<code>i</code>键进入编辑模式，会看到文档下方提示<code>-- INSERT --</code>，该模式下可以对文档内容进行修改。</p>
+<p>在文件最后声明<code>CATALINA_HOME</code>变量，并将<code>$CATALINA_HOME/bin</code>添加到<code>PATH</code>变量中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/opt/jdk1.8.0</span><br><span class="line">export CATALINA_HOME=/opt/tomcat-8.5</span><br><span class="line">export PATH=$CATALINA_HOME/bin:$JAVA_HOME/bin:$PATH:$HOME/bin</span><br></pre></td></tr></table></figure>
+
+<p>然后按ESC退出编辑模式，输入<code>:wq!</code>保存本次修改并退出<code>vim</code>。</p>
+<p>对<code>/etc/profile</code>文件的修改默认不会马上生效，可以使用命令<code>source /etc/profile</code>让本次修改在当前访问中生效。</p>
+<p>配置成功后，检查环境变量是否配置成功，可以输入命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">version.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20220623/16559832113265.png"></p>
+<p>如果可以输出上述信息，则环境变量配置成功。如果提示<code>command not found</code>，则表示配置失败，需要重新对<code>/etc/profile</code>进行配置。</p>
+<p>解决Centos7下Tomcat启动过慢的问题：配置JVM使用伪随机函数生成器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/jdk1.8.0/jre/lib/security/java.security</span><br></pre></td></tr></table></figure>
+
+<p>将117行修改为<code>securerandom.source=file:/dev/urandom</code></p>
+<p><img src="https://image.3001.net/images/20220623/16559832132688.png"></p>
+<ul>
+<li>启动Tomcat</li>
+</ul>
+<p>可以直接使用命令启动Tomcat：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">startup.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20220623/16559832229768.png"></p>
+<p>我们可以通过本地浏览器，远程访问云主机上的Tomcat首页。</p>
+<p>关闭Tomcat的命令为<code>shutdown.sh</code>。</p>
+<p>需要注意，还应该在阿里云主机控制台安全组设定中，添加一条入方向规则，开放8080端口：</p>
+<p><img src="https://image.3001.net/images/20220623/16559832309686.png" alt="img"></p>
+<p>开发端口后，在云主机上启动Tomcat，然后在本地浏览器中输入<code>http://云主机公网ip:8080</code>，可以访问到云主机的Tomcat首页：</p>
+<p><img src="https://image.3001.net/images/20220623/16559832346107.png" alt="img"></p>
 
     </div>
 
@@ -609,7 +667,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%B3%BB%E7%BB%9F%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">一.系统一些基本配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85jdk%EF%BC%88%E5%8F%AF%E4%BB%A5%E5%8E%BB%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BDjdk%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二.开始安装jdk（可以去官网下载jdk）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E8%A1%8C%E9%80%89%E6%8B%A9%E4%B8%8B%E8%BD%BDjdk%EF%BC%88%E7%82%B9%E5%87%BB%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E5%8F%AF%E4%BB%A5%E4%B8%8B%E8%BD%BD-jdk%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%93%BE%E6%8E%A5-%E6%8F%90%E5%8F%96%E7%A0%81%EF%BC%9Ad4cf"><span class="nav-number">3.</span> <span class="nav-text">自行选择下载jdk（点击百度网盘可以下载) jdk百度网盘链接 提取码：d4cf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-Hadoop%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">三.Hadoop安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-Hive%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E5%AE%89%E8%A3%85%EF%BC%88%E5%90%AF%E5%8A%A8hive%E4%B9%8B%E5%89%8D%E8%A6%81%E5%90%AF%E5%8A%A8Hadoop%E5%91%BD%E4%BB%A4%E4%B8%BA%EF%BC%9Astart-all-sh%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">四.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-Sqoop%E5%AE%89%E8%A3%85"><span class="nav-number">6.</span> <span class="nav-text">五.Sqoop安装</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%B3%BB%E7%BB%9F%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">一.系统一些基本配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85jdk%EF%BC%88%E5%8F%AF%E4%BB%A5%E5%8E%BB%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BDjdk%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二.开始安装jdk（可以去官网下载jdk）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E8%A1%8C%E9%80%89%E6%8B%A9%E4%B8%8B%E8%BD%BDjdk%EF%BC%88%E7%82%B9%E5%87%BB%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E5%8F%AF%E4%BB%A5%E4%B8%8B%E8%BD%BD-jdk%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%93%BE%E6%8E%A5-%E6%8F%90%E5%8F%96%E7%A0%81%EF%BC%9Ad4cf"><span class="nav-number">3.</span> <span class="nav-text">自行选择下载jdk（点击百度网盘可以下载) jdk百度网盘链接 提取码：d4cf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-mysql%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">三.mysql安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-Hadoop%E5%AE%89%E8%A3%85"><span class="nav-number">5.</span> <span class="nav-text">四.Hadoop安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-Hive%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E5%AE%89%E8%A3%85%EF%BC%88%E5%90%AF%E5%8A%A8hive%E4%B9%8B%E5%89%8D%E8%A6%81%E5%90%AF%E5%8A%A8Hadoop%E5%91%BD%E4%BB%A4%E4%B8%BA%EF%BC%9Astart-all-sh%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">五.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-Sqoop%E5%AE%89%E8%A3%85"><span class="nav-number">7.</span> <span class="nav-text">六.Sqoop安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E5%AE%89%E8%A3%85Tomcat"><span class="nav-number">8.</span> <span class="nav-text">七.安装Tomcat</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -686,12 +744,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">104k</span>
+    <span title="站点总字数">105k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:34</span>
+    <span title="站点阅读时长">1:35</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
