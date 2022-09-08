@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Hadoop伪分布搭建文档[TOC] 1. 准备1台虚拟机或云主机1) 配置好主机名配置主机hostname为master 1hostnamectl set-hostname master  2)准备 关闭防火墙  123systemctl status firewalld                 #查看防火墙状态systemctl stop firewalld.service">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop伪分布搭建文档">
+<meta property="og:url" content="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="希文的个人博客">
+<meta property="og:description" content="Hadoop伪分布搭建文档[TOC] 1. 准备1台虚拟机或云主机1) 配置好主机名配置主机hostname为master 1hostnamectl set-hostname master  2)准备 关闭防火墙  123systemctl status firewalld                 #查看防火墙状态systemctl stop firewalld.service">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569103383947.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/1656909301416.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093026483.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093124684.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093243221.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093267610.png">
+<meta property="og:image" content="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/images/2-16564633849232.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093305994.png">
+<meta property="og:image" content="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/7325932951/p44631.png">
+<meta property="og:image" content="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/8325932951/p44636.png">
+<meta property="og:image" content="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/8325932951/p46107.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093436964.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093463180.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093481084.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093567408.png">
+<meta property="og:image" content="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/images/image-20220628145510536.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093661285.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093691961.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093733540.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093766340.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093803815.png">
+<meta property="og:image" content="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/images/13.png">
+<meta property="og:image" content="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/images/14.png">
+<meta property="og:image" content="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/images/15.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093843411.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093879037.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093901395.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093924246.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569093957216.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/165690939945.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569094174002.png">
+<meta property="article:published_time" content="2022-06-25T05:06:17.000Z">
+<meta property="article:modified_time" content="2022-09-08T02:17:06.340Z">
+<meta property="article:author" content="希文">
+<meta property="article:tag" content="hadoop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.3001.net/images/20220704/16569103383947.png">
+
+<link rel="canonical" href="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hadoop伪分布搭建文档 | 希文的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="希文的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">希文的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">白日依山尽，黄河入海流。欲穷千里目，更上一层楼。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">29</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hadoop伪分布搭建文档
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-25 13:06:17" itemprop="dateCreated datePublished" datetime="2022-06-25T13:06:17+08:00">2022-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-08 10:17:06" itemprop="dateModified" datetime="2022-09-08T10:17:06+08:00">2022-09-08</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>18k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>16 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Hadoop伪分布搭建文档"><a href="#Hadoop伪分布搭建文档" class="headerlink" title="Hadoop伪分布搭建文档"></a>Hadoop伪分布搭建文档</h2><p>[TOC]</p>
+<h3 id="1-准备1台虚拟机或云主机"><a href="#1-准备1台虚拟机或云主机" class="headerlink" title="1. 准备1台虚拟机或云主机"></a>1. 准备1台虚拟机或云主机</h3><h4 id="1-配置好主机名"><a href="#1-配置好主机名" class="headerlink" title="1) 配置好主机名"></a>1) 配置好主机名</h4><p>配置主机hostname为master</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname master</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-准备"><a href="#2-准备" class="headerlink" title="2)准备"></a>2)准备</h4><ol>
+<li>关闭防火墙</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld                 #查看防火墙状态</span><br><span class="line">systemctl stop firewalld.service           #停止firewall</span><br><span class="line">systemctl disable firewalld.service        #禁止firewall开机启动</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<ol start="2">
+<li>安装JDK并配置JDK环境变量（参考云主机Web应用环境搭建文档）</li>
+<li>配置/etc/hosts文件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">192.168.56.101  master</span><br></pre></td></tr></table></figure>
+
+<p>DNS寻址</p>
+<p>主机名映射到ip地址</p>
+<p><img src="https://image.3001.net/images/20220704/16569103383947.png" alt="image-20220628092942172"></p>
+<h3 id="2-配置SSH免密登录"><a href="#2-配置SSH免密登录" class="headerlink" title="2. 配置SSH免密登录"></a>2. 配置SSH免密登录</h3><ol>
+<li>master生成密钥</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa (四个回车)</span><br><span class="line">cd /root/.ssh</span><br><span class="line">cp id_rsa.pub authorized_keys </span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>测试master到本地的免密登录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh root@master</span><br><span class="line">ssh root@localhost</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-安装JDK"><a href="#3-安装JDK" class="headerlink" title="3.安装JDK"></a>3.安装JDK</h3><ul>
+<li>进入<code>/opt/software/java</code>目录下</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/software</span><br><span class="line">mkdir java</span><br><span class="line">cd java</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>下载linux-jdk1.8版本压缩文件到到本地<code>/opt</code>目录下</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.huaweicloud.com/java/jdk/8u152-b16/jdk-8u152-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解压缩到目录下</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-8u152-linux-x64.tar.gz</span><br><span class="line">mv jdk1.8.0_251 jdk1.8</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看是否解压成功</li>
+</ul>
+<p><img src="https://image.3001.net/images/20220704/1656909301416.png"></p>
+<ul>
+<li><p>配置环境变量</p>
+<p>  编辑<code>/etc/profile</code>文件</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>  vim会开启文档查看窗口，默认情况下不可修改文档内容，可以使用键盘的方向键浏览文档。这里使用<code>↓</code>移动到文档的最后一行，按键盘上的<code>i</code>键进入编辑模式，会看到文档下方提示<code>-- INSERT --</code>，该模式下可以对文档内容进行修改。</p>
+<p>  在最后一行后面新起几行，添加如下内容：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/opt/software/java/jdk1.8</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH:$HOME/bin</span><br></pre></td></tr></table></figure>
+
+<p>  然后按ESC退出编辑模式，输入<code>:wq!</code>保存本次修改并退出<code>vim</code>。</p>
+<p>  对<code>/etc/profile</code>文件的修改默认不会马上生效，可以使用命令<code>source /etc/profile</code>让本次修改在当前访问中生效。</p>
+</li>
+<li><p>验证是否配置成功，使用<code>java -version</code>命令</p>
+<p>  <img src="https://image.3001.net/images/20220704/16569093026483.png"></p>
+</li>
+</ul>
+<h3 id="4-安装hadoop伪分布"><a href="#4-安装hadoop伪分布" class="headerlink" title="4. 安装hadoop伪分布"></a>4. 安装hadoop伪分布</h3><h4 id="1-下载hadoop安装包"><a href="#1-下载hadoop安装包" class="headerlink" title="1.下载hadoop安装包"></a>1.下载hadoop安装包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/software/hadoop</span><br><span class="line">#华为云下载hadoop-2.7.7安装包</span><br><span class="line">https://mirrors.huaweicloud.com/apache/hadoop/common/hadoop-2.7.7/hadoop-2.7.7.tar.gz </span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-将hadoop2-7-7-解压到-opt-software-hadoop目录下"><a href="#2-将hadoop2-7-7-解压到-opt-software-hadoop目录下" class="headerlink" title="2.将hadoop2.7.7 解压到 /opt/software/hadoop目录下"></a>2.将hadoop2.7.7 解压到 /opt/software/hadoop目录下</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-2.7.7.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-配置环境变量"><a href="#3-配置环境变量" class="headerlink" title="3.配置环境变量"></a>3.配置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/opt/jdk1.8.0</span><br><span class="line">export HADOOP_HOME=/opt/software/hadoop/hadoop2.7.7</span><br><span class="line">export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$JAVA_HOME/bin:$PATH:$HOME/bin</span><br><span class="line"></span><br><span class="line">使配置生效-仅当前shell有效-全部生效需要重启电脑</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-对Hadoop进行配置"><a href="#4-对Hadoop进行配置" class="headerlink" title="4.对Hadoop进行配置"></a>4.对Hadoop进行配置</h4><ol>
+<li>修改hadoop-env.sh文件，添加jdk</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/software/hadoop/hadoop-2.7.7/etc/hadoop/hadoop-env.sh</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/opt/software/java/jdk1.8</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改core-site.xml</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/software/hadoop/hadoop-2.7.7/etc/hadoop/core-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/opt/software/hadoop/hadoop-2.7.7/tmp&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://master:8020&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改hdfs-site.xml</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/software/hadoop/hadoop-2.7.7/etc/hadoop/hdfs-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>HDFS的副本数量，伪分布下使用1，完全分布下使用3</p>
+<ol start="4">
+<li>配置mapred-site.xml</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">复制模板文件并配置</span><br><span class="line"></span><br><span class="line">cp /opt/software/hadoop/hadoop-2.7.7/etc/hadoop/mapred-site.xml.template /opt/software/hadoop/hadoop-2.7.7/etc/hadoop/mapred-site.xml</span><br><span class="line"></span><br><span class="line">配置文件内容</span><br><span class="line"></span><br><span class="line">vi /opt/software/hadoop/hadoop-2.7.7/etc/hadoop/mapred-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>配置yarn-site.xml</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/software/hadoop/hadoop-2.7.7/etc/hadoop/yarn-site.xml</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;master:8032&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-格式化hdfs"><a href="#5-格式化hdfs" class="headerlink" title="5.格式化hdfs"></a>5.格式化hdfs</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -format</span><br><span class="line"></span><br><span class="line">注：如果不是首次进行格式化，需要删除本地hadoop的tem目录下的所有内容，再进行格式化</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-启动hadoop"><a href="#6-启动hadoop" class="headerlink" title="6.启动hadoop"></a>6.启动hadoop</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh</span><br><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
+
+<p>查看hadoop运行情况</p>
+<ol>
+<li><p>每个主机使用jps命令查询</p>
+</li>
+<li><p>浏览器访问 <a target="_blank" rel="noopener" href="http://master:50070/">http://master:50070</a></p>
+<p> 注意：云主机需要开放50070端口才能正常访问网页</p>
+</li>
+</ol>
+<h4 id="7-测试Hadoop运行"><a href="#7-测试Hadoop运行" class="headerlink" title="7.测试Hadoop运行"></a>7.测试Hadoop运行</h4><ol>
+<li><p>创建一个临时文件hello</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi hello</span><br><span class="line"></span><br><span class="line">hello world</span><br><span class="line">hello hadoop</span><br><span class="line">hadoop</span><br></pre></td></tr></table></figure></li>
+<li><p>将文件上传到hdfs上</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put hello /</span><br></pre></td></tr></table></figure></li>
+<li><p>查看文件是否正确上传</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -ls /</span><br></pre></td></tr></table></figure></li>
+<li><p>对文件进行词频统计</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar /opt/software/hadoop/hadoop-2.7.7/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.7.jar wordcount /hello /out</span><br></pre></td></tr></table></figure>
+
+<p> 查看词频统计结果</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -cat /out/part*</span><br></pre></td></tr></table></figure></li>
+<li><p>删除本例用的hello文件和out文件夹</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -rm /hello</span><br><span class="line">hdfs dfs -rm -r /out</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="8-配置hadoo中hdfs网页（hdfs网站默认端口50070端口）"><a href="#8-配置hadoo中hdfs网页（hdfs网站默认端口50070端口）" class="headerlink" title="8.配置hadoo中hdfs网页（hdfs网站默认端口50070端口）"></a>8.配置hadoo中hdfs网页（hdfs网站默认端口50070端口）</h4><p>1.在阿里云的安全组中配置入方向50070端口，授权对象0.0.0.0</p>
+<p>2.配置完成后<a target="_blank" rel="noopener" href="http://ip:50070/">http://ip:50070</a></p>
+<img src="https://image.3001.net/images/20220704/16569093124684.png" alt="image-20220628140852600" style="zoom:33%;" />
+
+
+
+<h3 id="5-安装Hive"><a href="#5-安装Hive" class="headerlink" title="5. 安装Hive"></a>5. 安装Hive</h3><p>/opt/software/hive/hive-2.3.8</p>
+<h4 id="1-获取安装文件"><a href="#1-获取安装文件" class="headerlink" title="1.获取安装文件"></a>1.获取安装文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.huaweicloud.com/apache/hive/hive-2.3.8/apache-hive-2.3.8-bin.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-解压缩"><a href="#2-解压缩" class="headerlink" title="2.解压缩"></a>2.解压缩</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-hive-2.3.8-bin.tar.gz</span><br><span class="line"></span><br><span class="line">修改文件夹名称</span><br><span class="line">mv apache-hive-2.3.8-bin hive-2.3.8</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-配置环境变量-1"><a href="#3-配置环境变量-1" class="headerlink" title="3.配置环境变量"></a>3.配置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">编辑/etc/profile文件</span><br><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line">声明HIVE_HOME变量，并将$HIVE_HOME/bin添加到PATH变量中</span><br><span class="line">export HIVE_HOME=/opt/software/hive/hive-2.3.8</span><br><span class="line">export PATH=$HIVE_HOME/bin:$HIVE_HOME/conf:</span><br><span class="line"></span><br><span class="line">配置完成后，按ESC -&gt; ：wq!回车</span><br><span class="line"></span><br><span class="line">让本次配置马上生效</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-配置Hive"><a href="#4-配置Hive" class="headerlink" title="4.配置Hive"></a>4.配置Hive</h4><h5 id="1-配置hive-env-sh"><a href="#1-配置hive-env-sh" class="headerlink" title="1.配置hive-env.sh"></a>1.配置hive-env.sh</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">复制模板</span><br><span class="line">cd /opt/software/hive/hive-2.3.8/conf</span><br><span class="line">cp hive-env.sh.template hive-env.sh</span><br><span class="line"></span><br><span class="line">编辑文件    </span><br><span class="line">vim hive-env.sh</span><br><span class="line"></span><br><span class="line">在首行添加</span><br><span class="line">export HADOOP_HOME=/opt/software/hadoop/hadoop-2.7.7</span><br><span class="line">export HIVE_HOME=/opt/software/hive/hive-2.3.8</span><br><span class="line">export HIVE_CONF_DIR=/opt/software/hive/hive-2.3.8/conf</span><br><span class="line">export JAVA_HOME=/opt/software/java/jdk1.8</span><br><span class="line">export HIVE_AUX_JARS_PATH=/opt/software/hive/hive-2.3.8/lib</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-配置hive-site-xml"><a href="#2-配置hive-site-xml" class="headerlink" title="2.配置hive-site.xml"></a>2.配置hive-site.xml</h5><p>正常情况下，应该通过<code>hive-default.xml.template</code>模板文件生成<code>hive-site.xml</code>文件，但是该模板文件内容过多，修改较为麻烦。因此，可以直接通过命令创建一个空白的<code>hive-site.xml</code>文件，将所有需要的配置添加进去。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">创建空白的hive-site.xml文件</span><br><span class="line">vim /opt/software/hive/hive-2.3.8/conf/hive-site.xml</span><br><span class="line"></span><br><span class="line">为规避粘贴缩进错位问题，可先使用 :set paste  设置vim为粘贴模式，</span><br><span class="line">再按i进入编辑模式，然后将如下内容粘贴到该文件中，需要特别注意，xml文件的第一行必须是`&lt;?xml version=&quot;1.0&quot;...`，前面不能有任何的空行：</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;</span><br><span class="line">&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;jdbc:mysql://master:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;com.mysql.cj.jdbc.Driver&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hadoop&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hivepwd&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://master:8020/hive/warehouse&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/opt/software/hive/hive-2.3.8/exec&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hive.downloaded.resources.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/hive/downloadedsource&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hive.querylog.location&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/hive/logs&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt; </span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"></span><br><span class="line">ESC-&gt; :wq!回车</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-配置Hive的日志目录"><a href="#3-配置Hive的日志目录" class="headerlink" title="3.配置Hive的日志目录"></a>3.配置Hive的日志目录</h5><p>Hive中使用log4j2插件进行运行日志的记录，该插件默认将Hive日志保存在本地主机的<code>$&#123;sys:java.io.tmpdir&#125;/$&#123;sys:user.name&#125;</code>路径下，对初学者来说不容易查找。因此，我们配置修改该路径，将hive的日志保存在<code>/opt/hive/log</code>目录下。后续，hive运行中产生异常时，可以查看该目录下的日志信息，找到具体的异常信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">拷贝文件</span><br><span class="line">cp hive-log4j2.properties.template hive-log4j2.properties</span><br><span class="line"></span><br><span class="line">编辑文件</span><br><span class="line">vim hive-log4j2.properties</span><br><span class="line"></span><br><span class="line">property.hive.log.dir = /opt/software/hive/hive-2.3.8/log</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-将mysql连接jar包添加到hive的lib文件夹下"><a href="#4-将mysql连接jar包添加到hive的lib文件夹下" class="headerlink" title="4.将mysql连接jar包添加到hive的lib文件夹下"></a>4.将mysql连接jar包添加到hive的lib文件夹下</h5><p>hive基于JDBC访问Mariadb数据库，因此，需要将mysql连接jar包添加到hive安装目录下的lib目录中，可以直接使用xftp等工具实现这一操作，也可以通过外网直接下载：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget -P /opt/software/hive/hive-2.3.8/lib  https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar</span><br><span class="line"></span><br><span class="line">阿里云下载地址：</span><br><span class="line">wget -P /opt/software/hive/hive-2.3.8/lib/ https://archiva-maven-storage-prod.oss-cn-beijing.aliyuncs.com/repository/jcenter/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-解决SLF4J重复问题"><a href="#5-解决SLF4J重复问题" class="headerlink" title="5.解决SLF4J重复问题"></a>5.解决SLF4J重复问题</h5><p>hive和hadoop都使用了SLF4J的jar包，但是版本不同，会造成冲突提示，可以直接删除hive中的SLF4J的jar包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/software/hive/hive-2.3.8/lib</span><br><span class="line">rm -f log4j-slf4j-impl-2.6.2.jar</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-配置MariaDB、或Mysql"><a href="#6-配置MariaDB、或Mysql" class="headerlink" title="6.配置MariaDB、或Mysql"></a>6.配置MariaDB、或Mysql</h5><p>mariadb</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#进入MariaDB</span><br><span class="line">mysql -uroot -proot</span><br><span class="line"></span><br><span class="line">#建库</span><br><span class="line">create database hive;</span><br><span class="line"></span><br><span class="line">#配置权限</span><br><span class="line">grant all on hive.* to hadoop@&#x27;master&#x27; identified by &#x27;hivepwd&#x27;;</span><br><span class="line"></span><br><span class="line">#使配置生效</span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">#退出MariaDB</span><br><span class="line">exit;</span><br></pre></td></tr></table></figure>
+
+<p>Mysql</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#进入mysql</span><br><span class="line">mysql -uroot -proot</span><br><span class="line">#建库</span><br><span class="line">create database hive;</span><br><span class="line">#创建账号</span><br><span class="line">CREATE USER &#x27;hadoop&#x27;@&#x27;master&#x27; IDENTIFIED BY &#x27;hivepwd&#x27;;</span><br><span class="line">#配置权限</span><br><span class="line">grant all on nybikedb.* to hadoop@&#x27;master&#x27; identified by &#x27;hivepwd&#x27;;</span><br><span class="line"> #使配置生效</span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">#退出MariaDB</span><br><span class="line">exit;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="7-初始化Hive的元数据库"><a href="#7-初始化Hive的元数据库" class="headerlink" title="7.初始化Hive的元数据库"></a>7.初始化Hive的元数据库</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在第一次使用hive前，需要用如下命令初始化hive的元数据库，该命令只能执行1次：</span><br><span class="line"></span><br><span class="line">schematool -dbType mysql -initSchema</span><br></pre></td></tr></table></figure>
+
+<h5 id="8-使用Hive"><a href="#8-使用Hive" class="headerlink" title="8.使用Hive"></a>8.使用Hive</h5><p>可以使用<code>hive</code>命令启动hive，注意，Hive启动时会直接访问HDFS，Hive的一些操作会继续MapReduce实现。因此需要保证HDFS和YARN已经处于启动状态。 hive</p>
+<p>查询当前所有的库 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+
+<p>测试Hive </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create database testdb; </span><br><span class="line"></span><br><span class="line">use testdb; </span><br><span class="line"></span><br><span class="line">create table student(id int,name string); </span><br><span class="line"></span><br><span class="line">insert into student values(1,&#x27;Tom&#x27;); </span><br><span class="line"></span><br><span class="line">select * from student;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-Sqoop操作文档安装"><a href="#6-Sqoop操作文档安装" class="headerlink" title="6.Sqoop操作文档安装"></a>6.Sqoop操作文档安装</h3><h4 id="1-下载安装包"><a href="#1-下载安装包" class="headerlink" title="1 下载安装包"></a>1 下载安装包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://archive.apache.org/dist/sqoop/1.4.2/sqoop-1.4.2.bin__hadoop-2.0.0-alpha.tar.gz </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h4><p>使用如下命令将sqoop解压到虚拟机的<code>/opt</code>目录下</p>
+<pre><code>tar -zxvf sqoop-1.4.2.bin__hadoop-2.0.0-alpha.tar.gz
+</code></pre>
+<p>将文件夹名称修改为sqoop-1.4.7</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv sqoop-1.4.2.bin__hadoop-2.0.0-alpha sqoop-1.4.2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-配置环境变量-2"><a href="#3-配置环境变量-2" class="headerlink" title="3 配置环境变量"></a>3 配置环境变量</h4><pre><code>使用vim命令编辑文件
+vim /etc/profile
+
+export SQOOP_HOME=/opt/software/sqoop/sqoop-1.4.2
+export PATH=$SQOOP_HOME/bin:
+
+使本次配置生效
+source /etc/profile
+
+检查环境变量是否配置成功
+sqoop version
+</code></pre>
+<h4 id="4-添加数据库连接jar包"><a href="#4-添加数据库连接jar包" class="headerlink" title="4 添加数据库连接jar包"></a>4 添加数据库连接jar包</h4><pre><code>使用xftp将数据库连接jar包上传到虚拟机的/opt/sqoop-1.4.7/lib目录下
+
+也可以使用如下命令，从hive的lib目录下拷贝数据库连接jar包到sqoop对应目录下
+
+cp /opt/software/hive/hive-2.3.8/lib/mysql-connector-java-8.0.16.jar /opt/software/sqoop/sqoop-1.4.2/lib/
+
+如果未安装Hive，可以直接从官网下载jar包：
+wget -P /opt/sqoop-1.4.7/lib/  https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar
+
+阿里云下载地址：
+wget -P /opt/sqoop-1.4.7/lib/ https://archiva-maven-storage-prod.oss-cn-beijing.aliyuncs.com/repository/jcenter/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar
+</code></pre>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h4 id="1-MySQL导入数据到HDFS"><a href="#1-MySQL导入数据到HDFS" class="headerlink" title="1. MySQL导入数据到HDFS"></a>1. MySQL导入数据到HDFS</h4><p>首先，在MySQL中创建测试用库和表并插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database sqoop;</span><br><span class="line"></span><br><span class="line">use sqoop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> widgets(</span><br><span class="line">id <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">primary</span> key auto_increment,</span><br><span class="line">widget_name <span class="type">varchar</span>(<span class="number">64</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">price <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>),</span><br><span class="line">design_date <span class="type">date</span>,</span><br><span class="line">version <span class="type">int</span>,</span><br><span class="line">design_comment <span class="type">varchar</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> widgets <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>,<span class="string">&#x27;sprocket&#x27;</span>,<span class="number">0.25</span>,<span class="string">&#x27;2010-02-10&#x27;</span>, <span class="number">1</span>, <span class="string">&#x27;Connects two gizmos&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> widgets <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>, <span class="string">&#x27;gizmo&#x27;</span>, <span class="number">4.00</span>, <span class="string">&#x27;2009-11-30&#x27;</span>, <span class="number">4</span>,<span class="keyword">NULL</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> widgets <span class="keyword">VALUES</span>(<span class="keyword">NULL</span>, <span class="string">&#x27;gadget&#x27;</span>, <span class="number">99.99</span>, <span class="string">&#x27;1983-08-13&#x27;</span>, <span class="number">13</span>, <span class="string">&#x27;Our flagship product&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>接下来，使用sqoop命令将widgets表中数据导入到HDFS中：</p>
+<p>参数说明：</p>
+<ul>
+<li>import ：表示导入数据至HDFS</li>
+<li>–connect jdbc:mysql://……：定义数据库连接的URL</li>
+<li>–username root：指定连接MySQL的用户名</li>
+<li>–password root：指定连接MySQL的密码</li>
+<li>–table widgets：指明待导入的MySQL表名</li>
+<li>-m 1：指定用于导入数据的Map作业的个数ssh</li>
+</ul>
+<p>查看结果：</p>
+<p><img src="https://image.3001.net/images/20220704/16569093243221.png"></p>
+<p>查看HDFS上的数据：</p>
+<p><img src="https://image.3001.net/images/20220704/16569093267610.png"></p>
+<p>该命令会自动将MySQL表中的数据保存到HDFS上的<code>/user/用户名/表名</code>目录下。</p>
+<p>也可以使用 <code>--target-dir /路径</code>来指定导入到HDFS上的路径，如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sqoop import \</span><br><span class="line">--connect jdbc:mysql://localhost:3306/sqoop \</span><br><span class="line">--username root \</span><br><span class="line">--password root \</span><br><span class="line">--table widgets \</span><br><span class="line">--target-dir /sqoop/widgets \</span><br><span class="line">-m 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="images/2-16564633849232.png"></p>
+<h4 id="2-HDFS导出数据到MySQL"><a href="#2-HDFS导出数据到MySQL" class="headerlink" title="2. HDFS导出数据到MySQL"></a>2. HDFS导出数据到MySQL</h4><p>首先，在MySQL中创建接收数据的表格：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">use sqoop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> widgets_from_hdfs(</span><br><span class="line">id <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">primary</span> key auto_increment,</span><br><span class="line">widget_name <span class="type">varchar</span>(<span class="number">64</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">price <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>),</span><br><span class="line">design_date <span class="type">date</span>,</span><br><span class="line">version <span class="type">int</span>,</span><br><span class="line">design_comment <span class="type">varchar</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>接下来，使用sqoop命令将HDFS上的数据导出到MySQL中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sqoop export \</span><br><span class="line">--connect jdbc:mysql://localhost:3306/sqoop \</span><br><span class="line">--username root \</span><br><span class="line">--password root \</span><br><span class="line">--table widgets_from_hdfs \</span><br><span class="line">--export-dir /user/root/widgets/part-m-00000 \</span><br><span class="line">--input-fields-terminated-by &#x27;,&#x27;  \</span><br><span class="line">-m 1</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li>export：表示从HDFS导出数据</li>
+<li>–connect jdbc:mysql://……：定义数据库连接的URL</li>
+<li>–table widgets_from_hdfs：指定导出至MySQL的表名</li>
+<li>–export-dir /……/widgets/part-m-00000：指定导出文件</li>
+<li>–input-fields-terminated-by ‘,’：指明导出数据的分割符为 ,</li>
+</ul>
+<p>运行成功后，使用SQL语句查询widgets_from_hdfs表中数据，查看数据是否导入成功：</p>
+<p><img src="https://image.3001.net/images/20220704/16569093305994.png"></p>
+<h3 id="将数据从Hive导入Mariadb"><a href="#将数据从Hive导入Mariadb" class="headerlink" title="将数据从Hive导入Mariadb"></a>将数据从Hive导入Mariadb</h3><p>示例需求：将hive中的nybikedb/tb_day_gender_count表中数据导入到Mariadb中</p>
+<h4 id="1-在云主机的Mariadb中创建用于接收数据的表"><a href="#1-在云主机的Mariadb中创建用于接收数据的表" class="headerlink" title="1. 在云主机的Mariadb中创建用于接收数据的表"></a>1. 在云主机的Mariadb中创建用于接收数据的表</h4><pre><code>登录虚拟机的Mariadb
+mysql -uroot -proot
+
+以下为mysql中的操作，建表时需要注意表中字段名称和个数需要与hive中的表一致，但是字段类型要调整为mysql的类型，主要就是讲string调整为char或者varchar
+
+create database nybikedb;
+
+use nybikedb;
+
+create table day_gender_count(
+day varchar(30) comment &#39;数据的日期&#39;,
+gender int comment &#39;用户性别，0-未知，1-男性，2-女性&#39;,
+count int comment &#39;日骑行总数&#39;
+);
+</code></pre>
+<h4 id="2-使用sqoop命令将hive数据导入到Mariadb中"><a href="#2-使用sqoop命令将hive数据导入到Mariadb中" class="headerlink" title="2. 使用sqoop命令将hive数据导入到Mariadb中"></a>2. 使用sqoop命令将hive数据导入到Mariadb中</h4><pre><code>-- 以下在虚拟机的终端中操作，操作前需要启动hdfs和yarn
+
+sqoop export \
+--connect jdbc:mysql://localhost:3306/nybikedb \
+--username root \
+--password aliyun123Xiwen \
+--table day_gender_count \
+--fields-terminated-by &#39;,&#39; \
+--export-dir /hive/warehouse/nybikedb.db/day_gender_count
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>--connect</code>：指定连接的关系型数据库的url</li>
+<li><code>--username</code>：关系型数据库的用户名</li>
+<li><code>--password</code>：关系型数据库的密码</li>
+<li><code>--table</code>：关系型数据库中的表名</li>
+<li><code>--fields-terminated-by</code>：要导入的数据文件的分隔符，即hive中声明表时使用的字段分隔符</li>
+<li><code>--export-dir</code>：hive表对应的数据在HDFS上的存储目录，目录的最后一级对应的是hive上的表名</li>
+</ul>
+<p>如果hive中的目标表使用了分区，那么sqoop导出数据时会抛出异常，因为目标文件夹下不是数据文件，而是分区的子文件夹。这里可以在hive上新建一张临时表，去掉分区信息，并保证数据的顺序，再使用sqoop导出该表的数据到Mariadb中。</p>
+<h3 id="7-数仓分层"><a href="#7-数仓分层" class="headerlink" title="7.数仓分层"></a>7.数仓分层</h3><p>在阿里巴巴的数据体系中，我们建议将数据仓库分为三层，自下而上为：数据引入层（ODS，Operation Data Store）、数据公共层（CDM，Common Data Model）和数据应用层（ADS，Application Data Service）。</p>
+<p>数据仓库的分层和各层级用途如下图所示。<img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/7325932951/p44631.png" alt="img"></p>
+<ul>
+<li><p>数据引入层ODS（Operation Data Store）：存放未经过处理的原始数据至数据仓库系统，结构上与源系统保持一致，是数据仓库的数据准备区。主要完成基础数据引入到MaxCompute的职责，同时记录基础数据的历史变化。</p>
+</li>
+<li><p>数据公共层CDM（Common Data Model，又称通用数据模型层），包括DIM维度表、DWD和DWS，由ODS层数据加工而成。主要完成数据加工与整合，建立一致性的维度，构建可复用的面向分析和统计的明细事实表，以及汇总公共粒度的指标。</p>
+<ul>
+<li><p>公共维度层（DIM）：基于维度建模理念思想，建立整个企业的一致性维度。降低数据计算口径和算法不统一风险。</p>
+<p>  公共维度层的表通常也被称为逻辑维度表，维度和维度逻辑表通常一一对应。</p>
+</li>
+<li><p>公共汇总粒度事实层（DWS）：以分析的主题对象作为建模驱动，基于上层的应用和产品的指标需求，构建公共粒度的汇总指标事实表，以宽表化手段物理化模型。构建命名规范、口径一致的统计指标，为上层提供公共指标，建立汇总宽表、明细事实表。</p>
+<p>  公共汇总粒度事实层的表通常也被称为汇总逻辑表，用于存放派生指标数据。</p>
+</li>
+<li><p>明细粒度事实层（DWD）：以业务过程作为建模驱动，基于每个具体的业务过程特点，构建最细粒度的明细层事实表。可以结合企业的数据使用特点，将明细事实表的某些重要维度属性字段做适当冗余，即宽表化处理。</p>
+<p>  明细粒度事实层的表通常也被称为逻辑事实表。</p>
+</li>
+</ul>
+</li>
+<li><p>数据应用层ADS（Application Data Service）：存放数据产品个性化的统计指标数据。根据CDM与ODS层加工生成。</p>
+</li>
+</ul>
+<p>该数据分类架构在ODS层分为三部分：数据准备区、离线数据和准实时数据区。整体数据分类架构如下图所示。<img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/8325932951/p44636.png" alt="img">在本教程中，从交易数据系统的数据经过DataWorks数据集成，同步到数据仓库的ODS层。经过数据开发形成事实宽表后，再以商品、地域等为维度进行公共汇总。</p>
+<p>整体的数据流向如下图所示。其中，ODS层到DIM层的ETL（萃取（Extract）、转置（Transform）及加载（Load））处理是在MaxCompute中进行的，处理完成后会同步到所有存储系统。ODS层和DWD层会放在数据中间件中，供下游订阅使用。而DWS层和ADS层的数据通常会落地到在线存储系统中，下游通过接口调用的形式使用。<img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/8325932951/p46107.png" alt="img"></p>
+<h3 id="8-目标：利用大数据平台对共享单车历史数据进行预处理分析"><a href="#8-目标：利用大数据平台对共享单车历史数据进行预处理分析" class="headerlink" title="8.目标：利用大数据平台对共享单车历史数据进行预处理分析"></a>8.目标：利用大数据平台对共享单车历史数据进行预处理分析</h3><h4 id="1-上传共享单车历史数据"><a href="#1-上传共享单车历史数据" class="headerlink" title="1.上传共享单车历史数据"></a>1.上传共享单车历史数据</h4><p>使用tabby的sftp工具，将案例数据.zip上传到云主机<code>/opt/software/hadoop/data</code>路径下</p>
+<p><img src="https://image.3001.net/images/20220704/16569093436964.png" alt="image-20220628143531804"></p>
+<h4 id="2-将数据解压缩"><a href="#2-将数据解压缩" class="headerlink" title="2.将数据解压缩"></a>2.将数据解压缩</h4><p>1.如果没有unzip命令</p>
+<p><img src="https://image.3001.net/images/20220704/16569093463180.png" alt="image-20220628144317651"></p>
+<p>2.安装unzip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y unzip</span><br></pre></td></tr></table></figure>
+
+<p>3.安装完成</p>
+<p><img src="https://image.3001.net/images/20220704/16569093481084.png" alt="image-20220628144453731"></p>
+<p>4.解压中文的压缩文件时乱码直接复制那个乱码的字符串然后解压</p>
+<p><img src="https://image.3001.net/images/20220704/16569093567408.png" alt="image-20220628144847075"></p>
+<p>上面手欠改错了，又将案例数据改成了nybikeData</p>
+<h4 id="3-将数据进行预处理"><a href="#3-将数据进行预处理" class="headerlink" title="3.将数据进行预处理"></a>3.将数据进行预处理</h4><p>要求</p>
+<p><img src="images/image-20220628145510536.png" alt="image-20220628145510536"></p>
+<ul>
+<li>查看两条数据进入<code>/opt/software/hadoop/data/nybikeData</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查看两条数据</span><br><span class="line">cat 201906-citibike-tripdata.csv | head -n 2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#出来的数据信息</span><br><span class="line">&quot;tripduration&quot;,&quot;starttime&quot;,&quot;stoptime&quot;,&quot;start station id&quot;,&quot;start station name&quot;,&quot;start station latitude&quot;,&quot;start station longitude&quot;,&quot;end station id&quot;,&quot;end station name&quot;,&quot;end station latitude&quot;,&quot;end station longitude&quot;,&quot;bikeid&quot;,&quot;usertype&quot;,&quot;birth year&quot;,&quot;gender&quot;</span><br><span class="line">330,&quot;2019-06-01 00:00:01.5000&quot;,&quot;2019-06-01 00:05:31.7600&quot;,3602,&quot;31 Ave &amp; 34 St&quot;,40.763154,-73.920827,3570,&quot;35 Ave &amp; 37 St&quot;,40.7557327,-73.9236611,20348,&quot;Subscriber&quot;,1992,1</span><br></pre></td></tr></table></figure>
+
+
+
+<p>1.去掉文件文件的标头行</p>
+<p>可以通过linux的sed命令实现上述需求</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;1d&#x27; 201906-citibike-tripdata.csv </span><br></pre></td></tr></table></figure>
+
+<p>​        处理完的数据去掉了第一行数据</p>
+<p>2.-&gt; 数据后续需要使用Hive去管理-&gt; hive数据管理的数据要求去表头，去掉字段前后的双引号。</p>
+<p>去掉文本中所有的双引号:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/&quot;//g&#x27; 201906-citibike-tripdata.csv  </span><br></pre></td></tr></table></figure>
+
+<p>处理完的数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">330,2019-06-01 00:00:01.5000,2019-06-01 00:05:31.7600,3602,31 Ave &amp; 34 St,40.763154,-73.920827,3570,35 Ave &amp; 37 St,40.7557327,-73.9236611,20348,Subscriber,1992,1</span><br><span class="line">830,2019-06-01 00:00:04.2400,2019-06-01 00:13:55.1470,3054,Greene Ave &amp; Throop Ave,40.6894932,-73.942061,3781,Greene Av &amp; Myrtle Av,40.698568,-73.918877,34007,Subscriber,1987,2</span><br></pre></td></tr></table></figure>
+
+<p>3.将数据上传到HDFS上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put 201906-citibike-tripdata.csv  /data</span><br></pre></td></tr></table></figure>
+
+<p>​    查看有没有上传成功</p>
+<p><img src="https://image.3001.net/images/20220704/16569093661285.png" alt="image-20220628155823266"></p>
+<h4 id="4-需求分析-对共享单车的历史数据进行分析"><a href="#4-需求分析-对共享单车的历史数据进行分析" class="headerlink" title="4.需求分析:对共享单车的历史数据进行分析"></a>4.需求分析:对共享单车的历史数据进行分析</h4><h2 id="对共享单车的历史数据进行分析"><a href="#对共享单车的历史数据进行分析" class="headerlink" title="对共享单车的历史数据进行分析"></a>对共享单车的历史数据进行分析</h2><p>背景：前面的操作中实现了将纽约市2019年6月共享单车历史数据导入到HDFS上进行存储。该数据集中包含了2125371行记录，每行15个字段，接下来可以对历史数据进行分析。</p>
+<p>需求：2019年6月每一天不同性别的用户的骑行数量</p>
+<img src="https://image.3001.net/images/20220704/16569093691961.png" style="zoom:33%;" />
+
+<p><img src="https://image.3001.net/images/20220704/16569093733540.png"></p>
+<p><strong>数据仓库</strong></p>
+<p>数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。</p>
+<p><img src="https://image.3001.net/images/20220704/16569093766340.png"></p>
+<p><strong>在云主机上安装Hive</strong></p>
+<p><strong>使用Hive管理共享单车历史数据</strong></p>
+<ul>
+<li><p>在Hive中建库建表，以便管理共享单车历史数据</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建项目对应的库</span></span><br><span class="line"><span class="keyword">create</span> database nybikedb;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 使用库 </span></span><br><span class="line">use nybikedb;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 在库下创建表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> trip_data_201906(</span><br><span class="line">tripduration <span class="type">int</span>,</span><br><span class="line">starttime string,</span><br><span class="line">stoptime string,</span><br><span class="line">start_station_id <span class="type">int</span>,</span><br><span class="line">start_station_name string,</span><br><span class="line">start_station_latitude <span class="keyword">double</span>,</span><br><span class="line">start_station_longitude <span class="keyword">double</span>,</span><br><span class="line">end_station_id <span class="type">int</span>,</span><br><span class="line">end_station_name string,</span><br><span class="line">end_station_latitude <span class="keyword">double</span>,</span><br><span class="line">end_station_longitude <span class="keyword">double</span>,</span><br><span class="line">bikeid <span class="type">int</span>,</span><br><span class="line">usertype string,</span><br><span class="line">birth_year <span class="type">int</span>,</span><br><span class="line">gender <span class="type">int</span></span><br><span class="line">)<span class="type">row</span> format delimited fields terminated <span class="keyword">by</span> <span class="string">&#x27;,&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>将HDFS上的数据导入到Hive的表中</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 导入数据</span><br><span class="line">load data inpath &#x27;/data/201906-citibike-tripdata.csv&#x27; into table nybikedb.trip_data_201906;</span><br><span class="line"></span><br><span class="line">-- 查看表中数据行数</span><br><span class="line">select count(*) from nybikedb.trip_data_201906;</span><br><span class="line"></span><br><span class="line">-- 查看表中一行记录</span><br><span class="line">select * from nybikedb.trip_data_201906 limit 1;</span><br></pre></td></tr></table></figure></li>
+<li><p>使用HiveQL对数据进行统计分析</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 2019年6月每一天不同性别的用户的骑行数量</span><br><span class="line">select day(starttime) as day, gender, count(*) as count</span><br><span class="line">from nybikedb.trip_data_201906 </span><br><span class="line">group by day(starttime), gender </span><br><span class="line">order by day, gender;</span><br></pre></td></tr></table></figure>
+
+  <img src="https://image.3001.net/images/20220704/16569093803815.png" style="zoom:33%;" /></li>
+<li><p>上述查询的结果只是存在在内存中，无法持久化，无法复用，如果分析的结果被复用，应该在Hive中先创建一个结果表，再使用<code>insert into </code>语句搭配<code>select</code>语句，将统计的结果直接写入结果表</p>
+</li>
+<li><p>具体操作</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- 在hive中创建结果表</span><br><span class="line">create table nybikedb.day_gender_count(</span><br><span class="line">day int,</span><br><span class="line">gender int,</span><br><span class="line">count int</span><br><span class="line">)row format delimited fields terminated by &#x27;,&#x27;;</span><br><span class="line"></span><br><span class="line">-- 统计数据并将结果写入结果表</span><br><span class="line">insert into nybikedb.day_gender_count</span><br><span class="line">select day(starttime) as day, gender, count(*) as count</span><br><span class="line">from nybikedb.trip_data_201906 </span><br><span class="line">group by day(starttime), gender </span><br><span class="line">order by day, gender;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>将数据从Hive导入Mariadb</strong></p>
+<p>使用Sqoop完成该需求。</p>
+<p><img src="images/13.png"></p>
+<h4 id="1-在云主机的MariaDB中创建用于接收数据的表"><a href="#1-在云主机的MariaDB中创建用于接收数据的表" class="headerlink" title="1. 在云主机的MariaDB中创建用于接收数据的表"></a>1. 在云主机的MariaDB中创建用于接收数据的表</h4><pre><code>-- 登录虚拟机的Mariadb
+mysql -uroot -proot
+
+-- 以下为mysql中的操作，建表时需要注意表中字段名称和个数需要与hive中的表一致，但是字段类型要调整为mysql的类型，主要就是讲string调整为char或者varchar
+
+use nybikedb;
+
+create table day_gender_count(
+day int comment &#39;数据的日期&#39;,
+gender int comment &#39;用户性别，0-未知，1-男性，2-女性&#39;,
+count int comment &#39;日骑行总数&#39;
+);
+</code></pre>
+<h4 id="2-使用sqoop命令将hive数据导入到MariaDB中"><a href="#2-使用sqoop命令将hive数据导入到MariaDB中" class="headerlink" title="2. 使用sqoop命令将hive数据导入到MariaDB中"></a>2. 使用sqoop命令将hive数据导入到MariaDB中</h4><pre><code>以下在虚拟机的终端中操作，操作前需要启动hdfs和yarn
+
+sqoop export \
+--connect jdbc:mysql://localhost:3306/nybikedb \
+--username root \
+--password root \
+--table day_gender_count \
+--fields-terminated-by &#39;,&#39; \
+--export-dir /hive/warehouse/nybikedb.db/day_gender_count
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>--connect</code>：指定连接的关系型数据库的url</li>
+<li><code>--username</code>：关系型数据库的用户名</li>
+<li><code>--password</code>：关系型数据库的密码</li>
+<li><code>--table</code>：关系型数据库中的表名</li>
+<li><code>--fields-terminated-by</code>：要导入的数据文件的分隔符，即hive中声明表时使用的字段分隔符</li>
+<li><code>--export-dir</code>：hive表对应的数据在HDFS上的存储目录，目录的最后一级对应的是hive上的表名</li>
+</ul>
+<p><img src="images/14.png"></p>
+<p>如果hive中的目标表使用了分区，那么sqoop导出数据时会抛出异常，因为目标文件夹下不是数据文件，而是分区的子文件夹。这里可以在hive上新建一张临时表，去掉分区信息，并保证数据的顺序，再使用sqoop导出该表的数据到MariaDB中。</p>
+<p><strong>在本地IDEA的项目中访问云主机数据库</strong></p>
+<p><img src="images/15.png"></p>
+<ul>
+<li><p>在云主机的数据库中新建账号，限定权限</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -proot</span><br><span class="line"></span><br><span class="line">grant all on nybikedb.* to user@&#x27;%&#x27; identified by &#x27;mysqlDWP135@&#x27;;</span><br><span class="line"></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">exit;</span><br></pre></td></tr></table></figure></li>
+<li><p>开放云主机的3306端口</p>
+<p>  <img src="https://image.3001.net/images/20220704/16569093843411.png"></p>
+</li>
+<li><p>修改本地IDEA中nybike项目的配置文件</p>
+<ul>
+<li><p>修改src/main/resources/application.properties中的配置</p>
+<p>  <img src="https://image.3001.net/images/20220704/16569093879037.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="DBeaver连接Hive问题"><a href="#DBeaver连接Hive问题" class="headerlink" title="DBeaver连接Hive问题"></a>DBeaver连接Hive问题</h3><p>修改hadoop的配置文件</p>
+<p>修改 core-site.xml文件</p>
+<p>　　vim /usr/local/hadoop/etc/hadoop/core-site.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;hadoop.proxyuser.root.groups&lt;/name&gt;</span><br><span class="line">&lt;value&gt;*&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;hadoop.proxyuser.root.hosts&lt;/name&gt;</span><br><span class="line">&lt;value&gt;*&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>关闭文件权限检查：</p>
+<p>hdfs-site.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;dfs.permissions&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p> 通过以下命令启动远程服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup hive --service metastore &amp;</span><br><span class="line">nohup hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
+
+<p>远程服务对外的端口是10000，启动成功后，使用netstat命令验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -antpl|grep 10000</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>下载cloudera版本的JDBC驱动</strong></p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://www.cloudera.com/downloads.html">https://www.cloudera.com/downloads.html</a></p>
+<p>1.第一步</p>
+<p><img src="https://image.3001.net/images/20220704/16569093901395.png" alt="image-20220629124404068"></p>
+<p>2.第二步</p>
+<p><img src="https://image.3001.net/images/20220704/16569093924246.png" alt="image-20220629124426936"></p>
+<p>3.第三步打开添加，找到驱动类</p>
+<p><img src="https://image.3001.net/images/20220704/16569093957216.png" alt="image-20220629143533935"></p>
+<p>4.第四步选择无认证</p>
+<p><img src="https://image.3001.net/images/20220704/165690939945.png" alt="image-20220629215710441"></p>
+<p>第五步连接成功</p>
+<img src="https://image.3001.net/images/20220704/16569094174002.png" alt="image-20220629215837577" style="zoom: 33%;" />
+
+
+
+<p>Hive远程访问操作<br><a target="_blank" rel="noopener" href="https://blog.51cto.com/candon123/2048202">https://blog.51cto.com/candon123/2048202</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.wjhsh.net/0xcafedaddy-p-8392029.html">http://www.wjhsh.net/0xcafedaddy-p-8392029.html</a></p>
+<!-- more -->
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hadoop/" rel="tag"># hadoop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/17/%E5%A4%A7%E6%95%B0%E6%8D%AE/git/Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/" rel="prev" title="Git版本流程控制基础命令">
+      <i class="fa fa-chevron-left"></i> Git版本流程控制基础命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/spring/SpringBoot%E6%95%99%E7%A8%8B/SpringBoot%E6%95%99%E7%A8%8B/" rel="next" title="Spring Boot教程">
+      Spring Boot教程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3"><span class="nav-number">1.</span> <span class="nav-text">Hadoop伪分布搭建文档</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%87%86%E5%A4%871%E5%8F%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%88%96%E4%BA%91%E4%B8%BB%E6%9C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">1. 准备1台虚拟机或云主机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE%E5%A5%BD%E4%B8%BB%E6%9C%BA%E5%90%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">1) 配置好主机名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%87%86%E5%A4%87"><span class="nav-number">1.1.2.</span> <span class="nav-text">2)准备</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AESSH%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="nav-number">1.2.</span> <span class="nav-text">2. 配置SSH免密登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85JDK"><span class="nav-number">1.3.</span> <span class="nav-text">3.安装JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AE%89%E8%A3%85hadoop%E4%BC%AA%E5%88%86%E5%B8%83"><span class="nav-number">1.4.</span> <span class="nav-text">4. 安装hadoop伪分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDhadoop%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.下载hadoop安装包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B0%86hadoop2-7-7-%E8%A7%A3%E5%8E%8B%E5%88%B0-opt-software-hadoop%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.将hadoop2.7.7 解压到 &#x2F;opt&#x2F;software&#x2F;hadoop目录下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%AF%B9Hadoop%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.对Hadoop进行配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%A0%BC%E5%BC%8F%E5%8C%96hdfs"><span class="nav-number">1.4.5.</span> <span class="nav-text">5.格式化hdfs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8hadoop"><span class="nav-number">1.4.6.</span> <span class="nav-text">6.启动hadoop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E6%B5%8B%E8%AF%95Hadoop%E8%BF%90%E8%A1%8C"><span class="nav-number">1.4.7.</span> <span class="nav-text">7.测试Hadoop运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E9%85%8D%E7%BD%AEhadoo%E4%B8%ADhdfs%E7%BD%91%E9%A1%B5%EF%BC%88hdfs%E7%BD%91%E7%AB%99%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A350070%E7%AB%AF%E5%8F%A3%EF%BC%89"><span class="nav-number">1.4.8.</span> <span class="nav-text">8.配置hadoo中hdfs网页（hdfs网站默认端口50070端口）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AE%89%E8%A3%85Hive"><span class="nav-number">1.5.</span> <span class="nav-text">5. 安装Hive</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%8E%B7%E5%8F%96%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.获取安装文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.解压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-1"><span class="nav-number">1.5.3.</span> <span class="nav-text">3.配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AEHive"><span class="nav-number">1.5.4.</span> <span class="nav-text">4.配置Hive</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AEhive-env-sh"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">1.配置hive-env.sh</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AEhive-site-xml"><span class="nav-number">1.5.4.2.</span> <span class="nav-text">2.配置hive-site.xml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AEHive%E7%9A%84%E6%97%A5%E5%BF%97%E7%9B%AE%E5%BD%95"><span class="nav-number">1.5.4.3.</span> <span class="nav-text">3.配置Hive的日志目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%B0%86mysql%E8%BF%9E%E6%8E%A5jar%E5%8C%85%E6%B7%BB%E5%8A%A0%E5%88%B0hive%E7%9A%84lib%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B"><span class="nav-number">1.5.4.4.</span> <span class="nav-text">4.将mysql连接jar包添加到hive的lib文件夹下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E8%A7%A3%E5%86%B3SLF4J%E9%87%8D%E5%A4%8D%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.4.5.</span> <span class="nav-text">5.解决SLF4J重复问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E9%85%8D%E7%BD%AEMariaDB%E3%80%81%E6%88%96Mysql"><span class="nav-number">1.5.4.6.</span> <span class="nav-text">6.配置MariaDB、或Mysql</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-%E5%88%9D%E5%A7%8B%E5%8C%96Hive%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.5.4.7.</span> <span class="nav-text">7.初始化Hive的元数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-%E4%BD%BF%E7%94%A8Hive"><span class="nav-number">1.5.4.8.</span> <span class="nav-text">8.使用Hive</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Sqoop%E6%93%8D%E4%BD%9C%E6%96%87%E6%A1%A3%E5%AE%89%E8%A3%85"><span class="nav-number">1.6.</span> <span class="nav-text">6.Sqoop操作文档安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">1.6.1.</span> <span class="nav-text">1 下载安装包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85"><span class="nav-number">1.6.2.</span> <span class="nav-text">2 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-2"><span class="nav-number">1.6.3.</span> <span class="nav-text">3 配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5jar%E5%8C%85"><span class="nav-number">1.6.4.</span> <span class="nav-text">4 添加数据库连接jar包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">1.7.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-MySQL%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E5%88%B0HDFS"><span class="nav-number">1.7.1.</span> <span class="nav-text">1. MySQL导入数据到HDFS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-HDFS%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E5%88%B0MySQL"><span class="nav-number">1.7.2.</span> <span class="nav-text">2. HDFS导出数据到MySQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%95%B0%E6%8D%AE%E4%BB%8EHive%E5%AF%BC%E5%85%A5Mariadb"><span class="nav-number">1.8.</span> <span class="nav-text">将数据从Hive导入Mariadb</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9C%A8%E4%BA%91%E4%B8%BB%E6%9C%BA%E7%9A%84Mariadb%E4%B8%AD%E5%88%9B%E5%BB%BA%E7%94%A8%E4%BA%8E%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8"><span class="nav-number">1.8.1.</span> <span class="nav-text">1. 在云主机的Mariadb中创建用于接收数据的表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8sqoop%E5%91%BD%E4%BB%A4%E5%B0%86hive%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%88%B0Mariadb%E4%B8%AD"><span class="nav-number">1.8.2.</span> <span class="nav-text">2. 使用sqoop命令将hive数据导入到Mariadb中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82"><span class="nav-number">1.9.</span> <span class="nav-text">7.数仓分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E7%9B%AE%E6%A0%87%EF%BC%9A%E5%88%A9%E7%94%A8%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E5%AF%B9%E5%85%B1%E4%BA%AB%E5%8D%95%E8%BD%A6%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E9%A2%84%E5%A4%84%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-number">1.10.</span> <span class="nav-text">8.目标：利用大数据平台对共享单车历史数据进行预处理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8A%E4%BC%A0%E5%85%B1%E4%BA%AB%E5%8D%95%E8%BD%A6%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.10.1.</span> <span class="nav-text">1.上传共享单车历史数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B0%86%E6%95%B0%E6%8D%AE%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="nav-number">1.10.2.</span> <span class="nav-text">2.将数据解压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%B0%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">1.10.3.</span> <span class="nav-text">3.将数据进行预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90-%E5%AF%B9%E5%85%B1%E4%BA%AB%E5%8D%95%E8%BD%A6%E7%9A%84%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90"><span class="nav-number">1.10.4.</span> <span class="nav-text">4.需求分析:对共享单车的历史数据进行分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E5%85%B1%E4%BA%AB%E5%8D%95%E8%BD%A6%E7%9A%84%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">对共享单车的历史数据进行分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9C%A8%E4%BA%91%E4%B8%BB%E6%9C%BA%E7%9A%84MariaDB%E4%B8%AD%E5%88%9B%E5%BB%BA%E7%94%A8%E4%BA%8E%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 在云主机的MariaDB中创建用于接收数据的表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8sqoop%E5%91%BD%E4%BB%A4%E5%B0%86hive%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%88%B0MariaDB%E4%B8%AD"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 使用sqoop命令将hive数据导入到MariaDB中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DBeaver%E8%BF%9E%E6%8E%A5Hive%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">DBeaver连接Hive问题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="希文"
+      src="/images/%E5%A4%B4%E5%83%8F.gif">
+  <p class="site-author-name" itemprop="name">希文</p>
+  <div class="site-description" itemprop="description">日常笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yangmour" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangmour" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiwenya999@gmail.com" title="E-Mail → mailto:xiwenya999@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://poc10.cn/" title="http:&#x2F;&#x2F;poc10.cn&#x2F;" rel="noopener" target="_blank">网络安全方面</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">希文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">363k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:30</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

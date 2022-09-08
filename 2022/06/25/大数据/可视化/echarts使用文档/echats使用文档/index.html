@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="echarts使用步骤文档[TOC] 介绍目前我们已经采集到一定数量的用户数据，管理者希望能够查看这些用户数据。 需要将数据库中存储的原始数据进行初步的统计分析后，以可视化图表的形式加以展示。 例如：显示用户各类操作的总数量和比例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="echarts使用步骤文档">
+<meta property="og:url" content="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%8F%AF%E8%A7%86%E5%8C%96/echarts%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/echats%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="希文的个人博客">
+<meta property="og:description" content="echarts使用步骤文档[TOC] 介绍目前我们已经采集到一定数量的用户数据，管理者希望能够查看这些用户数据。 需要将数据库中存储的原始数据进行初步的统计分析后，以可视化图表的形式加以展示。 例如：显示用户各类操作的总数量和比例。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569099924308.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559539256422.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559539286886.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569100023813.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569100058656.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569100093528.png">
+<meta property="og:image" content="https://image.3001.net/images/20220704/16569100158462.png">
+<meta property="article:published_time" content="2022-06-25T05:06:17.000Z">
+<meta property="article:modified_time" content="2022-09-08T02:17:06.230Z">
+<meta property="article:author" content="希文">
+<meta property="article:tag" content="echarts">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.3001.net/images/20220704/16569099924308.png">
+
+<link rel="canonical" href="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%8F%AF%E8%A7%86%E5%8C%96/echarts%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/echats%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>echarts使用步骤文档 | 希文的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="希文的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">希文的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">白日依山尽，黄河入海流。欲穷千里目，更上一层楼。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">29</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%8F%AF%E8%A7%86%E5%8C%96/echarts%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/echats%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          echarts使用步骤文档
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-25 13:06:17" itemprop="dateCreated datePublished" datetime="2022-06-25T13:06:17+08:00">2022-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-08 10:17:06" itemprop="dateModified" datetime="2022-09-08T10:17:06+08:00">2022-09-08</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="echarts使用步骤文档"><a href="#echarts使用步骤文档" class="headerlink" title="echarts使用步骤文档"></a>echarts使用步骤文档</h1><p>[TOC]</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>目前我们已经采集到一定数量的用户数据，管理者希望能够查看这些用户数据。</p>
+<p>需要将数据库中存储的原始数据进行初步的统计分析后，以可视化图表的形式加以展示。</p>
+<p>例如：显示用户各类操作的总数量和比例。</p>
+<span id="more"></span>
+
+<h2 id="实现数据可视化的途径"><a href="#实现数据可视化的途径" class="headerlink" title="实现数据可视化的途径"></a>实现数据可视化的途径</h2><ul>
+<li>传统软件工具：Excel，Power Point等办公软件</li>
+<li>现代BI平台（全自动）：Power BI （商用）、Superset（开源）</li>
+<li>可视化插件（半自动）：ECharts</li>
+</ul>
+<p>本例中通过ECharts实现数据可视化需求。</p>
+<h2 id="1-echarts使用步骤"><a href="#1-echarts使用步骤" class="headerlink" title="1.echarts使用步骤"></a>1.echarts使用步骤</h2><h3 id="1-快速上手的解析"><a href="#1-快速上手的解析" class="headerlink" title="1.快速上手的解析"></a>1.快速上手的解析</h3><ol>
+<li>在页面中引入echarts.js文件</li>
+<li>在页面中声明div作为图表的容器</li>
+<li>在页面中编写JS代码，初始化图表<ol>
+<li>创建图表对象，绑定容器id</li>
+<li>创建配置对象，对图表样式和数据进行配置</li>
+<li>使用图表对象应用配置对象，在页面上显示图表</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://image.3001.net/images/20220704/16569099924308.png" alt="2"></p>
+<h3 id="2-代码示例"><a href="#2-代码示例" class="headerlink" title="2.代码示例"></a>2.代码示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入echarts的js文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../js/echarts.minTest.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 2.在页面中声明图标 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;main&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height:600px;width:800px&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 3.基于echartsapi--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 1.基于准备好的dom，初始化echarts实例</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> myChart = echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">&#x27;main&#x27;</span>));</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 2.指定图表的配置项和数据</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> option = &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">title</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">text</span>: <span class="string">&#x27;ECharts 入门示例&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">tooltip</span>: &#123;&#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">legend</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">data</span>: [<span class="string">&#x27;销量&#x27;</span>,<span class="string">&quot;库存&quot;</span>]</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">xAxis</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">data</span>: [<span class="string">&#x27;衬衫&#x27;</span>, <span class="string">&#x27;羊毛衫&#x27;</span>, <span class="string">&#x27;雪纺衫&#x27;</span>, <span class="string">&#x27;裤子&#x27;</span>, <span class="string">&#x27;高跟鞋&#x27;</span>, <span class="string">&#x27;袜子&#x27;</span>]</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">yAxis</span>: &#123;&#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">series</span>: [</span></span><br><span class="line"><span class="javascript">                &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">name</span>: <span class="string">&#x27;销量&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">type</span>: <span class="string">&#x27;bar&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">data</span>: [<span class="number">5</span>, <span class="number">20</span>, <span class="number">36</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">20</span>]</span></span><br><span class="line"><span class="javascript">                &#125;,&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">name</span>: <span class="string">&quot;库存&quot;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">type</span>: <span class="string">&quot;line&quot;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">data</span>: [<span class="number">10</span>,<span class="number">25</span>,<span class="number">40</span>,<span class="number">15</span>,<span class="number">13</span>,<span class="number">22</span>]</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            ]</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 3.使用刚指定的配置项和数据显示图表。</span></span></span><br><span class="line"><span class="javascript">        myChart.setOption(option);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-模板代码"><a href="#3-模板代码" class="headerlink" title="3.模板代码"></a>3.模板代码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 1.引入echarts的js文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../js/echarts.minTest.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 2.在页面中声明图标 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;main&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height:600px;width:800px&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 3.基于echartsapi--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 1.基于准备好的dom，初始化echarts实例</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> myChart = echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">&#x27;main&#x27;</span>));</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 2.指定图表的配置项和数据</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 3.使用刚指定的配置项和数据显示图表。</span></span></span><br><span class="line"><span class="javascript">        myChart.setOption(option);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-找到想要的配置文件"><a href="#4-找到想要的配置文件" class="headerlink" title="4.找到想要的配置文件"></a>4.找到想要的配置文件</h3><h4 id="1-方法一"><a href="#1-方法一" class="headerlink" title="1.方法一"></a>1.方法一</h4><p>先找功能类似的echarts图标，研究对应的标签名字</p>
+<h5 id="1-找类似功能"><a href="#1-找类似功能" class="headerlink" title="1.找类似功能"></a>1.找类似功能</h5><p><img src="https://image.3001.net/images/20220623/16559539256422.png" alt="image-20220623111007787"></p>
+<h5 id="2-找到代码在网页中调试一下"><a href="#2-找到代码在网页中调试一下" class="headerlink" title="2.找到代码在网页中调试一下"></a>2.找到代码在网页中调试一下</h5><p><img src="https://image.3001.net/images/20220623/16559539286886.png" alt="image-20220623111202632"></p>
+<h5 id="3-复制到自己代码中调试测试"><a href="#3-复制到自己代码中调试测试" class="headerlink" title="3.复制到自己代码中调试测试"></a>3.复制到自己代码中调试测试</h5><p>成功的话不用去看方法二</p>
+<h4 id="2-方法二去配置文档找配置"><a href="#2-方法二去配置文档找配置" class="headerlink" title="2.方法二去配置文档找配置"></a>2.方法二去配置文档找配置</h4><h5 id="1-根据label找配置文档去下面的方法去配置文档"><a href="#1-根据label找配置文档去下面的方法去配置文档" class="headerlink" title="1.根据label找配置文档去下面的方法去配置文档"></a>1.根据label找配置文档去下面的方法去配置文档</h5><p><img src="https://image.3001.net/images/20220704/16569100023813.png" alt="image-20220623111336416"></p>
+<p>2.找到具体信息</p>
+<p><img src="https://image.3001.net/images/20220704/16569100058656.png" alt="image-20220623120520900"></p>
+<p><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html">echarts配置文档官网</a></p>
+<h2 id="2-从服务器动态获取图标的数据"><a href="#2-从服务器动态获取图标的数据" class="headerlink" title="2.从服务器动态获取图标的数据"></a>2.从服务器动态获取图标的数据</h2><h3 id="1-示例图片"><a href="#1-示例图片" class="headerlink" title="1. 示例图片"></a>1. 示例图片</h3><p><img src="https://image.3001.net/images/20220704/16569100093528.png" alt="3"></p>
+<h3 id="2-浏览器与服务器交互的数据格式"><a href="#2-浏览器与服务器交互的数据格式" class="headerlink" title="2.浏览器与服务器交互的数据格式"></a>2.浏览器与服务器交互的数据格式</h3><h4 id="1-简单数据格式"><a href="#1-简单数据格式" class="headerlink" title="1.简单数据格式"></a>1.简单数据格式</h4><p>https:\www.***.com?key1=value1&amp;key2=value2&amp;key3=value3…..</p>
+<h4 id="2-JSON数据格式"><a href="#2-JSON数据格式" class="headerlink" title="2.JSON数据格式"></a>2.JSON数据格式</h4><p>复杂数据：一般指包含多个层级关系的数据</p>
+<p>例如：纽约市共享单车站点的实时状态数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">站点1：</span><br><span class="line">	站点id</span><br><span class="line">	站点位置</span><br><span class="line">		精度</span><br><span class="line">		维度</span><br><span class="line">	站点名称</span><br><span class="line">	站点用车情况</span><br><span class="line">		可用车数量</span><br><span class="line">		可用桩数量</span><br><span class="line">	站点保存的电动车情况</span><br><span class="line">		电动车1:</span><br><span class="line">			车辆id</span><br><span class="line">			车辆电量</span><br><span class="line">			车辆状态...</span><br></pre></td></tr></table></figure>
+
+<p>Json格式的语法：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;stations&quot;</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;baseinfo&quot;</span>:&#123;</span><br><span class="line">                <span class="attr">&quot;stationId&quot;</span>: <span class="string">&quot;7789&quot;</span>,</span><br><span class="line">                <span class="attr">&quot;coordainate&quot;</span>: [<span class="number">-78.123</span>,<span class="number">40.567</span>],</span><br><span class="line">                <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;test station name&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">&quot;status&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;num_bikes_available&quot;</span>: <span class="number">10</span>,</span><br><span class="line">                <span class="attr">&quot;num_docks_available&quot;</span>: <span class="number">20</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;...&#125;,</span><br><span class="line">        &#123;...&#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;timestamp&quot;</span>:<span class="number">1655951937</span>,</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-图片示例"><a href="#3-图片示例" class="headerlink" title="3.图片示例"></a>3.图片示例</h4><p>流程（把控制器层和业务层放到一起了）</p>
+<p><img src="https://image.3001.net/images/20220704/16569100158462.png" alt="4"></p>
+<h3 id="3-前后端数据交互代码"><a href="#3-前后端数据交互代码" class="headerlink" title="3.前后端数据交互代码"></a>3.前后端数据交互代码</h3><ul>
+<li>ajax的post请求的代码，前端向后端发送数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function sendOptData(params)&#123;</span><br><span class="line">    //后台接口给的相对路径</span><br><span class="line">    const urlPath = &quot;opt/save&quot;;</span><br><span class="line">    $.post(urlPath,params,function(result)&#123;</span><br><span class="line">        console.log(result);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-后端返回的代码spring-boot中，controller层返回的数据"><a href="#1-后端返回的代码spring-boot中，controller层返回的数据" class="headerlink" title="1.后端返回的代码spring boot中，controller层返回的数据"></a>1.后端返回的代码spring boot中，controller层返回的数据</h4><ul>
+<li><p>JsonResult返回数据的工具类</p>
+</li>
+<li><p>PieItem实体类两个参数（name，value）</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/findOptTypeCount&quot;)</span><br><span class="line">public JsonResult&lt;List&lt;PieItem&gt;&gt; findOptTypeCount()&#123;</span><br><span class="line"></span><br><span class="line">    List&lt;PieItem&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">    list.add(new PieItem(&quot;点击&quot;,8.0));</span><br><span class="line">    list.add(new PieItem(&quot;缩放&quot;,10.0));</span><br><span class="line">    list.add(new PieItem(&quot;拖拽&quot;,30.0));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    return JsonResult.getSuccessJR(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>返回json格式数据</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;state&quot;</span>: <span class="number">1000</span>,</span><br><span class="line">	<span class="attr">&quot;msg&quot;</span>: <span class="string">&quot;OK&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;data&quot;</span>: [</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;点击&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;value&quot;</span>: <span class="number">8</span></span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;缩放&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;value&quot;</span>: <span class="number">10</span></span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;拖拽&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;value&quot;</span>: <span class="number">30</span></span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-前端请求代码"><a href="#2-前端请求代码" class="headerlink" title="2.前端请求代码"></a>2.前端请求代码</h4><ul>
+<li>先引入jquery</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;../js/jquery-3.5.1.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ajax的get请求的代码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">     const url = &quot;../opt/findOptTypeCount&quot;</span><br><span class="line">     $.get(url,function (result)&#123;</span><br><span class="line"></span><br><span class="line">         //function中封装的是收到服务器响应后执行的处理逻辑</span><br><span class="line">         //result是接收响应数据</span><br><span class="line">         //1.从result 中获取图标数据</span><br><span class="line">         const pieData = result.data;</span><br><span class="line"></span><br><span class="line">// 2. 基于得到的数据初始化图表</span><br><span class="line"></span><br><span class="line">     &#125;);</span><br><span class="line"></span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>合起来的代码是</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入echarts的js文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../js/echarts.minTest.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../js/jquery-3.5.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 2.在页面中声明图标 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;main&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height:600px;width:800px&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 3.基于echartsapi--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> url = <span class="string">&quot;../opt/findOptTypeCount&quot;</span></span></span><br><span class="line"><span class="javascript">        $.get(url,<span class="function"><span class="keyword">function</span> (<span class="params">result</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">//function中封装的是收到服务器响应后执行的处理逻辑</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//result是接收响应数据</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//2.1 从result 中获取图标数据</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">const</span> pieData = result.data;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 2.2 基于得到的数据初始化图表</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 1.1基于准备好的dom，初始化echarts实例</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> myChart = echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">&#x27;main&#x27;</span>));</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 1.2 指定图表的配置项和数据</span></span></span><br><span class="line"><span class="javascript">            option = &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">title</span>: &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">text</span>: <span class="string">&#x27;Referer of a Website&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">subtext</span>: <span class="string">&#x27;Fake Data&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">left</span>: <span class="string">&#x27;center&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                &#125;,</span></span><br><span class="line"><span class="javascript">                <span class="attr">tooltip</span>: &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">trigger</span>: <span class="string">&#x27;item&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">formatter</span>: <span class="string">&#x27;&#123;a&#125; &lt;br/&gt;&#123;b&#125; : &#123;c&#125; (&#123;d&#125;%)&#x27;</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                &#125;,</span></span><br><span class="line"><span class="javascript">                <span class="attr">legend</span>: &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">orient</span>: <span class="string">&#x27;vertical&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">left</span>: <span class="string">&#x27;left&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                &#125;,</span></span><br><span class="line"><span class="javascript">                <span class="attr">series</span>: [</span></span><br><span class="line"><span class="javascript">                    &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="attr">name</span>: <span class="string">&#x27;访问了&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="attr">type</span>: <span class="string">&#x27;pie&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="attr">radius</span>: <span class="string">&#x27;50%&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                        <span class="attr">data</span>: pieData,</span></span><br><span class="line"><span class="javascript">                        <span class="attr">emphasis</span>: &#123;</span></span><br><span class="line"><span class="javascript">                            <span class="attr">itemStyle</span>: &#123;</span></span><br><span class="line"><span class="javascript">                                <span class="attr">shadowBlur</span>: <span class="number">10</span>,</span></span><br><span class="line"><span class="javascript">                                <span class="attr">shadowOffsetX</span>: <span class="number">0</span>,</span></span><br><span class="line"><span class="javascript">                                <span class="attr">shadowColor</span>: <span class="string">&#x27;rgba(0, 0, 0, 0.5)&#x27;</span></span></span><br><span class="line"><span class="javascript">                            &#125;</span></span><br><span class="line"><span class="javascript">                        &#125;,</span></span><br><span class="line"><span class="javascript">                        <span class="attr">label</span>: &#123;</span></span><br><span class="line"><span class="javascript">                            <span class="attr">show</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                            <span class="attr">formatter</span>: <span class="string">&#x27;&#123;b&#125;: &#123;d&#125;%&#x27;</span></span></span><br><span class="line"><span class="javascript">                        &#125;</span></span><br><span class="line"><span class="javascript">                    &#125;</span></span><br><span class="line"><span class="javascript">                ]</span></span><br><span class="line"><span class="javascript">            &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 1.3 使用刚指定的配置项和数据显示图表。</span></span></span><br><span class="line"><span class="javascript">            myChart.setOption(option);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="复习"><a href="#复习" class="headerlink" title="复习"></a>复习</h2><ul>
+<li><p>Web应用和B/S架构，C/S架构</p>
+<ul>
+<li>前端开发</li>
+<li>后台开发</li>
+<li>移动端开发：Android开发/IOS开发</li>
+</ul>
+</li>
+<li><p>Java Web应用开发环境</p>
+<ul>
+<li>JDK</li>
+<li>IDEA</li>
+<li>Maven</li>
+<li>数据库</li>
+</ul>
+</li>
+<li><p>创建SpringBoot项目</p>
+<ul>
+<li>SpringBoot ：JavaWeb开发的流行框架</li>
+</ul>
+</li>
+<li><p>导入地图应用静态资源</p>
+</li>
+<li><p>采集用户行为用例开发</p>
+<ul>
+<li><p>JavaEE的经典三层架构：控制器层，业务层，持久层</p>
+</li>
+<li><p>开发顺序：需求分析 -&gt; 设计 -&gt; 数据库表 -&gt; 实体类 -&gt; 持久层（包括测试用例） -&gt; 业务层 -&gt; 控制器层 -&gt; 前端页面</p>
+</li>
+<li><p>MyBatis：持久层框架</p>
+<ul>
+<li>声明持久层接口和抽象方法：OperationDAO</li>
+<li>编写Mapper配置文件，绑定SQL语句：OperationMapper.xml</li>
+</ul>
+</li>
+<li><p>Spring：管理整个项目中对象的生命周期的框架</p>
+<ul>
+<li>@Autowired 注解：不再需要new对象，由Spring框架管理和提供</li>
+</ul>
+</li>
+<li><p>Spring MVC框架：控制器层框架</p>
+<ul>
+<li><p>@RequestMapping：建立控制器方法到路径的映射</p>
+</li>
+<li><p>@RestController：标记当前类是一个Controller，同时自动将方法返回值转换为JSON格式 </p>
+</li>
+<li><p>自动进行请求参数的封装</p>
+<ul>
+<li><p>控制器方法：<code>saveOperation(OperationDO optDO)</code></p>
+</li>
+<li><p>前端请求：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const params=&#123;</span><br><span class="line">	&quot;optType&quot;:1,</span><br><span class="line">	&quot;zoomStartLevel&quot;:15.0,</span><br><span class="line">	&quot;zoomEndLevel&quot;:16.5</span><br><span class="line">&#125;</span><br><span class="line">$.post(url,params,funciton(result)&#123;&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>用户行为数据可视化用例开发</p>
+<ul>
+<li>ECharts：基于JavaScript的数据可视化插件<ul>
+<li>页面中引入ECharts的js文件</li>
+<li>页面中声明一个div作为图表的容器</li>
+<li>使用ECharts的js的API，初始化图表<ul>
+<li>创建图表对象，绑定容器id</li>
+<li>创建配置项对象，配置图表的样式和数据</li>
+<li>图表对象应用配置项对象，显示图表</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/echarts/" rel="tag"># echarts</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3/%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3/" rel="prev" title="购买云服务器与配置">
+      <i class="fa fa-chevron-left"></i> 购买云服务器与配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/25/%E6%A8%A1%E6%9D%BF/" rel="next" title="模板">
+      模板 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#echarts%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4%E6%96%87%E6%A1%A3"><span class="nav-number">1.</span> <span class="nav-text">echarts使用步骤文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%9A%84%E9%80%94%E5%BE%84"><span class="nav-number">1.2.</span> <span class="nav-text">实现数据可视化的途径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-echarts%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.</span> <span class="nav-text">1.echarts使用步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E7%9A%84%E8%A7%A3%E6%9E%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.快速上手的解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%A8%A1%E6%9D%BF%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.模板代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%89%BE%E5%88%B0%E6%83%B3%E8%A6%81%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.找到想要的配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">1.方法一</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%89%BE%E7%B1%BB%E4%BC%BC%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.4.1.1.</span> <span class="nav-text">1.找类似功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%89%BE%E5%88%B0%E4%BB%A3%E7%A0%81%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E8%B0%83%E8%AF%95%E4%B8%80%E4%B8%8B"><span class="nav-number">1.3.4.1.2.</span> <span class="nav-text">2.找到代码在网页中调试一下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%A4%8D%E5%88%B6%E5%88%B0%E8%87%AA%E5%B7%B1%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%B0%83%E8%AF%95%E6%B5%8B%E8%AF%95"><span class="nav-number">1.3.4.1.3.</span> <span class="nav-text">3.复制到自己代码中调试测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%96%B9%E6%B3%95%E4%BA%8C%E5%8E%BB%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3%E6%89%BE%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">2.方法二去配置文档找配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%A0%B9%E6%8D%AElabel%E6%89%BE%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3%E5%8E%BB%E4%B8%8B%E9%9D%A2%E7%9A%84%E6%96%B9%E6%B3%95%E5%8E%BB%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3"><span class="nav-number">1.3.4.2.1.</span> <span class="nav-text">1.根据label找配置文档去下面的方法去配置文档</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8A%A8%E6%80%81%E8%8E%B7%E5%8F%96%E5%9B%BE%E6%A0%87%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">1.4.</span> <span class="nav-text">2.从服务器动态获取图标的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 示例图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.浏览器与服务器交互的数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">1.简单数据格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-JSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">2.JSON数据格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%9B%BE%E7%89%87%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">3.图片示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%89%8D%E5%90%8E%E7%AB%AF%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.前后端数据交互代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%90%8E%E7%AB%AF%E8%BF%94%E5%9B%9E%E7%9A%84%E4%BB%A3%E7%A0%81spring-boot%E4%B8%AD%EF%BC%8Ccontroller%E5%B1%82%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">1.后端返回的代码spring boot中，controller层返回的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%89%8D%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">2.前端请求代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.5.</span> <span class="nav-text">复习</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="希文"
+      src="/images/%E5%A4%B4%E5%83%8F.gif">
+  <p class="site-author-name" itemprop="name">希文</p>
+  <div class="site-description" itemprop="description">日常笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yangmour" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangmour" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiwenya999@gmail.com" title="E-Mail → mailto:xiwenya999@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://poc10.cn/" title="http:&#x2F;&#x2F;poc10.cn&#x2F;" rel="noopener" target="_blank">网络安全方面</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">希文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">363k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:30</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

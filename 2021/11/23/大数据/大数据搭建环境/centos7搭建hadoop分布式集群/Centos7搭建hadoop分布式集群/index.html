@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="## Hadoop搭建 （其他组件安装最近更新） 一.系统一些基本配置1.更改网卡配置（克隆之后把另外两台ip改了） 1vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens33  12345678910111213141516171819202122#网卡里面的配置TYPE&#x3D;EthernetPROXY_METHOD&#x3D;noneBROWSER_ONLY&#x3D;noBOOT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7搭建hadoop分布式集群">
+<meta property="og:url" content="https://yangmour.github.io/2021/11/23/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/Centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/index.html">
+<meta property="og:site_name" content="希文的个人博客">
+<meta property="og:description" content="## Hadoop搭建 （其他组件安装最近更新） 一.系统一些基本配置1.更改网卡配置（克隆之后把另外两台ip改了） 1vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens33  12345678910111213141516171819202122#网卡里面的配置TYPE&#x3D;EthernetPROXY_METHOD&#x3D;noneBROWSER_ONLY&#x3D;noBOOT">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201005184511853.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201005184859975.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201005185016527.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201005185125196.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201005185246861.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201006112421337.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201006114456639.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201006114456629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201006114456622.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201006115915299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201006114610698.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201006120052937.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201008002344331.png#pic_center">
+<meta property="og:image" content="https://image.3001.net/images/20220626/16562131675746.png">
+<meta property="og:image" content="https://image.3001.net/images/20220626/1656213170961.png">
+<meta property="og:image" content="https://image.3001.net/images/20220626/16562131748349.png">
+<meta property="og:image" content="https://image.3001.net/images/20220626/16562131767087.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/2061097/202010/2061097-20201015162717331-1130336676.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/2061097/202010/2061097-20201015161924420-1153711690.png">
+<meta property="og:image" content="https://image.3001.net/images/20220626/16562132038008.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/2061097/202010/2061097-20201015163730289-669511775.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/2061097/202010/2061097-20201015163919405-2078695756.png">
+<meta property="og:image" content="https://image.3001.net/images/20220626/1656213221779.png">
+<meta property="og:image" content="https://image.3001.net/images/20220626/16562132251255.png">
+<meta property="og:image" content="https://yangmour.github.io/2021/11/23/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/Centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/images/1-16559833271371.png">
+<meta property="og:image" content="c:/Users/xiwen/Desktop/大数据方向(共享单车分析系统)/个人文档/images/2-16559833271372.png">
+<meta property="og:image" content="https://yangmour.github.io/2021/11/23/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/Centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/images/3-16559833271373.png">
+<meta property="og:image" content="c:/Users/xiwen/Desktop/大数据方向(共享单车分析系统)/个人文档/images/4-16559833271374.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201008020406927.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201008020448168.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122143223428.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122143817901.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122145507959.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122150017204.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122163607772.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122181238668.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122184640619.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122184743486.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122185045339.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201122190339706.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201123171846372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201123173050203.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201123173512134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832068681.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/1655983208379.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832113265.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832132688.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832229768.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832309686.png">
+<meta property="og:image" content="https://image.3001.net/images/20220623/16559832346107.png">
+<meta property="article:published_time" content="2021-11-23T13:37:37.000Z">
+<meta property="article:modified_time" content="2022-09-08T02:05:33.268Z">
+<meta property="article:author" content="希文">
+<meta property="article:tag" content="hadoop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201005184511853.png#pic_center">
+
+<link rel="canonical" href="https://yangmour.github.io/2021/11/23/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/Centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Centos7搭建hadoop分布式集群 | 希文的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="希文的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">希文的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">白日依山尽，黄河入海流。欲穷千里目，更上一层楼。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">29</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2021/11/23/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/Centos7%E6%90%AD%E5%BB%BAhadoop%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Centos7搭建hadoop分布式集群
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-23 21:37:37" itemprop="dateCreated datePublished" datetime="2021-11-23T21:37:37+08:00">2021-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-08 10:05:33" itemprop="dateModified" datetime="2022-09-08T10:05:33+08:00">2022-09-08</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>17k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>15 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>﻿## Hadoop搭建</p>
+<p>（其他组件安装最近更新）</p>
+<h2 id="一-系统一些基本配置"><a href="#一-系统一些基本配置" class="headerlink" title="一.系统一些基本配置"></a>一.系统一些基本配置</h2><p>1.更改网卡配置（克隆之后把另外两台ip改了）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network<span class="literal">-scripts</span>/ifcfg<span class="literal">-ens33</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#网卡里面的配置</span></span><br><span class="line"><span class="built_in">TYPE</span>=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span>	<span class="comment">#使用static配置</span></span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable<span class="literal">-privacy</span></span><br><span class="line">NAME=ens33</span><br><span class="line">UUID=<span class="number">316</span>c77f2<span class="literal">-75e6</span><span class="literal">-47cd</span><span class="literal">-ba71</span><span class="literal">-227d4ac9457f</span></span><br><span class="line">DEVICE=ens33</span><br><span class="line">ONBOOT=yes	<span class="comment">#开机启动配置</span></span><br><span class="line"><span class="comment">#查看自己的ip和网关</span></span><br><span class="line">IPADDR=<span class="number">192.168</span>.<span class="number">232.111</span>	<span class="comment">#静态ip</span></span><br><span class="line">GATEWAY=<span class="number">192.168</span>.<span class="number">232.2</span>	<span class="comment">#默认网关</span></span><br><span class="line">NETMASK=<span class="number">255.255</span>.<span class="number">255.0</span>	<span class="comment">#子网掩码</span></span><br><span class="line">DNS1=<span class="number">8.8</span>.<span class="number">8.8</span></span><br><span class="line">DNS2=<span class="number">0.0</span>.<span class="number">0.0</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>2.重启网卡</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005184511853.png#pic_center" alt="重启之后这样才对"><br>3.测试网路是否连通</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005184859975.PNG#pic_center" alt="连通的图片"><br>4.关闭防火墙：查看防火墙状态</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall<span class="literal">-cmd</span> -<span class="literal">-state</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005185016527.png#pic_center" alt="防火墙状态"><br>5.临时关闭防火墙，开机还会启动</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005185125196.png#pic_center" alt="临时关闭的状态"><br>6.设置开机不启动</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201005185246861.png#pic_center" alt="在这里插入图片描述"><br>7.常用软件安装</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="literal">-y</span> install vim</span><br><span class="line">yum <span class="literal">-y</span> install <span class="built_in">wget</span></span><br><span class="line">yum <span class="literal">-y</span> install lrzsz</span><br><span class="line">yum <span class="literal">-y</span> install net<span class="literal">-tools</span></span><br><span class="line">yum <span class="literal">-y</span> install psmisc</span><br></pre></td></tr></table></figure>
+
+<p>8.配置阿里yum源</p>
+<p>备份/etc/yum .repos.d/CentOS-Base.repo文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d/</span><br><span class="line"></span><br><span class="line">mv CentOS-Base.repo CentOS-Base.repo.back</span><br></pre></td></tr></table></figure>
+
+<p>下载阿里云的yum源配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+
+<p>清楚原来的缓存，构建新缓存</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<p>9.添加节点信息</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span>.<span class="number">232.111</span> master</span><br><span class="line"><span class="number">192.168</span>.<span class="number">232.112</span> slave1</span><br><span class="line"><span class="number">192.168</span>.<span class="number">232.113</span> slave2</span><br></pre></td></tr></table></figure>
+
+<p>10.修改hostname(修改完成后重启生效)</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hostname(修改完成后重启生效)</span><br><span class="line">hostnamectl <span class="built_in">set-hostname</span> master <span class="comment">#修改hostname为master</span></span><br></pre></td></tr></table></figure>
+
+<p>10.配置节点之间免密访问(在一台机器上执行，再将该节点克隆两份即可，克隆之后在做两次)<br>在家目录下，执行以下代码生成密钥对，一路回车即可：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa <span class="literal">-P</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201006112421337.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>将公钥文件写入授权文件中，并赋予权限</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">chmod <span class="number">600</span> ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>11.克隆虚拟机（看图    注意:虚拟机需要关闭）</p>
+<p><img src="https://img-blog.csdnimg.cn/20201006114456639.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201006114456629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201006114456622.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201006115915299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201006114610698.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>##注意要修改克隆的ip地址以及名称（上面步骤1和10）</p>
+<p>12.节点间免密访问测试（任意两台节点都需要测试，第一次需要输入“yes”）<br>    <img src="https://img-blog.csdnimg.cn/20201006120052937.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="二-开始安装jdk（可以去官网下载jdk）"><a href="#二-开始安装jdk（可以去官网下载jdk）" class="headerlink" title="二.开始安装jdk（可以去官网下载jdk）"></a>二.开始安装jdk（可以去官网下载jdk）</h2><ol>
+<li><h2 id="自行选择下载jdk（点击百度网盘可以下载-jdk百度网盘链接-提取码：d4cf"><a href="#自行选择下载jdk（点击百度网盘可以下载-jdk百度网盘链接-提取码：d4cf" class="headerlink" title="自行选择下载jdk（点击百度网盘可以下载) jdk百度网盘链接 提取码：d4cf"></a>自行选择下载jdk（点击百度网盘可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1rDrzMUO04_6UHNLAiDq-OA">jdk百度网盘链接</a> 提取码：d4cf</h2></li>
+<li><p>用xftp上传jdk-8u162-linux-x64.tar.gz文件到/opt/java(上传完解压文件,然后改名)</p>
+<p><em><strong>/usr/local/java之前用这个目录</strong></em></p>
+</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/java</span><br><span class="line"><span class="built_in">cd</span> /opt/java</span><br><span class="line">tar <span class="literal">-zxvf</span> jdk<span class="literal">-8u162</span><span class="literal">-linux</span><span class="literal">-x64</span>.tar.gz</span><br><span class="line"><span class="built_in">mv</span> jdk1.<span class="number">8.0</span>_162 jdk</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>设置环境变量</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加入下面内容</span></span><br><span class="line">export JAVA_HOME=/opt/java/jdk</span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>执行命令使设置生效</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>验证java是否安装成功</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java <span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201008002344331.png#pic_center" alt="在这里插入图片描述"></p>
+<p> 6.执行以下命令，在其他两台节点安装(如果ssh没有使文件生效就去子节点再去执行一下)</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#给子节点创建java文件夹</span></span><br><span class="line">ssh slave1 mkdir /opt/java</span><br><span class="line">ssh slave2 mkdir /opt/java</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点上的安装包分发到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /opt/java slave1:/usr/local</span><br><span class="line">scp <span class="literal">-r</span> /opt/java slave2:/usr/local</span><br><span class="line"></span><br><span class="line"><span class="comment">#将master节点的配置好的环境变量覆盖到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave1:/etc/profile</span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave2:/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#使修改生效</span></span><br><span class="line">ssh slave1 source /etc/profile</span><br><span class="line">ssh slave2 source /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看是否安装成功</span></span><br><span class="line">ssh slave1 java <span class="literal">-version</span></span><br><span class="line">ssh slave2 java <span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三-数据库安装"><a href="#三-数据库安装" class="headerlink" title="三.数据库安装"></a>三.数据库安装</h2><p>注意：</p>
+<p>​    mariadb和mysql安装一个就行。</p>
+<p>​    MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可 MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。</p>
+<h3 id="1-mysql压缩版"><a href="#1-mysql压缩版" class="headerlink" title="1.mysql压缩版"></a>1.mysql压缩版</h3><h4 id="1-下载linux版本安装包"><a href="#1-下载linux版本安装包" class="headerlink" title="1.下载linux版本安装包"></a>1.下载linux版本安装包</h4><p>官网下载网址：<a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/community/">https://downloads.mysql.com/archives/community/</a></p>
+<p><img src="https://image.3001.net/images/20220626/16562131675746.png" alt="image-20220626083609228"></p>
+<h4 id="2-用tabby软件SFTP将压缩文件-tar上传到linux服务器"><a href="#2-用tabby软件SFTP将压缩文件-tar上传到linux服务器" class="headerlink" title="2.用tabby软件SFTP将压缩文件.tar上传到linux服务器"></a>2.用tabby软件<code>SFTP</code>将压缩文件.tar上传到linux服务器</h4><p>上传到<code>/opt/software/mysql</code>路径下</p>
+<p><img src="https://image.3001.net/images/20220626/1656213170961.png" alt="image-20220626083657144"></p>
+<h4 id="3-解压文件安装"><a href="#3-解压文件安装" class="headerlink" title="3.解压文件安装"></a>3.解压文件安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/software/mysql</span><br><span class="line"><span class="meta">#</span><span class="bash">解压(第一个解压.xz文件，第第二个解压.gz文件)</span></span><br><span class="line">tar -xvf mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz</span><br><span class="line">tar -zxvf mysql-8.0.20-linux-glibc2.12-x86_64.tar.gz</span><br><span class="line"><span class="meta">#</span><span class="bash">改名字</span></span><br><span class="line">mv mysql-8.0.20-linux-glibc2.12-x86_64 mysql8.0</span><br></pre></td></tr></table></figure>
+
+<p>解压图片(后来移动到/opt/software/mysql文件夹中)</p>
+<p><img src="https://image.3001.net/images/20220626/16562131748349.png" alt="image-20220626084209658"></p>
+<p>改名字图片</p>
+<p><img src="https://image.3001.net/images/20220626/16562131767087.png" alt="image-20220626085345521"></p>
+<p><code>/opt/software/mysql</code>路径下创建一个存放mysql数据的文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">创建文件夹</span></span><br><span class="line">mkdir -p data/mysql8.0</span><br><span class="line"><span class="meta">#</span><span class="bash">创建mysql用户</span></span><br><span class="line">useradd mysql</span><br><span class="line"><span class="meta">#</span><span class="bash">mysql数据目录改为mysql读写权限</span></span><br><span class="line">chown  -R mysql:mysql  /opt/software/mysql/data/mysql8.0</span><br></pre></td></tr></table></figure>
+
+<p>设置配置文件，编译<code>/etc/my.cnf</code> ， 内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查看</span><br><span class="line">cat /etc/my.cnf</span><br><span class="line">#编辑</span><br><span class="line">vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
+
+<p>原版my.cnf文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">datadir=/var/lib/mysql</span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line"># Disabling symbolic-links is recommended to prevent assorted security risks</span><br><span class="line">symbolic-links=0</span><br><span class="line"># Settings user and group are ignored when systemd is used.</span><br><span class="line"># If you need to run mysqld under a different user or group,</span><br><span class="line"># customize your systemd unit file for mariadb according to the</span><br><span class="line"># instructions in http://fedoraproject.org/wiki/Systemd</span><br><span class="line"></span><br><span class="line">[mysqld_safe]</span><br><span class="line">log-error=/var/log/mariadb/mariadb.log</span><br><span class="line">pid-file=/var/run/mariadb/mariadb.pid</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># include all files from the config directory</span><br><span class="line">#</span><br><span class="line">!includedir /etc/my.cnf.d</span><br></pre></td></tr></table></figure>
+
+<p>修改后，<code>英文状态下点击esc -&gt; shift + : -&gt; wq </code>保存退出</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">#datadir=/var/lib/mysql</span><br><span class="line">#socket=/var/lib/mysql/mysql.sock</span><br><span class="line"># Disabling symbolic-links <span class="keyword">is</span> recommended <span class="keyword">to</span> prevent assorted security risks</span><br><span class="line">#symbolic-links=<span class="number">0</span></span><br><span class="line"># Settings user <span class="built_in">and</span> group are ignored when systemd <span class="keyword">is</span> used.</span><br><span class="line"># If you need <span class="keyword">to</span> run mysqld under <span class="keyword">a</span> different user <span class="built_in">or</span> group,</span><br><span class="line"># customize your systemd unit <span class="keyword">file</span> <span class="keyword">for</span> mariadb according <span class="keyword">to</span> the</span><br><span class="line"># instructions in http://fedoraproject.org/wiki/Systemd</span><br><span class="line"></span><br><span class="line">#bind-address=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line">port=<span class="number">3306</span></span><br><span class="line">user=mysql</span><br><span class="line">#安装目录</span><br><span class="line">basedir=/<span class="keyword">opt</span>/software/mysql/mysql8.<span class="number">0</span></span><br><span class="line">datadir=/<span class="keyword">opt</span>/software/mysql/data/mysql8.<span class="number">0</span></span><br><span class="line">socket=/tmp/mysql.sock</span><br><span class="line">#socket=/data/mysql/mysql.sock</span><br><span class="line"><span class="built_in">log</span>-error=/<span class="keyword">opt</span>/software/mysql/data/mysql8.<span class="number">0</span>/mysql.err</span><br><span class="line">pid-<span class="keyword">file</span>=/<span class="keyword">opt</span>/software/mysql/data/mysql8.<span class="number">0</span>/mysql.pid</span><br><span class="line">##character config</span><br><span class="line">character_set_server=utf8mb4</span><br><span class="line">symbolic-links=<span class="number">0</span></span><br><span class="line">explicit_defaults_for_timestamp=true</span><br><span class="line"></span><br><span class="line">[mysqld_safe]</span><br><span class="line">#log-error=/var/<span class="built_in">log</span>/mariadb/mariadb.<span class="built_in">log</span></span><br><span class="line"><span class="built_in">log</span>-error=/<span class="keyword">opt</span>/software/mysql/data/mysql8.<span class="number">0</span>/mariadb.<span class="built_in">log</span></span><br><span class="line">#pid-<span class="keyword">file</span>=/var/run/mariadb/mariadb.pid</span><br><span class="line">pid-<span class="keyword">file</span>=/<span class="keyword">opt</span>/software/mysql/data/mysql8.<span class="number">0</span>/mariadb.pid</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># include <span class="keyword">all</span> <span class="keyword">files</span> from the config directory</span><br><span class="line">#</span><br><span class="line">!includedir /etc/my.<span class="keyword">cnf</span>.d</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>注意、注意、注意，很重要，补充知识：(看到就复制下来了)</strong></p>
+<p>不要将配置文件中的socket=/tmp/mysql.sock 改为你自定义目录文件的路径，如：#socket=/data/mysql/mysql.sock，非常容易出现一下图片中的错误，处理起来可能费时间和精力，我也像网上说的使用自己的目录且给/tmp/mysql.sock 建立了软连接也不管用，所以还是建议按照我的配置去配置，不要改socket的目录了。</p>
+<p><img src="https://img2020.cnblogs.com/blog/2061097/202010/2061097-20201015162717331-1130336676.png" alt="img"></p>
+<p>进入<code>/opt/software/mysql/mysql8.0/bin</code>目录下进行初始化mysql,一定要记住初始化输出日志末尾的密码（数据库管理员临时密码）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mysqld --initialize --user=mysql --datadir=/opt/software/mysql/data/mysql8.0 --basedir=/opt/software/mysql/mysql8.0</span><br></pre></td></tr></table></figure>
+
+<p>如果出现下面错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]# ./mysqld --initialize --user=mysql --datadir=/opt/software/mysql/data/mysql8.0 --basedir=/opt/software/mysql/mysql8.0</span><br><span class="line">./mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>解决方法：需要libaio包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install libaio</span><br></pre></td></tr></table></figure>
+
+<p>继续初始化</p>
+<p>如果屏幕上没有打印则去日志文件中查看初始化完成后的临时密码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /opt/software/mysql/data/mysql8.0/mysql.err</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/2061097/202010/2061097-20201015161924420-1153711690.png" alt="img"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">将默认启动文件复制到指定目录</span></span><br><span class="line">cp /opt/software/mysql/mysql8.0/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line"><span class="meta">#</span><span class="bash">启动mysql服务</span></span><br><span class="line">/etc/init.d/mysqld start</span><br><span class="line"><span class="meta">#</span><span class="bash">停止mysql服务，需要的时候在停止</span></span><br><span class="line">/etc/init.d/mysqld stop</span><br><span class="line"><span class="meta">#</span><span class="bash">查看服务</span></span><br><span class="line">ps -ef|grep mysql</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20220626/16562132038008.png" alt="image-20220626094703268"></p>
+<p>将mysql命令添加到系统环境变量</p>
+<p>设置环境变量</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加入下面内容</span></span><br><span class="line">export MYSQL_HOME=/opt/software/mysql/mysql8.<span class="number">0</span></span><br><span class="line">export PATH=<span class="variable">$PATH:</span><span class="variable">$MYSQL_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+
+<p>执行命令使设置生效</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>开机自启动命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable mysqld</span><br></pre></td></tr></table></figure>
+
+<p>mysql8.0修改密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;xxxxxxx&#x27;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/2061097/202010/2061097-20201015163730289-669511775.png" alt="img"></p>
+<p>开放远程连接（开通后你的mysql就可以让其他远端客户端访问了），执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update user set user.Host=&#x27;%&#x27; where user.User=&#x27;root&#x27;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/2061097/202010/2061097-20201015163919405-2078695756.png" alt="img"></p>
+<p> 查看防火墙状态，运行状态才能开放3306端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">查看防火墙状态</span></span><br><span class="line">systemctl is-enabled firewalld</span><br><span class="line"><span class="meta">#</span><span class="bash">开启防火墙</span></span><br><span class="line">systemctl status firewalld</span><br><span class="line"><span class="meta">#</span><span class="bash">关闭防火墙</span></span><br><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+
+<p>开放端口</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">firewall-cmd</span> <span class="built_in">--zone=public</span> <span class="built_in">--add-port=3306/tcp</span> <span class="built_in">--permanent</span></span><br><span class="line"><span class="string">firewall-cmd</span> <span class="built_in">--reload</span>   <span class="comment"># 配置立即生效 </span></span><br></pre></td></tr></table></figure>
+
+<p>关闭端口</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">firewall-cmd</span> <span class="built_in">--zone=public</span> <span class="built_in">--remove-port=3306/tcp</span> <span class="built_in">--permanent</span></span><br><span class="line"><span class="string">firewall-cmd</span> <span class="built_in">--reload</span>   <span class="comment"># 配置立即生效</span></span><br></pre></td></tr></table></figure>
+
+<p>查看防火墙所有开放的端口</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">firewall</span><span class="literal">-</span><span class="comment">cmd</span> --<span class="comment">zone=public</span> --<span class="comment">list</span><span class="literal">-</span><span class="comment">ports</span></span><br></pre></td></tr></table></figure>
+
+<p>在安全组中启用3306端口</p>
+<p><img src="https://image.3001.net/images/20220626/1656213221779.png" alt="image-20220626111059545"></p>
+<p>到此，你的mysql已经安装成功，本地电脑的navicat也可以连接开心的使用去吧。</p>
+<img src="https://image.3001.net/images/20220626/16562132251255.png" alt="image-20220626111230642" style="zoom:50%;" />
+
+
+
+<p><strong>其他问题：如果前面没有出现不用做安装完libaio包继续初始化mysql出现</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2022-06-26T01:23:44.558906Z 0 [Warning] [MY-011070] [Server] &#x27;Disabling symbolic links using --skip-symbolic-links (or equivalent) is the default. Consider not using this option as it&#x27; is deprecated and will be removed in a future release.</span><br><span class="line">2022-06-26T01:23:44.559003Z 0 [System] [MY-013169] [Server] /opt/software/mysql/mysql8.0/bin/mysqld (mysqld 8.0.20) initializing of server in progress as process 15622</span><br><span class="line">2022-06-26T01:23:44.560967Z 0 [ERROR] [MY-010124] [Server] Fatal error: Can&#x27;t change to run as user &#x27;mysql&#x27; ;  Please check that the user exists!</span><br><span class="line">2022-06-26T01:23:44.560975Z 0 [ERROR] [MY-013236] [Server] The designated data directory /opt/software/mysql/data/mysql8.0/ is unusable. You can remove all files that the server added to it.</span><br><span class="line">2022-06-26T01:23:44.561021Z 0 [ERROR] [MY-010119] [Server] Aborting</span><br><span class="line">2022-06-26T01:23:44.561158Z 0 [System] [MY-010910] [Server] /opt/software/mysql/mysql8.0/bin/mysqld: Shutdown complete (mysqld 8.0.20)  MySQL Community Server - GPL.</span><br></pre></td></tr></table></figure>
+
+<p>解决问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#创建mysql用户</span><br><span class="line">useradd mysql</span><br><span class="line">#mysql数据目录改为mysql读写权限</span><br><span class="line">chown  -R mysql:mysql  /opt/software/mysql/data/mysql8.0</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-yum安装MariaDB完全支持mysql"><a href="#2-yum安装MariaDB完全支持mysql" class="headerlink" title="2.yum安装MariaDB完全支持mysql"></a>2.yum安装MariaDB完全支持mysql</h3><p>在云主机中输入：<code>yum install mariadb-server</code>，在线安装Mariadb</p>
+<p><img src="images/1-16559833271371.png" alt="img"></p>
+<p>进入自动安装，完毕会有如下提示：</p>
+<p><img src="C:/Users/xiwen/Desktop/大数据方向(共享单车分析系统)/个人文档/images/2-16559833271372.png" alt="img"></p>
+<p>第一次使用MariaDB之前，需要进行初始化操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">启动MariaDB</span><br><span class="line">systemctl start mariadb</span><br><span class="line"></span><br><span class="line">设置开机启动</span><br><span class="line">systemctl enable mariadb</span><br><span class="line"></span><br><span class="line">MariaDB初始化配置</span><br><span class="line">mysql_secure_installation</span><br><span class="line"></span><br><span class="line">密码验证，初次直接敲回车</span><br><span class="line">Enter current password for root (enter for none):&lt;–初次运行直接回车</span><br><span class="line"></span><br><span class="line">设置root用户密码-教学这里使用root</span><br><span class="line">Set root password? [Y/n] &lt;– 是否设置root用户密码，输入y并回车或直接回车</span><br><span class="line">New password: &lt;– 设置root用户的密码</span><br><span class="line">Re-enter new password: &lt;– 再输入一次你设置的密码</span><br><span class="line"></span><br><span class="line">其他配置：</span><br><span class="line">Remove anonymous users? [Y/n] &lt;– 是否删除匿名用户，回车</span><br><span class="line">Disallow root login remotely? [Y/n] &lt;–是否禁止root远程登录,回车,</span><br><span class="line">Remove test database and access to it? [Y/n] &lt;– 是否删除test数据库，回车</span><br><span class="line">Reload privilege tables now? [Y/n] &lt;– 是否重新加载权限表，回车</span><br></pre></td></tr></table></figure>
+
+<p><img src="images/3-16559833271373.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">登录MariaDB:</span><br><span class="line">mysql -uroot -proot</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:/Users/xiwen/Desktop/大数据方向(共享单车分析系统)/个人文档/images/4-16559833271374.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">退出MariaDB</span><br><span class="line">exit;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="四-Hadoop安装"><a href="#四-Hadoop安装" class="headerlink" title="四.Hadoop安装"></a>四.Hadoop安装</h2><ol>
+<li>自行选择下载jdk（点击百度网盘可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1FqJ0AgykeHqj2o2oOh5xuA">hadoop百度网盘链接</a> 提取码：3bq4</li>
+<li>用xftp上传hadoop文件到/opt/hadoop(上传完解压文件,然后改名)</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/hadoop</span><br><span class="line"><span class="built_in">cd</span> /opt/hadoop </span><br><span class="line">tar <span class="literal">-zxvf</span> hadoop<span class="literal">-2</span>.<span class="number">7.5</span>.tar.gz</span><br><span class="line"><span class="built_in">mv</span> hadoop<span class="literal">-2</span>.<span class="number">7.5</span> hadoop</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>配置环境变量</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#在末尾增加以下内容，然后保存</span></span><br><span class="line"><span class="comment">#HADOOP</span></span><br><span class="line">export HADOOP_HOME=/opt/hadoop/hadoop</span><br><span class="line">export PATH=<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>配置env文件（打开hadoop-env.sh，找到“export JAVA_HOME”这行配制jdk路径。）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/hadoop/hadoop/etc/hadoop/hadoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#写入下列路径(编辑完保存退出即可。)</span></span><br><span class="line">export JAVA_HOME=/opt/java/jdk</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>配置核心组件文件（/opt/hadoop/hadoop/etc/hadoop/core-site.xml）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/core<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;!-- hdfs的地址名称：schame,ip,port--&gt;</span><br><span class="line">		&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;hdfs://master:<span class="number">9000</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;!-- hdfs的基础路径，被其他属性所依赖的一个基础路径（这里应该是tmpDatas，之前是名字是hadoopdata） --&gt;</span><br><span class="line"></span><br><span class="line">		&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/opt/hadoop/tmpDatas&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建hadoop数据目录</span></span><br><span class="line">mkdir /opt/hadoop/hadoopdata</span><br></pre></td></tr></table></figure>
+
+<p> 6.配置文件系统（/opt/hadoop/hadoop/etc/hadoop/hdfs-site.xml）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/hdfs<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;!-- 块的副本数--&gt;</span><br><span class="line">		&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;<span class="number">3</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>配置yarn站点文件（/opt/hadoop/hadoop/etc/hadoop/yarn-site.xml）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/yarn<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑的文件（将下列的配置代码放在文件的&lt;configuration&gt;和&lt;/configuration&gt;,保存退出即可）</span></span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;!-- 指定yarn的shuffle技术--&gt;</span><br><span class="line">	&lt;name&gt;yarn.nodemanager.aux<span class="literal">-services</span>&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18040</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18030</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.resource<span class="literal">-tracker</span>.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18025</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">18141</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:<span class="number">8088</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>配置MapReduce计算框架文件（）</li>
+</ol>
+<p> 在“/opt/hadoop/hadoop/etc/hadoop”子目录下，系统已经有一个 mapred-site.xml.template文件，我们需要将其复制并改名，位置不变，命令是“</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml.template /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml</span><br><span class="line">vim /opt/hadoop/hadoop/etc/hadoop/mapred<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<p>  ”，然后，用 vi编辑 mapred-site.xml 文件，需要将下面的代码填充到文件<configuration> </configuration>中间</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;!-- 指定mapreduce使用yarn资源管理器--&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>编辑完毕，保存退出即可。</p>
+<ol start="9">
+<li>配置Master的slaves文件</li>
+</ol>
+<ul>
+<li><p>slaves 文件给出了 Hadoop 集群的 Slave 节点列表。该文件十分重要，因为启动Hadoop 的时候，系统总是根据当前 slaves 文件中 Slave 节点名称列表启动集群，不在列表中的Slave 节点便不会被视为计算节点。</p>
+<ol>
+<li>用 vi编辑 slaves 文件，我们应当根据自己所搭建集群的实际情况进行编辑。例如，我们这里由于已经安装了 Slave0 和 Slave1，并且计划将它们全部投入 Hadoop 集群运行，所以应当输入如下代码。</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/hadoop/hadoop/etc/hadoop/slaves</span><br><span class="line">	</span><br><span class="line"><span class="comment">#写入下列（需要删除原来文件里面localhost那一行）</span></span><br><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>复制 Master 上的 Hadoop 到 Slave 节点（通过复制 Master 节点上的hadoop，能够大大提高系统部署效率。由于我们这里有Slave1 和 Slave2，所以要复制两次。）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp <span class="literal">-r</span> /opt/hadoop root@slave1:/opt</span><br><span class="line">scp <span class="literal">-r</span> /opt/hadoop root@slave2:/opt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>复制Master上的配置文件到Slave节点</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将master节点的配置好的环境变量覆盖到其他节点</span></span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave1:/etc/profile</span><br><span class="line">scp <span class="literal">-r</span> /etc/profile slave2:/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#使修改生效</span></span><br><span class="line">ssh slave1 source /etc/profile</span><br><span class="line">ssh slave2 source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<ol start="12">
+<li>格式化文件系统（该操作只需要在 Master 节点上进行，命令是“ hadoop namenode -format”）</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode <span class="literal">-format</span></span><br></pre></td></tr></table></figure>
+
+<ol start="13">
+<li>启动和关闭 Hadoop</li>
+</ol>
+<ul>
+<li>可以使用 start-all.sh 命令启动 Hadoop 集群。<br>首先进入 Hadoop 安装主目录，然后执行 shin/start-all.sh 命令，执行命令后，系统提示“ Are you sure want to continue connecting（yes/no）”，请输入yes，之后系统即可启动。 </li>
+<li>要关闭 Hadoop 集群，可以使用 stop-all.sh 命令,<br>下次启动 Hadoop 时候，无须 NameNode 的初始化，只需要使用start-dfs.sh 命令即可，然后接着使用 start-yarn.sh 启动 Yarn 。</li>
+<li>实际上，Hadoop 系统建议放弃（deprecated）使用 start-all. sh 和 stop-all.sh 一类的命令，而改用 start-dfs.sh 和 start-yarn .sh 命令。</li>
+</ul>
+<ol start="14">
+<li>验证 Hadoop 是否启动成功</li>
+</ol>
+<ul>
+<li>用户可以在终端执行 jps 命令查看 Hadoop 是否启动成功。在 Master 节点，执行 jps后如果显示的结果是四个进程的名称： SecondaryNameNode、 ResourceManager、 Jps 和NameNode，如下图所示，则表明主节点（ Master ）启动成功 。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20201008020406927.png#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>在 Slave0 节点执行 jps 命令，打印的结果中会显示三个进程，分别是 NodeManager、<br>Jps 和 DataNode ，如下图所示，表明从节点（Slave0）启动成功。其他节点可以类似验证。<br><img src="https://img-blog.csdnimg.cn/20201008020448168.png#pic_center" alt="在这里插入图片描述"></li>
+</ul>
+<p>​    16.jsp中进程解析</p>
+<h2 id="五-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）"><a href="#五-Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all-sh）" class="headerlink" title="五.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）"></a>五.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）</h2><p>1.自行选择下载hive（点击百度网盘链接可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ICqytI-qI6Xa1A4jg2mBqg">百度网盘链接</a> 提取码：vauh</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建文件夹</span></span><br><span class="line">mkdir /opt/Hive</span><br></pre></td></tr></table></figure>
+
+<p>2.用xftp上传压缩文件.gz文件到/opt/Hive(上传完解压文件,然后改名)<br><img src="https://img-blog.csdnimg.cn/20201122143223428.png#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#解压文件夹</span></span><br><span class="line">tar <span class="literal">-zxvf</span> apache<span class="literal">-hive</span><span class="literal">-2</span>.<span class="number">3.4</span><span class="literal">-bin</span>.tar.gz</span><br><span class="line"><span class="comment">#给解压的文件改名为hive</span></span><br><span class="line"><span class="built_in">mv</span> apache<span class="literal">-hive</span><span class="literal">-2</span>.<span class="number">3.4</span><span class="literal">-bin</span> hive</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122143817901.png#pic_center" alt="在这里插入图片描述"><br>3.配置hive环境变量</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打开文件</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#打开文件后在对下面添加hive路径</span></span><br><span class="line">export HIVE_HOME=/opt/Hive/hive</span><br><span class="line"><span class="comment">#参考这个我的路径前面配置了jkd，Hadoop路经。“export PATH=$HIVE_HOME/bin:$PATH”</span></span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$HIVE_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br><span class="line"><span class="comment">#查看hive版本号(出现版本说明安装正确）</span></span><br><span class="line">hive -<span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122145507959.png#pic_center" alt="在这里插入图片描述"><br>4.修改hive配置文件</p>
+<p>进入conf文件夹查看文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/Hive/hive/conf/</span><br><span class="line"><span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122150017204.png#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> hive<span class="literal">-env</span>.sh.template hive<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#添加hadoop环境变量</span></span><br><span class="line">export HADOOP_HOME=/opt/hadoop/hadoop</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122163607772.png#pic_center" alt="在这里插入图片描述"></p>
+<p>查看hive-site.xml（如果没有就复制一份模板）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#复制模板（有hive-site.xml文件跳过这一步）</span></span><br><span class="line"><span class="built_in">cp</span> hive<span class="literal">-default</span>.xml.template hive<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<p>配置hive-site.xml</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim hive<span class="literal">-site</span>.xml</span><br></pre></td></tr></table></figure>
+
+<p>在文件中添加（汉字是解释，把这一段放在文件最下面，在</configuration>上面）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;用户名（这是新添加的，记住删除配置文件原有的哦！）</span><br><span class="line">       &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;密码</span><br><span class="line">       &lt;value&gt;<span class="number">123456</span>&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;mysql</span><br><span class="line">       &lt;value&gt;jdbc:mysql://<span class="number">192.168</span>.<span class="number">232.111</span>:<span class="number">3306</span>/hive&lt;/value&gt;mysql的ip端口号</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">   &lt;property&gt;</span><br><span class="line">       &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;mysql驱动程序</span><br><span class="line">       &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;system:java.io.tmpdir&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;/opt/Hive/hive/logs/tmp&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122181238668.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>5.用xftp复制mysql的驱动程序到hive/lib下面，<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iM8zAuuemijjAfNiODui6A">百度网盘中的mysql的jar包链接</a>，验证码：h4m1。我用的jar包为：mysql-connector-java-5.1.21-bin.jar</p>
+<p>​<br>6.在mysql中hive的schema（在此之前需要创建mysql下的hive数据库）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/Hive/hive/bin</span><br><span class="line">schematool <span class="literal">-dbType</span> mysql <span class="literal">-initSchema</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122184640619.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>7.执行hive命令</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122184743486.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>1.出现报错</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201122185045339.png#pic_center" alt="在这里插入图片描述"><br>进入hive文件夹下的conf文件下,找到hive-site.xml</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">修改前：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="variable">$</span>&#123;system:java.io.tmpdir&#125;/<span class="variable">$</span>&#123;system:user.name&#125;&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;Local scratch space <span class="keyword">for</span> Hive jobs&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">修改后：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="variable">$</span>&#123;system:java.io.tmpdir&#125;/<span class="variable">$</span>&#123;user.name&#125;&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;Local scratch space <span class="keyword">for</span> Hive jobs&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在查看测试成功<br><img src="https://img-blog.csdnimg.cn/20201122190339706.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="六-Sqoop安装"><a href="#六-Sqoop安装" class="headerlink" title="六.Sqoop安装"></a>六.Sqoop安装</h2><p>1.自行选择下载sqoop（点击百度网盘链接可以下载) <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Df7hy1i_Sfvf29yZKp5dsw">百度网盘链接</a> 提取码：bhpf  </p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建文件夹</span></span><br><span class="line">mkdir /opt/Sqoop</span><br></pre></td></tr></table></figure>
+
+<p>2.用xftp上传压缩文件.gz文件到/opt/Sqoop(上传完解压文件,然后改名)</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#解压文件</span></span><br><span class="line">tar <span class="literal">-zxvf</span> sqoop<span class="literal">-1</span>.<span class="number">4.7</span>.bin__hadoop<span class="literal">-2</span>.<span class="number">6.0</span>.tar.gz</span><br><span class="line">解压完改名</span><br><span class="line"><span class="built_in">mv</span> sqoop<span class="literal">-1</span>.<span class="number">4.7</span>.bin__hadoop<span class="literal">-2</span>.<span class="number">6.0</span> sqoop</span><br></pre></td></tr></table></figure>
+
+<p>3.配置环境变量</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打开文件</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment">#打开文件后在对下面添加hive路径</span></span><br><span class="line">export SQOOP_HOME=/opt/Sqoop/sqoop</span><br><span class="line"><span class="comment">#参考这个我的路径前面配置了jkd，Hadoop,hive路经。“export PATH=$PATH:$SQOOP_HOME/bin&quot;</span></span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$HIVE_HOME</span>/bin:<span class="variable">$PATH:</span><span class="variable">$SQOOP_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment">#使文件生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>4.修改配置文件<br>Sqoop的配置文件与大多数大数据框架类似，在sqoop根目录下的conf目录中。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入目录</span></span><br><span class="line"><span class="built_in">cd</span> /opt/Sqoop/sqoop/conf</span><br><span class="line"><span class="comment">#复制文件并改名</span></span><br><span class="line"><span class="built_in">cp</span> sqoop<span class="literal">-env</span><span class="literal">-template</span>.sh sqoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#进入文件</span></span><br><span class="line">vim sqoop<span class="literal">-env</span>.sh</span><br><span class="line"><span class="comment">#文件里需要添加的参数</span></span><br><span class="line">export HADOOP_COMMON_HOME=/opt/hadoop/hadoop</span><br><span class="line">export HADOOP_MAPRED_HOME=/opt/hadoop/hadoop</span><br><span class="line">export HIVE_HOME=/opt/Hive/hive</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201123171846372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>5.拷贝mysql驱动</p>
+<p>拷贝上面hive用的mysql驱动到sqoop的lib目录下</p>
+<p>6.验证 Sqoop<br>我们可以通过某一个 command 来验证 sqoop 配置是否正确：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqoop help</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201123173050203.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqoop list<span class="literal">-databases</span> -<span class="literal">-connect</span> jdbc:mysql://master:<span class="number">3306</span>/ -<span class="literal">-username</span> root -<span class="literal">-password</span> xiwen123</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20201123173512134.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk2MTM4Nw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="七-安装Tomcat"><a href="#七-安装Tomcat" class="headerlink" title="七.安装Tomcat"></a>七.安装Tomcat</h2><ul>
+<li>下载Tomcat8.5安装文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.huaweicloud.com/apache/tomcat/tomcat-8/v8.5.63/bin/apache-tomcat-8.5.63.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20220623/16559832068681.png"></p>
+<ul>
+<li>解压缩</li>
+</ul>
+<p>将Tomcat安装文件解压缩到<code>/opt</code>目录下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxf apache-tomcat-8.5.63.tar.gz -C /opt/</span><br></pre></td></tr></table></figure>
+
+<p>查看并将文件夹重命名为<code>tomcat-8.5</code></p>
+<p><img src="https://image.3001.net/images/20220623/1655983208379.png"></p>
+<ul>
+<li>配置环境变量</li>
+</ul>
+<p>编辑<code>/etc/profile</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>vim会开启文档查看窗口，默认情况下不可修改文档内容，可以使用键盘的方向键浏览文档。这里使用<code>↓</code>移动到文档的最后一行，按键盘上的<code>i</code>键进入编辑模式，会看到文档下方提示<code>-- INSERT --</code>，该模式下可以对文档内容进行修改。</p>
+<p>在文件最后声明<code>CATALINA_HOME</code>变量，并将<code>$CATALINA_HOME/bin</code>添加到<code>PATH</code>变量中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/opt/jdk1.8.0</span><br><span class="line">export CATALINA_HOME=/opt/tomcat-8.5</span><br><span class="line">export PATH=$CATALINA_HOME/bin:$JAVA_HOME/bin:$PATH:$HOME/bin</span><br></pre></td></tr></table></figure>
+
+<p>然后按ESC退出编辑模式，输入<code>:wq!</code>保存本次修改并退出<code>vim</code>。</p>
+<p>对<code>/etc/profile</code>文件的修改默认不会马上生效，可以使用命令<code>source /etc/profile</code>让本次修改在当前访问中生效。</p>
+<p>配置成功后，检查环境变量是否配置成功，可以输入命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">version.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20220623/16559832113265.png"></p>
+<p>如果可以输出上述信息，则环境变量配置成功。如果提示<code>command not found</code>，则表示配置失败，需要重新对<code>/etc/profile</code>进行配置。</p>
+<p>解决Centos7下Tomcat启动过慢的问题：配置JVM使用伪随机函数生成器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/jdk1.8.0/jre/lib/security/java.security</span><br></pre></td></tr></table></figure>
+
+<p>将117行修改为<code>securerandom.source=file:/dev/urandom</code></p>
+<p><img src="https://image.3001.net/images/20220623/16559832132688.png"></p>
+<ul>
+<li>启动Tomcat</li>
+</ul>
+<p>可以直接使用命令启动Tomcat：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">startup.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20220623/16559832229768.png"></p>
+<p>我们可以通过本地浏览器，远程访问云主机上的Tomcat首页。</p>
+<p>关闭Tomcat的命令为<code>shutdown.sh</code>。</p>
+<p>需要注意，还应该在阿里云主机控制台安全组设定中，添加一条入方向规则，开放8080端口：</p>
+<p><img src="https://image.3001.net/images/20220623/16559832309686.png" alt="img"></p>
+<p>开发端口后，在云主机上启动Tomcat，然后在本地浏览器中输入<code>http://云主机公网ip:8080</code>，可以访问到云主机的Tomcat首页：</p>
+<p><img src="https://image.3001.net/images/20220623/16559832346107.png" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hadoop/" rel="tag"># hadoop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/6-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E4%B8%8B/" rel="next" title="6-面向对象-下">
+      6-面向对象-下 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%B3%BB%E7%BB%9F%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">一.系统一些基本配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85jdk%EF%BC%88%E5%8F%AF%E4%BB%A5%E5%8E%BB%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BDjdk%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二.开始安装jdk（可以去官网下载jdk）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E8%A1%8C%E9%80%89%E6%8B%A9%E4%B8%8B%E8%BD%BDjdk%EF%BC%88%E7%82%B9%E5%87%BB%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E5%8F%AF%E4%BB%A5%E4%B8%8B%E8%BD%BD-jdk%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%93%BE%E6%8E%A5-%E6%8F%90%E5%8F%96%E7%A0%81%EF%BC%9Ad4cf"><span class="nav-number">3.</span> <span class="nav-text">自行选择下载jdk（点击百度网盘可以下载) jdk百度网盘链接 提取码：d4cf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">三.数据库安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-mysql%E5%8E%8B%E7%BC%A9%E7%89%88"><span class="nav-number">4.1.</span> <span class="nav-text">1.mysql压缩版</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDlinux%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">4.1.1.</span> <span class="nav-text">1.下载linux版本安装包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%94%A8tabby%E8%BD%AF%E4%BB%B6SFTP%E5%B0%86%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6-tar%E4%B8%8A%E4%BC%A0%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">4.1.2.</span> <span class="nav-text">2.用tabby软件SFTP将压缩文件.tar上传到linux服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A7%A3%E5%8E%8B%E6%96%87%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">4.1.3.</span> <span class="nav-text">3.解压文件安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-yum%E5%AE%89%E8%A3%85MariaDB%E5%AE%8C%E5%85%A8%E6%94%AF%E6%8C%81mysql"><span class="nav-number">4.2.</span> <span class="nav-text">2.yum安装MariaDB完全支持mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.3.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-Hadoop%E5%AE%89%E8%A3%85"><span class="nav-number">5.</span> <span class="nav-text">四.Hadoop安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-Hive%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E5%AE%89%E8%A3%85%EF%BC%88%E5%90%AF%E5%8A%A8hive%E4%B9%8B%E5%89%8D%E8%A6%81%E5%90%AF%E5%8A%A8Hadoop%E5%91%BD%E4%BB%A4%E4%B8%BA%EF%BC%9Astart-all-sh%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">五.Hive数据仓库安装（启动hive之前要启动Hadoop命令为：start-all.sh）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-Sqoop%E5%AE%89%E8%A3%85"><span class="nav-number">7.</span> <span class="nav-text">六.Sqoop安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E5%AE%89%E8%A3%85Tomcat"><span class="nav-number">8.</span> <span class="nav-text">七.安装Tomcat</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="希文"
+      src="/images/%E5%A4%B4%E5%83%8F.gif">
+  <p class="site-author-name" itemprop="name">希文</p>
+  <div class="site-description" itemprop="description">日常笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yangmour" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangmour" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiwenya999@gmail.com" title="E-Mail → mailto:xiwenya999@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://poc10.cn/" title="http:&#x2F;&#x2F;poc10.cn&#x2F;" rel="noopener" target="_blank">网络安全方面</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">希文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">363k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:30</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
