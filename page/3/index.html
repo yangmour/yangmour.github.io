@@ -371,272 +371,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/3-%E6%95%B0%E7%BB%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/3-%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">3-数组</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-07 10:30:17" itemprop="dateCreated datePublished" datetime="2021-12-07T10:30:17+08:00">2021-12-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:05" itemprop="dateModified" datetime="2022-09-08T10:17:05+08:00">2022-09-08</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="3-数组"><a href="#3-数组" class="headerlink" title="3.数组"></a>3.数组</h1><p>[TOC]</p>
-<h3 id="1-数组概述"><a href="#1-数组概述" class="headerlink" title="1.数组概述"></a>1.数组概述</h3><p><strong>1.数组的理解：数组(Array)，是多个相同类型数据一定顺序排列的集合，并使用一个名字命名，</strong></p>
-<p>并通过编号的方式对这些数据进行统一管理。</p>
-<p><strong>2.数组相关的概念：</strong></p>
-<blockquote>
-<p>数组名</p>
-</blockquote>
-<blockquote>
-<p>元素</p>
-</blockquote>
-<blockquote>
-<p>角标、下标、索引</p>
-</blockquote>
-<blockquote>
-<p>数组的长度：元素的个数</p>
-</blockquote>
-<p><strong>3.数组的特点：</strong></p>
-<ol>
-<li>数组是序排列的</li>
-<li>数组属于引用数据类型的变量。数组的元素，既可以是基本数据类型，也可以是引用数据类型</li>
-<li>创建数组对象会在内存中开辟一整块连续的空间</li>
-<li>数组的长度一旦确定，就不能修改。</li>
-</ol>
-<p><strong>4.数组的分类：</strong></p>
-<ul>
-<li><p>① 照维数：一维数组、二维数组、。。。</p>
-</li>
-<li><p>② 照数组元素的类型：基本数据类型元素的数组、引用数据类型元素的数组</p>
-</li>
-</ul>
-<p><strong>数据结构：</strong><br>1.数据与数据之间的逻辑关系：集合、一对一、一对多、多对多<br>2.数据的存储结构：</p>
-<ul>
-<li>线性表：顺序表（比如：数组）、链表、栈、队列</li>
-<li>树形结构：二叉树</li>
-<li>图形结构：</li>
-</ul>
-<p><strong>算法：</strong></p>
-<ul>
-<li>排序算法：</li>
-<li>搜索算法：</li>
-</ul>
-<h3 id="2-一维数组"><a href="#2-一维数组" class="headerlink" title="2.一维数组"></a>2.一维数组</h3><p>1.一维数组的声明与初始化<br>正确的方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">	int num;//声明</span><br><span class="line">		num = 10;//初始化</span><br><span class="line">		int id = 1001;//声明 + 初始化</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		int[] ids;//声明</span><br><span class="line">		//1.1 静态初始化:数组的初始化和数组元素的赋值操作同时进行</span><br><span class="line">		ids = new int[]&#123;1001,1002,1003,1004&#125;;</span><br><span class="line">		//1.2动态初始化:数组的初始化和数组元素的赋值操作分开进行</span><br><span class="line">		String[] names = new String[5];</span><br><span class="line">	</span><br><span class="line">	int[] arr4 = &#123;1,2,3,4,5&#125;;//类型推断</span><br><span class="line"></span><br><span class="line">错误的方式：</span><br><span class="line">//		int[] arr1 = new int[];</span><br><span class="line">//		int[5] arr2 = new int[5];</span><br><span class="line">//		int[] arr3 = new int[3]&#123;1,2,3&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>2.一维数组元素的引用：通过角标的方式调用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//数组的角标（或索引从0开始的，到数组的长度-1结束。</span><br><span class="line">	names[0] = &quot;王铭&quot;;</span><br><span class="line">	names[1] = &quot;王赫&quot;;</span><br><span class="line">	names[2] = &quot;张学良&quot;;</span><br><span class="line">	names[3] = &quot;孙居龙&quot;;</span><br><span class="line">	names[4] = &quot;王宏志&quot;;//charAt(0)</span><br></pre></td></tr></table></figure>
-
-<p>3.数组的属性：length</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(names.length);//5</span><br><span class="line">System.out.println(ids.length);</span><br></pre></td></tr></table></figure>
-
-<p>说明：<br>数组一旦初始化，其长度就是确定的。arr.length<br>数组长度一旦确定，就不可修改。<br>4.一维数组的遍历</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0;i &lt; names.length;i++)&#123;</span><br><span class="line">	System.out.println(names[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>5.一维数组元素的默认初始化值</p>
-<ul>
-<li>数组元素是整型：0</li>
-<li>数组元素是浮点型：0.0</li>
-<li>数组元素是char型：0或’\u0000’，而非’0’</li>
-<li>数组元素是boolean型：false</li>
-<li>数组元素是引用数据类型：null</li>
-</ul>
-<p>6.一维数组的内存解析</p>
-<p><img src="https://image.3001.net/images/20220902/1662102269785.png" alt="image-20220902114727190"></p>
-<h3 id="3-二维数组"><a href="#3-二维数组" class="headerlink" title="3.二维数组"></a>3.二维数组</h3><h4 id="1-如何理解二维数组？"><a href="#1-如何理解二维数组？" class="headerlink" title="1.如何理解二维数组？"></a>1.如何理解二维数组？</h4><ul>
-<li>数组属于引用数据类型</li>
-<li>数组的元素也可以是引用数据类型</li>
-<li>一个一维数组A的元素如果还是一个一维数组类型的，则，此数组A称为二维数组。</li>
-</ul>
-<h4 id="2-二维数组的声明与初始化"><a href="#2-二维数组的声明与初始化" class="headerlink" title="2.二维数组的声明与初始化"></a>2.二维数组的声明与初始化</h4><p>正确的方式：</p>
-<pre><code>int[] arr = new int[]&#123;1,2,3&#125;;//一维数组
-    //静态初始化
-    int[][] arr1 = new int[][]&#123;&#123;1,2,3&#125;,&#123;4,5&#125;,&#123;6,7,8&#125;&#125;;
-    //动态初始化1
-    String[][] arr2 = new String[3][2];
-    //动态初始化2
-    String[][] arr3 = new String[3][];
-//也是正确的写法：
-    int[] arr4[] = new int[][]&#123;&#123;1,2,3&#125;,&#123;4,5,9,10&#125;,&#123;6,7,8&#125;&#125;;
-    int[] arr5[] = &#123;&#123;1,2,3&#125;,&#123;4,5&#125;,&#123;6,7,8&#125;&#125;;//类型推断
-</code></pre>
-<p>错误的方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//		String[][] arr4 = new String[][4];</span><br><span class="line">//		String[4][3] arr5 = new String[][];</span><br><span class="line">//		int[][] arr6 = new int[4][3]&#123;&#123;1,2,3&#125;,&#123;4,5&#125;,&#123;6,7,8&#125;&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-如何调用二维数组元素"><a href="#3-如何调用二维数组元素" class="headerlink" title="3.如何调用二维数组元素:"></a>3.如何调用二维数组元素:</h4><p>​        </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(arr1[0][1]);//2</span><br><span class="line">System.out.println(arr2[1][1]);//null</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">arr3[1] = new String[4];</span><br><span class="line">System.out.println(arr3[1][0]);</span><br><span class="line">System.out.println(arr3[0]);//</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="4-二维数组的属性："><a href="#4-二维数组的属性：" class="headerlink" title="4.二维数组的属性："></a>4.二维数组的属性：</h4><p>​    </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(arr4.length);//3</span><br><span class="line">		System.out.println(arr4[0].length);//3</span><br><span class="line">		System.out.println(arr4[1].length);//4</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-遍历二维数组元素"><a href="#5-遍历二维数组元素" class="headerlink" title="5.遍历二维数组元素"></a>5.遍历二维数组元素</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0;i &lt; arr4.length;i++)&#123;</span><br><span class="line">			</span><br><span class="line"></span><br><span class="line">			for(int j = 0;j &lt; arr4[i].length;j++)&#123;</span><br><span class="line">				System.out.print(arr4[i][j] + &quot;  &quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="6-二维数组元素的默认初始化值"><a href="#6-二维数组元素的默认初始化值" class="headerlink" title="6.二维数组元素的默认初始化值"></a>6.二维数组元素的默认初始化值</h4><ul>
-<li><pre><code>规定：二维数组分为外层数组的元素，内层数组的元素
-</code></pre>
-</li>
-<li><pre><code>int[][] arr = new int[4][3];
-</code></pre>
-</li>
-<li><pre><code>外层元素：arr[0],arr[1]等
-</code></pre>
-</li>
-<li><pre><code>内层元素：arr[0][0],arr[1][2]等
-</code></pre>
-</li>
-<li></li>
-<li><pre><code>⑤ 数组元素的默认初始化值 
-</code></pre>
-</li>
-<li><pre><code>针对于初始化方式一：比如：int[][] arr = new int[4][3];
-</code></pre>
-</li>
-<li><pre><code>外层元素的初始化值为：地址值
-</code></pre>
-</li>
-<li><pre><code>内层元素的初始化值为：与一维数组初始化情况相同
-</code></pre>
-</li>
-<li></li>
-<li><pre><code>针对于初始化方式二：比如：int[][] arr = new int[4][];
-</code></pre>
-</li>
-<li><pre><code>外层元素的初始化值为：null
-</code></pre>
-</li>
-<li><pre><code>内层元素的初始化值为：不能调用，否则报错。
-</code></pre>
-</li>
-</ul>
-<h4 id="7-二维数组的内存结构"><a href="#7-二维数组的内存结构" class="headerlink" title="7.二维数组的内存结构"></a>7.二维数组的内存结构</h4><p><img src="https://image.3001.net/images/20220902/16621022784454.png" alt="image-20220902114959589"></p>
-<h3 id="4-数组的常见算法"><a href="#4-数组的常见算法" class="headerlink" title="4.数组的常见算法"></a>4.数组的常见算法</h3><h4 id="1-数组的创建与元素赋值："><a href="#1-数组的创建与元素赋值：" class="headerlink" title="1.数组的创建与元素赋值："></a>1.数组的创建与元素赋值：</h4><p>​    杨辉三角（二维数组）、回形数（二维数组）、6个数，1-30之间随机生成且不重复。</p>
-<h4 id="2-针对于数值型的数组："><a href="#2-针对于数值型的数组：" class="headerlink" title="2.针对于数值型的数组："></a>2.针对于数值型的数组：</h4><p>​    最大值、最小值、总和、平均数等</p>
-<h4 id="3-数组的赋值与复制"><a href="#3-数组的赋值与复制" class="headerlink" title="3.数组的赋值与复制"></a>3.数组的赋值与复制</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int[] array1,array2;</span><br><span class="line">array1 = new int[]&#123;1,2,3,4&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>3.1 赋值：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array2 = array1;</span><br></pre></td></tr></table></figure>
-
-<p>​    如何理解：将array1保存的数组的地址值赋给了array2，使得array1和array2共同指向堆空间中的同一个数组实体。</p>
-<p><img src="https://image.3001.net/images/20220902/16621022832175.png" alt="image-20220902115409850"></p>
-<p>3.2 复制：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array2 = new int[array1.length];</span><br><span class="line">for(int i = 0;i &lt; array2.length;i++)&#123;</span><br><span class="line">array2[i] = array1[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://image.3001.net/images/20220902/16621022869870.png" alt="image-20220902115400642">    </p>
-<p>如何理解：我们通过new的方式，给array2在堆空间中新开辟了数组的空间。将array1数组中的元素值一个一个的赋值到array2数组中。</p>
-<h4 id="4-数组元素的反转"><a href="#4-数组元素的反转" class="headerlink" title="4.数组元素的反转"></a>4.数组元素的反转</h4><p>​    </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//方法一：</span><br><span class="line">//		for(int i = 0;i &lt; arr.length / 2;i++)&#123;</span><br><span class="line">//			String temp = arr[i];</span><br><span class="line">//			arr[i] = arr[arr.length - i -1];</span><br><span class="line">//			arr[arr.length - i -1] = temp;</span><br><span class="line">//		&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		//方法二：</span><br><span class="line"></span><br><span class="line">//		for(int i = 0,j = arr.length - 1;i &lt; j;i++,j--)&#123;</span><br><span class="line">//			String temp = arr[i];</span><br><span class="line">//			arr[i] = arr[j];</span><br><span class="line">//			arr[j] = temp;</span><br><span class="line">//		&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-数组中指定元素的查找：搜索、检索"><a href="#5-数组中指定元素的查找：搜索、检索" class="headerlink" title="5.数组中指定元素的查找：搜索、检索"></a>5.数组中指定元素的查找：搜索、检索</h4><p>5.1 线性查找：<br>实现思路：通过遍历的方式，一个一个的数据进行比较、查找。<br>适用性：具有普遍适用性。<br>5.2 二分法查找：<br>实现思路：每次比较中间值，折半的方式检索。<br>适用性：（前提：数组必须有序）</p>
-<h4 id="6-数组的排序算法"><a href="#6-数组的排序算法" class="headerlink" title="6.数组的排序算法"></a>6.数组的排序算法</h4><p><img src="https://image.3001.net/images/20220902/16621022927831.png" alt="image-20220902115320170"></p>
-<p><strong>理解：</strong><br>1）衡量排序算法的优劣：<br>    时间复杂度、空间复杂度、稳定性</p>
-<p>2）排序的分类：内部排序 与 外部排序（需要借助于磁盘）</p>
-<p>3）不同排序算法的时间复杂度</p>
-<p><img src="https://image.3001.net/images/20220902/16621022949973.png" alt="image-20220902115255673"></p>
-<p>4）手写冒泡排序</p>
-<pre><code>int[] arr = new int[]&#123;43,32,76,-98,0,64,33,-21,32,99&#125;;
-    
-    //冒泡排序
-    for(int i = 0;i &lt; arr.length - 1;i++)&#123;
-        
-        for(int j = 0;j &lt; arr.length - 1 - i;j++)&#123;
-            
-            if(arr[j] &gt; arr[j + 1])&#123;
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            &#125;
-            
-        &#125;
-        
-    &#125;        
-</code></pre>
-<h3 id="5-Arrays工具类的使用"><a href="#5-Arrays工具类的使用" class="headerlink" title="5.Arrays工具类的使用"></a>5.Arrays工具类的使用</h3><p>1.理解：<br>① 定义在java.util包下。<br>② Arrays:提供了很多操作数组的方法。</p>
-<p>2.使用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.boolean equals(int[] a,int[] b):判断两个数组是否相等。</span></span><br><span class="line">	<span class="keyword">int</span>[] arr1 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span>[] arr2 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>&#125;;</span><br><span class="line">	<span class="keyword">boolean</span> isEquals = Arrays.equals(arr1, arr2);</span><br><span class="line">	System.out.println(isEquals);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//2.String toString(int[] a):输出数组信息。</span></span><br><span class="line">	System.out.println(Arrays.toString(arr1));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">			</span><br><span class="line"></span><br><span class="line">	<span class="comment">//3.void fill(int[] a,int val):将指定值填充到数组之中。</span></span><br><span class="line">	Arrays.fill(arr1,<span class="number">10</span>);</span><br><span class="line">	System.out.println(Arrays.toString(arr1));</span><br><span class="line"></span><br><span class="line">	<span class="comment">//4.void sort(int[] a):对数组进行排序。</span></span><br><span class="line">	Arrays.sort(arr2);</span><br><span class="line">	System.out.println(Arrays.toString(arr2));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//5.int binarySearch(int[] a,int key)</span></span><br><span class="line">	<span class="keyword">int</span>[] arr3 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">98</span>,-<span class="number">34</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">54</span>,<span class="number">66</span>,<span class="number">79</span>,<span class="number">105</span>,<span class="number">210</span>,<span class="number">333</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> index = Arrays.binarySearch(arr3, <span class="number">210</span>);</span><br><span class="line">	<span class="keyword">if</span>(index &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">		System.out.println(index);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;未找到&quot;</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-数组的常见异常"><a href="#6-数组的常见异常" class="headerlink" title="6.数组的常见异常"></a>6.数组的常见异常</h3><p>1.数组角标越界异常：ArrayIndexOutOfBoundsException</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">		int[] arr = new int[]&#123;1,2,3,4,5&#125;;</span><br><span class="line"></span><br><span class="line">//		for(int i = 0;i &lt;= arr.length;i++)&#123;</span><br><span class="line">//			System.out.println(arr[i]);</span><br><span class="line">//		&#125;</span><br><span class="line">		</span><br><span class="line">//		System.out.println(arr[-2]);</span><br><span class="line">		</span><br><span class="line">//		System.out.println(&quot;hello&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>2.空指针异常：NullPointerException</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//情况一：</span><br><span class="line">//		int[] arr1 = new int[]&#123;1,2,3&#125;;</span><br><span class="line">//		arr1 = null;</span><br><span class="line">//		System.out.println(arr1[0]);</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		//情况二：</span><br><span class="line"></span><br><span class="line">//		int[][] arr2 = new int[4][];</span><br><span class="line">//		System.out.println(arr2[0][0]);</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		//情况：</span><br><span class="line">		String[] arr3 = new String[]&#123;&quot;AA&quot;,&quot;BB&quot;,&quot;CC&quot;&#125;;</span><br><span class="line">		arr3[0] = null;</span><br><span class="line">		System.out.println(arr3[0].toString());</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>小知识：一旦程序出现异常，未处理时，就终止执行。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/3-%E6%95%B0%E7%BB%84/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/5-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E4%B8%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -935,6 +669,272 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/5-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E4%B8%AD/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/3-%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/3-%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">3-数组</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-07 10:30:17" itemprop="dateCreated datePublished" datetime="2021-12-07T10:30:17+08:00">2021-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-08 10:17:05" itemprop="dateModified" datetime="2022-09-08T10:17:05+08:00">2022-09-08</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="3-数组"><a href="#3-数组" class="headerlink" title="3.数组"></a>3.数组</h1><p>[TOC]</p>
+<h3 id="1-数组概述"><a href="#1-数组概述" class="headerlink" title="1.数组概述"></a>1.数组概述</h3><p><strong>1.数组的理解：数组(Array)，是多个相同类型数据一定顺序排列的集合，并使用一个名字命名，</strong></p>
+<p>并通过编号的方式对这些数据进行统一管理。</p>
+<p><strong>2.数组相关的概念：</strong></p>
+<blockquote>
+<p>数组名</p>
+</blockquote>
+<blockquote>
+<p>元素</p>
+</blockquote>
+<blockquote>
+<p>角标、下标、索引</p>
+</blockquote>
+<blockquote>
+<p>数组的长度：元素的个数</p>
+</blockquote>
+<p><strong>3.数组的特点：</strong></p>
+<ol>
+<li>数组是序排列的</li>
+<li>数组属于引用数据类型的变量。数组的元素，既可以是基本数据类型，也可以是引用数据类型</li>
+<li>创建数组对象会在内存中开辟一整块连续的空间</li>
+<li>数组的长度一旦确定，就不能修改。</li>
+</ol>
+<p><strong>4.数组的分类：</strong></p>
+<ul>
+<li><p>① 照维数：一维数组、二维数组、。。。</p>
+</li>
+<li><p>② 照数组元素的类型：基本数据类型元素的数组、引用数据类型元素的数组</p>
+</li>
+</ul>
+<p><strong>数据结构：</strong><br>1.数据与数据之间的逻辑关系：集合、一对一、一对多、多对多<br>2.数据的存储结构：</p>
+<ul>
+<li>线性表：顺序表（比如：数组）、链表、栈、队列</li>
+<li>树形结构：二叉树</li>
+<li>图形结构：</li>
+</ul>
+<p><strong>算法：</strong></p>
+<ul>
+<li>排序算法：</li>
+<li>搜索算法：</li>
+</ul>
+<h3 id="2-一维数组"><a href="#2-一维数组" class="headerlink" title="2.一维数组"></a>2.一维数组</h3><p>1.一维数组的声明与初始化<br>正确的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">	int num;//声明</span><br><span class="line">		num = 10;//初始化</span><br><span class="line">		int id = 1001;//声明 + 初始化</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		int[] ids;//声明</span><br><span class="line">		//1.1 静态初始化:数组的初始化和数组元素的赋值操作同时进行</span><br><span class="line">		ids = new int[]&#123;1001,1002,1003,1004&#125;;</span><br><span class="line">		//1.2动态初始化:数组的初始化和数组元素的赋值操作分开进行</span><br><span class="line">		String[] names = new String[5];</span><br><span class="line">	</span><br><span class="line">	int[] arr4 = &#123;1,2,3,4,5&#125;;//类型推断</span><br><span class="line"></span><br><span class="line">错误的方式：</span><br><span class="line">//		int[] arr1 = new int[];</span><br><span class="line">//		int[5] arr2 = new int[5];</span><br><span class="line">//		int[] arr3 = new int[3]&#123;1,2,3&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>2.一维数组元素的引用：通过角标的方式调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//数组的角标（或索引从0开始的，到数组的长度-1结束。</span><br><span class="line">	names[0] = &quot;王铭&quot;;</span><br><span class="line">	names[1] = &quot;王赫&quot;;</span><br><span class="line">	names[2] = &quot;张学良&quot;;</span><br><span class="line">	names[3] = &quot;孙居龙&quot;;</span><br><span class="line">	names[4] = &quot;王宏志&quot;;//charAt(0)</span><br></pre></td></tr></table></figure>
+
+<p>3.数组的属性：length</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(names.length);//5</span><br><span class="line">System.out.println(ids.length);</span><br></pre></td></tr></table></figure>
+
+<p>说明：<br>数组一旦初始化，其长度就是确定的。arr.length<br>数组长度一旦确定，就不可修改。<br>4.一维数组的遍历</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0;i &lt; names.length;i++)&#123;</span><br><span class="line">	System.out.println(names[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.一维数组元素的默认初始化值</p>
+<ul>
+<li>数组元素是整型：0</li>
+<li>数组元素是浮点型：0.0</li>
+<li>数组元素是char型：0或’\u0000’，而非’0’</li>
+<li>数组元素是boolean型：false</li>
+<li>数组元素是引用数据类型：null</li>
+</ul>
+<p>6.一维数组的内存解析</p>
+<p><img src="https://image.3001.net/images/20220902/1662102269785.png" alt="image-20220902114727190"></p>
+<h3 id="3-二维数组"><a href="#3-二维数组" class="headerlink" title="3.二维数组"></a>3.二维数组</h3><h4 id="1-如何理解二维数组？"><a href="#1-如何理解二维数组？" class="headerlink" title="1.如何理解二维数组？"></a>1.如何理解二维数组？</h4><ul>
+<li>数组属于引用数据类型</li>
+<li>数组的元素也可以是引用数据类型</li>
+<li>一个一维数组A的元素如果还是一个一维数组类型的，则，此数组A称为二维数组。</li>
+</ul>
+<h4 id="2-二维数组的声明与初始化"><a href="#2-二维数组的声明与初始化" class="headerlink" title="2.二维数组的声明与初始化"></a>2.二维数组的声明与初始化</h4><p>正确的方式：</p>
+<pre><code>int[] arr = new int[]&#123;1,2,3&#125;;//一维数组
+    //静态初始化
+    int[][] arr1 = new int[][]&#123;&#123;1,2,3&#125;,&#123;4,5&#125;,&#123;6,7,8&#125;&#125;;
+    //动态初始化1
+    String[][] arr2 = new String[3][2];
+    //动态初始化2
+    String[][] arr3 = new String[3][];
+//也是正确的写法：
+    int[] arr4[] = new int[][]&#123;&#123;1,2,3&#125;,&#123;4,5,9,10&#125;,&#123;6,7,8&#125;&#125;;
+    int[] arr5[] = &#123;&#123;1,2,3&#125;,&#123;4,5&#125;,&#123;6,7,8&#125;&#125;;//类型推断
+</code></pre>
+<p>错误的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//		String[][] arr4 = new String[][4];</span><br><span class="line">//		String[4][3] arr5 = new String[][];</span><br><span class="line">//		int[][] arr6 = new int[4][3]&#123;&#123;1,2,3&#125;,&#123;4,5&#125;,&#123;6,7,8&#125;&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-如何调用二维数组元素"><a href="#3-如何调用二维数组元素" class="headerlink" title="3.如何调用二维数组元素:"></a>3.如何调用二维数组元素:</h4><p>​        </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(arr1[0][1]);//2</span><br><span class="line">System.out.println(arr2[1][1]);//null</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">arr3[1] = new String[4];</span><br><span class="line">System.out.println(arr3[1][0]);</span><br><span class="line">System.out.println(arr3[0]);//</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-二维数组的属性："><a href="#4-二维数组的属性：" class="headerlink" title="4.二维数组的属性："></a>4.二维数组的属性：</h4><p>​    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(arr4.length);//3</span><br><span class="line">		System.out.println(arr4[0].length);//3</span><br><span class="line">		System.out.println(arr4[1].length);//4</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-遍历二维数组元素"><a href="#5-遍历二维数组元素" class="headerlink" title="5.遍历二维数组元素"></a>5.遍历二维数组元素</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0;i &lt; arr4.length;i++)&#123;</span><br><span class="line">			</span><br><span class="line"></span><br><span class="line">			for(int j = 0;j &lt; arr4[i].length;j++)&#123;</span><br><span class="line">				System.out.print(arr4[i][j] + &quot;  &quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-二维数组元素的默认初始化值"><a href="#6-二维数组元素的默认初始化值" class="headerlink" title="6.二维数组元素的默认初始化值"></a>6.二维数组元素的默认初始化值</h4><ul>
+<li><pre><code>规定：二维数组分为外层数组的元素，内层数组的元素
+</code></pre>
+</li>
+<li><pre><code>int[][] arr = new int[4][3];
+</code></pre>
+</li>
+<li><pre><code>外层元素：arr[0],arr[1]等
+</code></pre>
+</li>
+<li><pre><code>内层元素：arr[0][0],arr[1][2]等
+</code></pre>
+</li>
+<li></li>
+<li><pre><code>⑤ 数组元素的默认初始化值 
+</code></pre>
+</li>
+<li><pre><code>针对于初始化方式一：比如：int[][] arr = new int[4][3];
+</code></pre>
+</li>
+<li><pre><code>外层元素的初始化值为：地址值
+</code></pre>
+</li>
+<li><pre><code>内层元素的初始化值为：与一维数组初始化情况相同
+</code></pre>
+</li>
+<li></li>
+<li><pre><code>针对于初始化方式二：比如：int[][] arr = new int[4][];
+</code></pre>
+</li>
+<li><pre><code>外层元素的初始化值为：null
+</code></pre>
+</li>
+<li><pre><code>内层元素的初始化值为：不能调用，否则报错。
+</code></pre>
+</li>
+</ul>
+<h4 id="7-二维数组的内存结构"><a href="#7-二维数组的内存结构" class="headerlink" title="7.二维数组的内存结构"></a>7.二维数组的内存结构</h4><p><img src="https://image.3001.net/images/20220902/16621022784454.png" alt="image-20220902114959589"></p>
+<h3 id="4-数组的常见算法"><a href="#4-数组的常见算法" class="headerlink" title="4.数组的常见算法"></a>4.数组的常见算法</h3><h4 id="1-数组的创建与元素赋值："><a href="#1-数组的创建与元素赋值：" class="headerlink" title="1.数组的创建与元素赋值："></a>1.数组的创建与元素赋值：</h4><p>​    杨辉三角（二维数组）、回形数（二维数组）、6个数，1-30之间随机生成且不重复。</p>
+<h4 id="2-针对于数值型的数组："><a href="#2-针对于数值型的数组：" class="headerlink" title="2.针对于数值型的数组："></a>2.针对于数值型的数组：</h4><p>​    最大值、最小值、总和、平均数等</p>
+<h4 id="3-数组的赋值与复制"><a href="#3-数组的赋值与复制" class="headerlink" title="3.数组的赋值与复制"></a>3.数组的赋值与复制</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int[] array1,array2;</span><br><span class="line">array1 = new int[]&#123;1,2,3,4&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>3.1 赋值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array2 = array1;</span><br></pre></td></tr></table></figure>
+
+<p>​    如何理解：将array1保存的数组的地址值赋给了array2，使得array1和array2共同指向堆空间中的同一个数组实体。</p>
+<p><img src="https://image.3001.net/images/20220902/16621022832175.png" alt="image-20220902115409850"></p>
+<p>3.2 复制：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array2 = new int[array1.length];</span><br><span class="line">for(int i = 0;i &lt; array2.length;i++)&#123;</span><br><span class="line">array2[i] = array1[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20220902/16621022869870.png" alt="image-20220902115400642">    </p>
+<p>如何理解：我们通过new的方式，给array2在堆空间中新开辟了数组的空间。将array1数组中的元素值一个一个的赋值到array2数组中。</p>
+<h4 id="4-数组元素的反转"><a href="#4-数组元素的反转" class="headerlink" title="4.数组元素的反转"></a>4.数组元素的反转</h4><p>​    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//方法一：</span><br><span class="line">//		for(int i = 0;i &lt; arr.length / 2;i++)&#123;</span><br><span class="line">//			String temp = arr[i];</span><br><span class="line">//			arr[i] = arr[arr.length - i -1];</span><br><span class="line">//			arr[arr.length - i -1] = temp;</span><br><span class="line">//		&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		//方法二：</span><br><span class="line"></span><br><span class="line">//		for(int i = 0,j = arr.length - 1;i &lt; j;i++,j--)&#123;</span><br><span class="line">//			String temp = arr[i];</span><br><span class="line">//			arr[i] = arr[j];</span><br><span class="line">//			arr[j] = temp;</span><br><span class="line">//		&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-数组中指定元素的查找：搜索、检索"><a href="#5-数组中指定元素的查找：搜索、检索" class="headerlink" title="5.数组中指定元素的查找：搜索、检索"></a>5.数组中指定元素的查找：搜索、检索</h4><p>5.1 线性查找：<br>实现思路：通过遍历的方式，一个一个的数据进行比较、查找。<br>适用性：具有普遍适用性。<br>5.2 二分法查找：<br>实现思路：每次比较中间值，折半的方式检索。<br>适用性：（前提：数组必须有序）</p>
+<h4 id="6-数组的排序算法"><a href="#6-数组的排序算法" class="headerlink" title="6.数组的排序算法"></a>6.数组的排序算法</h4><p><img src="https://image.3001.net/images/20220902/16621022927831.png" alt="image-20220902115320170"></p>
+<p><strong>理解：</strong><br>1）衡量排序算法的优劣：<br>    时间复杂度、空间复杂度、稳定性</p>
+<p>2）排序的分类：内部排序 与 外部排序（需要借助于磁盘）</p>
+<p>3）不同排序算法的时间复杂度</p>
+<p><img src="https://image.3001.net/images/20220902/16621022949973.png" alt="image-20220902115255673"></p>
+<p>4）手写冒泡排序</p>
+<pre><code>int[] arr = new int[]&#123;43,32,76,-98,0,64,33,-21,32,99&#125;;
+    
+    //冒泡排序
+    for(int i = 0;i &lt; arr.length - 1;i++)&#123;
+        
+        for(int j = 0;j &lt; arr.length - 1 - i;j++)&#123;
+            
+            if(arr[j] &gt; arr[j + 1])&#123;
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            &#125;
+            
+        &#125;
+        
+    &#125;        
+</code></pre>
+<h3 id="5-Arrays工具类的使用"><a href="#5-Arrays工具类的使用" class="headerlink" title="5.Arrays工具类的使用"></a>5.Arrays工具类的使用</h3><p>1.理解：<br>① 定义在java.util包下。<br>② Arrays:提供了很多操作数组的方法。</p>
+<p>2.使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.boolean equals(int[] a,int[] b):判断两个数组是否相等。</span></span><br><span class="line">	<span class="keyword">int</span>[] arr1 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span>[] arr2 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>&#125;;</span><br><span class="line">	<span class="keyword">boolean</span> isEquals = Arrays.equals(arr1, arr2);</span><br><span class="line">	System.out.println(isEquals);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//2.String toString(int[] a):输出数组信息。</span></span><br><span class="line">	System.out.println(Arrays.toString(arr1));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">			</span><br><span class="line"></span><br><span class="line">	<span class="comment">//3.void fill(int[] a,int val):将指定值填充到数组之中。</span></span><br><span class="line">	Arrays.fill(arr1,<span class="number">10</span>);</span><br><span class="line">	System.out.println(Arrays.toString(arr1));</span><br><span class="line"></span><br><span class="line">	<span class="comment">//4.void sort(int[] a):对数组进行排序。</span></span><br><span class="line">	Arrays.sort(arr2);</span><br><span class="line">	System.out.println(Arrays.toString(arr2));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//5.int binarySearch(int[] a,int key)</span></span><br><span class="line">	<span class="keyword">int</span>[] arr3 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">98</span>,-<span class="number">34</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">54</span>,<span class="number">66</span>,<span class="number">79</span>,<span class="number">105</span>,<span class="number">210</span>,<span class="number">333</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> index = Arrays.binarySearch(arr3, <span class="number">210</span>);</span><br><span class="line">	<span class="keyword">if</span>(index &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">		System.out.println(index);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;未找到&quot;</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-数组的常见异常"><a href="#6-数组的常见异常" class="headerlink" title="6.数组的常见异常"></a>6.数组的常见异常</h3><p>1.数组角标越界异常：ArrayIndexOutOfBoundsException</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">		int[] arr = new int[]&#123;1,2,3,4,5&#125;;</span><br><span class="line"></span><br><span class="line">//		for(int i = 0;i &lt;= arr.length;i++)&#123;</span><br><span class="line">//			System.out.println(arr[i]);</span><br><span class="line">//		&#125;</span><br><span class="line">		</span><br><span class="line">//		System.out.println(arr[-2]);</span><br><span class="line">		</span><br><span class="line">//		System.out.println(&quot;hello&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.空指针异常：NullPointerException</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//情况一：</span><br><span class="line">//		int[] arr1 = new int[]&#123;1,2,3&#125;;</span><br><span class="line">//		arr1 = null;</span><br><span class="line">//		System.out.println(arr1[0]);</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		//情况二：</span><br><span class="line"></span><br><span class="line">//		int[][] arr2 = new int[4][];</span><br><span class="line">//		System.out.println(arr2[0][0]);</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		//情况：</span><br><span class="line">		String[] arr3 = new String[]&#123;&quot;AA&quot;,&quot;BB&quot;,&quot;CC&quot;&#125;;</span><br><span class="line">		arr3[0] = null;</span><br><span class="line">		System.out.println(arr3[0].toString());</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>小知识：一旦程序出现异常，未处理时，就终止执行。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/3-%E6%95%B0%E7%BB%84/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
