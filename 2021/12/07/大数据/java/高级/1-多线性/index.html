@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://image.3001.net/images/20211210/16391512552636.png">
 <meta property="og:image" content="https://image.3001.net/images/20211210/16391512675274.png">
 <meta property="article:published_time" content="2021-12-07T07:26:17.000Z">
-<meta property="article:modified_time" content="2022-09-08T02:17:05.824Z">
+<meta property="article:modified_time" content="2022-09-21T01:22:06.311Z">
 <meta property="article:author" content="希文">
 <meta property="article:tag" content="java基础-高级">
 <meta name="twitter:card" content="summary">
@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">11</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">14</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">29</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">35</span></a>
 
   </li>
         <li class="menu-item menu-item-commonweal">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:05" itemprop="dateModified" datetime="2022-09-08T10:17:05+08:00">2022-09-08</time>
+                <time title="修改时间：2022-09-21 09:22:06" itemprop="dateModified" datetime="2022-09-21T09:22:06+08:00">2022-09-21</time>
               </span>
 
           <br>
@@ -246,14 +246,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.5k</span>
+              <span>7.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -357,12 +357,64 @@
 <p> 死亡：最终状态。</p>
 </li>
 </ol>
-<h2 id="六-线程的同步机制"><a href="#六-线程的同步机制" class="headerlink" title="六.线程的同步机制"></a>六.线程的同步机制</h2><h3 id="1-线程安全的单例模式（懒汉式）"><a href="#1-线程安全的单例模式（懒汉式）" class="headerlink" title="1.线程安全的单例模式（懒汉式）"></a>1.线程安全的单例模式（懒汉式）</h3><p>使用同步机制将单例模式中的懒汉式改写为线程安全的。</p>
+<h2 id="六-线程的同步机制"><a href="#六-线程的同步机制" class="headerlink" title="六.线程的同步机制"></a>六.线程的同步机制</h2><h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1.背景"></a>1.背景</h3><p>例子：创建个窗口卖票，总票数为100张.使用实现Runnable接口的方式<br>*</p>
+<ul>
+<li>1.问题：卖票过程中，出现了重票、错票 –&gt;出现了线程的安全问题</li>
+<li>2.问题出现的原因：当某个线程操作车票的过程中，尚未操作完成时，其他线程参与进来，也操作车票。</li>
+<li>3.如何解决：当一个线程a在操作ticket的时候，其他线程不能参与进来。直到线程a操作完ticket时，其他线程才可以开始操作ticket。这种情况即使线程a出现了阻塞，也不能被改变。</li>
+</ul>
+<h3 id="2-Java解决方案：同步机制"><a href="#2-Java解决方案：同步机制" class="headerlink" title="2.Java解决方案：同步机制"></a>2.Java解决方案：同步机制</h3><p>在Java中，我们通过同步机制，来解决线程的安全问题。</p>
+<h4 id="方式一：同步代码块"><a href="#方式一：同步代码块" class="headerlink" title="方式一：同步代码块"></a>方式一：同步代码块</h4><p>*</p>
+<ul>
+<li>  synchronized(同步监视器){</li>
+<li>  //需要被同步的代码</li>
+<li></li>
+<li>  }</li>
+<li>  说明：1.操作共享数据的代码，即为需要被同步的代码。  –&gt;不能包含代码多了，也不能包含代码少了。</li>
+<li>  2.共享数据：多个线程共同操作的变量。比如：ticket就是共享数据。</li>
+<li>  3.同步监视器，俗称：锁。任何一个类的对象，都可以充当锁。</li>
+<li>  要求：多个线程必须要共用同一把锁。</li>
+<li></li>
+<li>补充：在实现Runnable接口创建多线程的方式中，我们可以考虑使用this充当同步监视器。<pre><code> 在继承Thread类创建多线程的方式中，慎用this充当同步监视器，考虑使用当前类充当同步监视器。
+</code></pre>
+</li>
+</ul>
+<h4 id="方式二：同步方法"><a href="#方式二：同步方法" class="headerlink" title="方式二：同步方法"></a>方式二：同步方法</h4><ul>
+<li>  如果操作共享数据的代码完整的声明在一个方法中，我们不妨将此方法声明同步的。</li>
+<li>  关于同步方法的总结：</li>
+<li><ol>
+<li>同步方法仍然涉及到同步监视器，只是不需要我们显式的声明。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>非静态的同步方法，同步监视器是：this</li>
+</ol>
+</li>
+<li>  静态的同步方法，同步监视器是：当前类本身</li>
+</ul>
+<h4 id="方式三：Lock锁-—-JDK5-0新增"><a href="#方式三：Lock锁-—-JDK5-0新增" class="headerlink" title="方式三：Lock锁  — JDK5.0新增"></a>方式三：Lock锁  — JDK5.0新增</h4><ul>
+<li></li>
+<li><ol>
+<li>面试题：synchronized 与 Lock的异同？</li>
+</ol>
+</li>
+<li>  相同：二者都可以解决线程安全问题</li>
+<li>  不同：synchronized机制在执行完相应的同步代码以后，自动的释放同步监视器</li>
+<li>  Lock需要手动的启动同步（lock()，同时结束同步也需要手动的实现（unlock()）</li>
+</ul>
+<p>使用的优先顺序：</p>
+<ul>
+<li>Lock —&gt; 同步代码块（已经进入了方法体，分配了相应资源 ) —&gt; 同步方法（在方法体之外)</li>
+</ul>
+<h3 id="3-利弊"><a href="#3-利弊" class="headerlink" title="3.利弊"></a>3.利弊</h3><p>​    同步的方式，解决了线程的安全问题。—好处<br>操作同步代码时，只能一个线程参与，其他线程等待。相当于是一个单线程的过程，效率低。</p>
+<h3 id="4-面试题："><a href="#4-面试题：" class="headerlink" title="4.面试题："></a>4.面试题：</h3><p>面试题：Java是如何解决线程安全问题的，有几种方式？并对比几种方式的不同</p>
+<p>面试题：synchronized和Lock方式解决线程安全问题的对比</p>
+<h3 id="5-线程安全的单例模式（懒汉式）"><a href="#5-线程安全的单例模式（懒汉式）" class="headerlink" title="5.线程安全的单例模式（懒汉式）"></a>5.线程安全的单例模式（懒汉式）</h3><p>使用同步机制将单例模式中的懒汉式改写为线程安全的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bank</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Bank</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Bank instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bank <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//方式一：效率稍差</span></span><br><span class="line"><span class="comment">//        synchronized (Bank.class) &#123;</span></span><br><span class="line"><span class="comment">//            if(instance == null)&#123;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                instance = new Bank();</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//            return instance;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        <span class="comment">//方式二：效率更高</span></span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">synchronized</span> (Bank.class) &#123;</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line"></span><br><span class="line">                    instance = <span class="keyword">new</span> Bank();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 <p>面试题：写一个线程安全的单例模式。<br>饿汉式。<br>懒汉式：上面提供的。</p>
-<h3 id="2-死锁的理解"><a href="#2-死锁的理解" class="headerlink" title="2.死锁的理解"></a>2.死锁的理解</h3><h4 id="1-死锁的理解："><a href="#1-死锁的理解：" class="headerlink" title="1.死锁的理解："></a>1.死锁的理解：</h4><p>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁</p>
+<h3 id="6-死锁的理解"><a href="#6-死锁的理解" class="headerlink" title="6.死锁的理解"></a>6.死锁的理解</h3><h4 id="1-死锁的理解："><a href="#1-死锁的理解：" class="headerlink" title="1.死锁的理解："></a>1.死锁的理解：</h4><p>不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁</p>
 <h4 id="2-说明："><a href="#2-说明：" class="headerlink" title="2.说明："></a>2.说明：</h4><p>出现死锁后，不会出现异常，不会出现提示，只是所的线程都处于阻塞状态，无法继续</p>
 <p>我们使用同步时，要避免出现死锁。</p>
 <h4 id="3-举例：代码如下"><a href="#3-举例：代码如下" class="headerlink" title="3.举例：代码如下"></a>3.举例：代码如下</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    StringBuffer s1 = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">    StringBuffer s2 = <span class="keyword">new</span> StringBuffer();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">synchronized</span> (s1)&#123;</span><br><span class="line"></span><br><span class="line">                s1.append(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">                s2.append(<span class="string">&quot;1&quot;</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                <span class="keyword">synchronized</span> (s2)&#123;</span><br><span class="line">                    s1.append(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">                    s2.append(<span class="string">&quot;2&quot;</span>);</span><br><span class="line"></span><br><span class="line">                    System.out.println(s1);</span><br><span class="line">                    System.out.println(s2);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;.start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (s2)&#123;</span><br><span class="line"></span><br><span class="line">                s1.append(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">                s2.append(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">synchronized</span> (s1)&#123;</span><br><span class="line">                    s1.append(<span class="string">&quot;d&quot;</span>);</span><br><span class="line">                    s2.append(<span class="string">&quot;4&quot;</span>);</span><br><span class="line"></span><br><span class="line">                    System.out.println(s1);</span><br><span class="line">                    System.out.println(s2);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -450,12 +502,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E9%AB%98%E7%BA%A7/%E5%90%8E%E9%9D%A2%E9%9C%80%E8%A6%81%E7%9C%8B%E7%9A%84/" rel="prev" title="1.后面需要看的(shangguigu14day)">
-      <i class="fa fa-chevron-left"></i> 1.后面需要看的(shangguigu14day)
+    <a href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E5%9F%BA%E7%A1%80/1-java%E8%AF%AD%E8%A8%80%E6%A6%82%E8%BF%B0/" rel="prev" title="1-java语言概述">
+      <i class="fa fa-chevron-left"></i> 1-java语言概述
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/12/21/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E9%AB%98%E7%BA%A7/2-java%E5%B8%B8%E7%94%A8%E7%B1%BB/" rel="next" title="2-java常用类">
-      2-java常用类 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/12/07/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E9%AB%98%E7%BA%A7/%E5%90%8E%E9%9D%A2%E9%9C%80%E8%A6%81%E7%9C%8B%E7%9A%84/" rel="next" title="1.后面需要看的(shangguigu14day)">
+      1.后面需要看的(shangguigu14day) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -515,7 +567,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%A8%8B%E5%BA%8F%E3%80%81%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.1.</span> <span class="nav-text">一.程序、进程、线程的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%A8%8B%E5%BA%8F-programm"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1.程序(programm)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B-process"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2.进程(process)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BA%BF%E7%A8%8B-thread"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">3.线程(thread)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9A"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">补充：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="nav-number">1.1.0.4.1.</span> <span class="nav-text">内存结构：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91"><span class="nav-number">1.2.</span> <span class="nav-text">二.并行与并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8D%95%E6%A0%B8CPU%E4%B8%8E%E5%A4%9A%E6%A0%B8CPU%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1.单核CPU与多核CPU的理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2.并行与并发的理解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89-%E5%88%9B%E5%BB%BA%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%97%A7%E7%89%88%E6%9C%AC%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">三.创建多线程旧版本的两种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E7%BB%A7%E6%89%BFThread%E7%B1%BB%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">方式一：继承Thread类的方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">说明两个问题：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%AE%9E%E7%8E%B0Runnable%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">方式二：实现Runnable接口的方式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%9A%84%E5%AF%B9%E6%AF%94%EF%BC%9A"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">两种方式的对比：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-Thread%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">四.Thread类中的常用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Thread%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">Thread类中的常用的方法:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-Thread%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.4.</span> <span class="nav-text">五.Thread的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E7%A4%BA%EF%BC%9A"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">图示：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">说明：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.</span> <span class="nav-text">六.线程的同步机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%89"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.线程安全的单例模式（懒汉式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%AD%BB%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.死锁的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AD%BB%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9A"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">1.死锁的理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">2.说明：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%B8%BE%E4%BE%8B%EF%BC%9A%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">3.举例：代码如下</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-number">1.6.</span> <span class="nav-text">七.线程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.6.1.</span> <span class="nav-text">1.线程通信涉及到的三个方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AF%B4%E6%98%8E%EF%BC%9A-1"><span class="nav-number">1.6.2.</span> <span class="nav-text">2.说明：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A"><span class="nav-number">1.6.3.</span> <span class="nav-text">3.面试题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B0%8F%E7%BB%93%E9%87%8A%E6%94%BE%E9%94%81%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="nav-number">1.6.4.</span> <span class="nav-text">4.小结释放锁的操作：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB-JDK5-0%E6%96%B0%E5%A2%9E%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">八.JDK5.0新增线程创建的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%96%B0%E5%A2%9E%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%AE%9E%E7%8E%B0Callable%E6%8E%A5%E5%8F%A3%E3%80%82-%E2%80%94-JDK-5-0%E6%96%B0%E5%A2%9E"><span class="nav-number">1.7.1.</span> <span class="nav-text">1.新增方式一：实现Callable接口。 — JDK 5.0新增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%B0%E5%A2%9E%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">1.7.2.</span> <span class="nav-text">2.新增方式二：使用线程池</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%A8%8B%E5%BA%8F%E3%80%81%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.1.</span> <span class="nav-text">一.程序、进程、线程的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%A8%8B%E5%BA%8F-programm"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1.程序(programm)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B-process"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2.进程(process)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BA%BF%E7%A8%8B-thread"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">3.线程(thread)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9A"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">补充：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="nav-number">1.1.0.4.1.</span> <span class="nav-text">内存结构：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91"><span class="nav-number">1.2.</span> <span class="nav-text">二.并行与并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8D%95%E6%A0%B8CPU%E4%B8%8E%E5%A4%9A%E6%A0%B8CPU%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1.单核CPU与多核CPU的理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2.并行与并发的理解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89-%E5%88%9B%E5%BB%BA%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%97%A7%E7%89%88%E6%9C%AC%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">三.创建多线程旧版本的两种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E7%BB%A7%E6%89%BFThread%E7%B1%BB%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">方式一：继承Thread类的方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">说明两个问题：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%AE%9E%E7%8E%B0Runnable%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">方式二：实现Runnable接口的方式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%9A%84%E5%AF%B9%E6%AF%94%EF%BC%9A"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">两种方式的对比：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-Thread%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">四.Thread类中的常用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Thread%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">Thread类中的常用的方法:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-Thread%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.4.</span> <span class="nav-text">五.Thread的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E7%A4%BA%EF%BC%9A"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">图示：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">说明：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.</span> <span class="nav-text">六.线程的同步机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%83%8C%E6%99%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.Java解决方案：同步机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">方式一：同步代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">方式二：同步方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%89%EF%BC%9ALock%E9%94%81-%E2%80%94-JDK5-0%E6%96%B0%E5%A2%9E"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">方式三：Lock锁  — JDK5.0新增</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%A9%E5%BC%8A"><span class="nav-number">1.5.3.</span> <span class="nav-text">3.利弊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A"><span class="nav-number">1.5.4.</span> <span class="nav-text">4.面试题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%89"><span class="nav-number">1.5.5.</span> <span class="nav-text">5.线程安全的单例模式（懒汉式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%AD%BB%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.5.6.</span> <span class="nav-text">6.死锁的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AD%BB%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9A"><span class="nav-number">1.5.6.1.</span> <span class="nav-text">1.死锁的理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">1.5.6.2.</span> <span class="nav-text">2.说明：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%B8%BE%E4%BE%8B%EF%BC%9A%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="nav-number">1.5.6.3.</span> <span class="nav-text">3.举例：代码如下</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-number">1.6.</span> <span class="nav-text">七.线程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.6.1.</span> <span class="nav-text">1.线程通信涉及到的三个方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AF%B4%E6%98%8E%EF%BC%9A-1"><span class="nav-number">1.6.2.</span> <span class="nav-text">2.说明：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A"><span class="nav-number">1.6.3.</span> <span class="nav-text">3.面试题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B0%8F%E7%BB%93%E9%87%8A%E6%94%BE%E9%94%81%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="nav-number">1.6.4.</span> <span class="nav-text">4.小结释放锁的操作：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB-JDK5-0%E6%96%B0%E5%A2%9E%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">八.JDK5.0新增线程创建的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%96%B0%E5%A2%9E%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%AE%9E%E7%8E%B0Callable%E6%8E%A5%E5%8F%A3%E3%80%82-%E2%80%94-JDK-5-0%E6%96%B0%E5%A2%9E"><span class="nav-number">1.7.1.</span> <span class="nav-text">1.新增方式一：实现Callable接口。 — JDK 5.0新增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%B0%E5%A2%9E%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">1.7.2.</span> <span class="nav-text">2.新增方式二：使用线程池</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -531,14 +583,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -592,12 +644,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">401k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:30</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
