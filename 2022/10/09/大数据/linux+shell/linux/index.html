@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="[TOC] 尚硅谷高级技术之 Linux第 1 章 Linux 入门1.1 概述如图 1-1 所示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux">
+<meta property="og:url" content="https://yangmour.github.io/2022/10/09/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/linux/index.html">
+<meta property="og:site_name" content="希文的个人博客">
+<meta property="og:description" content="[TOC] 尚硅谷高级技术之 Linux第 1 章 Linux 入门1.1 概述如图 1-1 所示">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816012747.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816013909.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816011071.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/1665281602523.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/1665281602860.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816013051.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816026459.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816024434.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816014040.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816023087.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816023038.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816018695.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816026312.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816011954.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816022782.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816019998.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816018800.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816021162.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816025839.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816016638.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816018579.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816018782.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816017119.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816026310.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816025041.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816026254.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816027514.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816025830.gif">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816012041.gif">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816017318.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816017849.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816027361.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816024993.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816028336.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816029486.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816028125.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816012990.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816028081.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816017784.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816012674.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816025024.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816027706.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816027033.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816016913.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20221009/16652816029585.jpg">
+<meta property="article:published_time" content="2022-10-09T05:06:17.000Z">
+<meta property="article:modified_time" content="2022-10-09T04:44:59.413Z">
+<meta property="article:author" content="希文">
+<meta property="article:tag" content="linux+shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.3001.net/images/20221009/16652816012747.jpg">
+
+<link rel="canonical" href="https://yangmour.github.io/2022/10/09/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/linux/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>linux | 希文的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="希文的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">希文的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">白日依山尽，黄河入海流。欲穷千里目，更上一层楼。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">38</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/10/09/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-10-09 13:06:17 / 修改时间：12:44:59" itemprop="dateCreated datePublished" datetime="2022-10-09T13:06:17+08:00">2022-10-09</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>31k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>28 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>[TOC]</p>
+<h1 id="尚硅谷高级技术之-Linux"><a href="#尚硅谷高级技术之-Linux" class="headerlink" title="尚硅谷高级技术之 Linux"></a>尚硅谷高级技术之 Linux</h1><h1 id="第-1-章-Linux-入门"><a href="#第-1-章-Linux-入门" class="headerlink" title="第 1 章 Linux 入门"></a>第 <strong>1</strong> 章 <strong>Linux</strong> 入门</h1><p><strong>1.1</strong> 概述如图 1-1 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816012747.jpg" alt="img"></p>
+<span id="more"></span>
+
+<p>图 1-1 Linux 概述 <strong>1.2 Linux</strong> 和 <strong>Windows</strong> 区别如图 1-2 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816013909.jpg" alt="img"></p>
+<p>图 1-2 Linux 和 Windows 的区别</p>
+<p><strong>1.3 CentOS</strong> 下载地址如图 1-3 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816011071.jpg" alt="img"></p>
+<p>图 1-3 Centos 的下载地址</p>
+<h1 id="第-2-章-VM-与-Linux-的安装"><a href="#第-2-章-VM-与-Linux-的安装" class="headerlink" title="第 2 章 VM 与 Linux 的安装"></a>第 <strong>2</strong> 章 <strong>VM</strong> 与 <strong>Linux</strong> 的安装</h1><p><strong>2.1 VMWare</strong> 安装</p>
+<p><strong>2.2 CentOS</strong> 安装</p>
+<p>安装 CentOS.docx</p>
+<h1 id="第-3-章-Linux-文件与目录结构"><a href="#第-3-章-Linux-文件与目录结构" class="headerlink" title="第 3 章 Linux 文件与目录结构"></a>第 <strong>3</strong> 章 <strong>Linux</strong> 文件与目录结构</h1><h2 id="3-1-Linux-文件"><a href="#3-1-Linux-文件" class="headerlink" title="3.1 Linux 文件"></a><strong>3.1 Linux</strong> 文件</h2><p>Linux 系统中一切皆文件。</p>
+<p> <strong>3.2 Linux</strong> 目录结构如图 3-1 所示</p>
+<p><img src="https://image.3001.net/images/20221009/1665281602523.jpg" alt="img"></p>
+<p>图 3-1 Linux 目录结构 Linux 目录结构简介，如图 3-2，3-3，3-4，3-5，3-6 所示</p>
+<p><img src="https://image.3001.net/images/20221009/1665281602860.jpg" alt="img"></p>
+<p>图 3-2 Linux 目录结构</p>
+<p><img src="https://image.3001.net/images/20221009/16652816013051.jpg" alt="img"></p>
+<p>图 3-3 Linux 目录结构</p>
+<p><img src="https://image.3001.net/images/20221009/16652816026459.jpg" alt="img"></p>
+<p>图 3-4 Linux 目录结构</p>
+<p><img src="https://image.3001.net/images/20221009/16652816024434.jpg" alt="img"></p>
+<p>图 3-5 Linux 目录结构</p>
+<p><img src="https://image.3001.net/images/20221009/16652816014040.jpg" alt="img"></p>
+<p>图 3-6 Linux 目录结构</p>
+<h1 id="第-4-章-VI-VIM-编辑器（重要）"><a href="#第-4-章-VI-VIM-编辑器（重要）" class="headerlink" title="第 4 章 VI/VIM 编辑器（重要）"></a>第 <strong>4</strong> 章 <strong>VI/VIM</strong> 编辑器（重要）</h1><h2 id="4-1-是什么"><a href="#4-1-是什么" class="headerlink" title="4.1 是什么"></a><strong>4.1</strong> 是什么</h2><p>VI 是 Unix 操作系统和类 Unix 操作系统中最通用的文本编辑器。</p>
+<p>VIM 编辑器是从 VI 发展出来的一个性能更强大的文本编辑器。可以主动的以字体颜色辨别语法的正确性，方便程序设计。VIM 与 VI 编辑器完全兼容。</p>
+<h2 id="4-2-测试数据准备"><a href="#4-2-测试数据准备" class="headerlink" title="4.2 测试数据准备"></a><strong>4.2</strong> 测试数据准备</h2><h4 id="1）拷贝-etc-profile-数据到-root-目录下"><a href="#1）拷贝-etc-profile-数据到-root-目录下" class="headerlink" title="1）拷贝**/etc/profile** 数据到**/root** 目录下"></a><strong>1</strong>）拷贝**/etc/profile** 数据到**/root** 目录下</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# cp /etc/profile /root</span><br><span class="line"></span><br><span class="line">[root@hadoop100 桌面]# cd /root/</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-3-一般模式"><a href="#4-3-一般模式" class="headerlink" title="4.3 一般模式"></a><strong>4.3</strong> 一般模式</h2><p>以 vi 打开一个档案就直接进入一般模式了（这是默认的模式）。在这个模式中，你可以使用『上下左右』按键来移动光标，你可以使用『删除字符』或『删除整行』来处理档案内容，也可以使用『复制、粘贴』来处理你的文件数据。</p>
+<p>表 4-1常用语法</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yy</td>
+<td>复制光标当前一行</td>
+</tr>
+<tr>
+<td>y 数字 y</td>
+<td>复制一段（从第几行到第几行）</td>
+</tr>
+<tr>
+<td>p</td>
+<td>箭头移动到目的行粘贴</td>
+</tr>
+<tr>
+<td>u</td>
+<td>撤销上一步</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除光标当前行</td>
+</tr>
+<tr>
+<td>d 数字 d</td>
+<td>删除光标（含）后多少行</td>
+</tr>
+<tr>
+<td>x</td>
+<td>剪切一个字母，相当于 del</td>
+</tr>
+<tr>
+<td>X</td>
+<td>剪切一个字母，相当于 Backspace</td>
+</tr>
+<tr>
+<td>yw</td>
+<td>复制一个词</td>
+</tr>
+<tr>
+<td>dw</td>
+<td>删除一个词</td>
+</tr>
+<tr>
+<td>shift+6（^）</td>
+<td>移动到行头</td>
+</tr>
+<tr>
+<td>shift+4 （$）</td>
+<td>移动到行尾</td>
+</tr>
+<tr>
+<td>1+shift+g</td>
+<td>移动到页头，数字</td>
+</tr>
+<tr>
+<td>shift+g</td>
+<td>移动到页尾</td>
+</tr>
+<tr>
+<td>数字+shift+g</td>
+<td>移动到目标行</td>
+</tr>
+</tbody></table>
+<p>vi/vim 键盘图，如 4-1 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816023087.jpg" alt="img"></p>
+<p>图 4-1 vi/vim 键盘图</p>
+<h2 id="4-4-编辑模式"><a href="#4-4-编辑模式" class="headerlink" title="4.4 编辑模式"></a><strong>4.4</strong> 编辑模式</h2><p>在一般模式中可以进行删除、复制、粘贴等的动作，但是却无法编辑文件内容的！要等到你按下『i, I, o, O, a, A』等任何一个字母之后才会进入编辑模式。</p>
+<p>注意了！通常在Linux中，按下这些按键时，在画面的左下方会出现『INSERT或</p>
+<p>REPLACE』的字样，此时才可以进行编辑。而如果要回到一般模式时，则必须要按下</p>
+<p>『Esc』这个按键即可退出编辑模式。</p>
+<p><strong>1）</strong>进入编辑模式</p>
+<p>表4-2 常用语法</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i</td>
+<td>当前光标前</td>
+</tr>
+<tr>
+<td>a</td>
+<td>当前光标后</td>
+</tr>
+<tr>
+<td>o</td>
+<td>当前光标行的下一行</td>
+</tr>
+<tr>
+<td>I</td>
+<td>光标所在行最前</td>
+</tr>
+<tr>
+<td>A</td>
+<td>光标所在行最后</td>
+</tr>
+<tr>
+<td>O</td>
+<td>当前光标行的上一行</td>
+</tr>
+</tbody></table>
+<p><strong>2）</strong>退出编辑模式</p>
+<p>按『Esc』键退出编辑模式，之后所在的模式为一般模式。</p>
+<h2 id="4-5-指令模式"><a href="#4-5-指令模式" class="headerlink" title="4.5 指令模式"></a><strong>4.5</strong> 指令模式</h2><p>在一般模式当中，输入『 : / ?』3个中的任何一个按钮，就可以将光标移动到最底下那一行。</p>
+<p>在这个模式当中，可以提供你『搜寻资料』的动作，而读取、存盘、大量取代字符、</p>
+<p>离开 vi 、显示行号等动作是在此模式中达成的！</p>
+<p><strong>1）</strong>基本语法</p>
+<p>表4-3</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:w</td>
+<td>保存</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>:!</td>
+<td>强制执行</td>
+</tr>
+<tr>
+<td>/要查找的词</td>
+<td>n 查找下一个，N 往上查找</td>
+</tr>
+<tr>
+<td>:noh</td>
+<td>取消高亮显示</td>
+</tr>
+<tr>
+<td>:set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>:set nonu</td>
+<td>关闭行号</td>
+</tr>
+<tr>
+<td>:%s/old/new/g</td>
+<td>替换内容 /g 替换匹配到的所有内容</td>
+</tr>
+</tbody></table>
+<p><strong>2）</strong>案例实操</p>
+<p>（1）强制保存退出</p>
+<p>:wq!</p>
+<p><strong>4.6</strong> 模式间转换如图 4-2 所示。</p>
+<p><img src="https://image.3001.net/images/20221009/16652816023038.jpg" alt="img"></p>
+<p>图 4-2 模式间的转换</p>
+<h1 id="第-5-章网络配置（重点）"><a href="#第-5-章网络配置（重点）" class="headerlink" title="第 5 章网络配置（重点）"></a>第 <strong>5</strong> 章网络配置（重点）</h1><h2 id="5-1-查看网络-IP-和网关"><a href="#5-1-查看网络-IP-和网关" class="headerlink" title="5.1 查看网络 IP 和网关"></a><strong>5.1</strong> 查看网络 <strong>IP</strong> 和网关</h2><p><strong>1）</strong>查看虚拟网络编辑器，如图 <strong>5-1</strong> 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816018695.jpg" alt="img"></p>
+<p>图 5-1 查看虚拟网络编辑器</p>
+<p><strong>2）</strong>修改虚拟网卡 <strong>Ip</strong>，如图 <strong>5-2</strong> 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816026312.jpg" alt="img"></p>
+<p>图 5-2 修改虚拟网卡 ip</p>
+<p><strong>3）</strong>查看网关，如图 <strong>5-3</strong> 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816011954.jpg" alt="img"></p>
+<p>图 5-3 查看网关</p>
+<h4 id="4）查看-windows-环境的中-VMnet8-网络配置，如图-5-4-所示"><a href="#4）查看-windows-环境的中-VMnet8-网络配置，如图-5-4-所示" class="headerlink" title="4）查看 windows 环境的中 VMnet8 网络配置，如图 5-4 所示"></a><strong>4</strong>）查看 <strong>windows</strong> 环境的中 <strong>VMnet8</strong> 网络配置，如图 <strong>5-4</strong> 所示</h4><p><img src="https://image.3001.net/images/20221009/16652816022782.jpg" alt="img"></p>
+<p>图 5-4 windows 中 VMnet8 网络配置</p>
+<h2 id="5-2-配置网络-ip-地址"><a href="#5-2-配置网络-ip-地址" class="headerlink" title="5.2 配置网络 ip 地址"></a><strong>5.2</strong> 配置网络 <strong>ip</strong> 地址</h2><h3 id="5-2-1-ifconfig-配置网络接口"><a href="#5-2-1-ifconfig-配置网络接口" class="headerlink" title="5.2.1 ifconfig 配置网络接口"></a><strong>5.2.1 ifconfig</strong> 配置网络接口</h3><p>ifconfig :network interfaces configuring 网络接口配置</p>
+<p><strong>1）</strong>基本语法ifconfig  （功能描述：显示所有网络接口的配置信息）</p>
+<p><strong>2）</strong>案例实操</p>
+<p>（1）查看当前网络 ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# ifconfig</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-2-ping-测试主机之间网络连通性"><a href="#5-2-2-ping-测试主机之间网络连通性" class="headerlink" title="5.2.2 ping 测试主机之间网络连通性"></a><strong>5.2.2 ping</strong> 测试主机之间网络连通性</h3><p><strong>1）</strong>  基本语法 ping 目的主机  （功能描述：测试当前服务器是否可以连接目的主机）</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）测试当前服务器是否可以连接百度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# ping [www.baidu.com](http://www.baidu.com/)</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-3-修改-IP-地址"><a href="#5-2-3-修改-IP-地址" class="headerlink" title="5.2.3 修改 IP 地址"></a><strong>5.2.3</strong> 修改 <strong>IP</strong> 地址</h3><p><strong>1</strong>）查看 <strong>IP</strong> 配置文件，如图 <strong>5-5</strong> 所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]#vim /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20221009/16652816019998.jpg" alt="img"></p>
+<p>图 5-5 查看 IP 配置文件</p>
+<p>以下标红的项必须修改，有值的按照下面的值修改，没有该项的要增加。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">TYPE=&quot;Ethernet&quot;	#网络类型（通常是Ethemet）</span><br><span class="line">PROXY_METHOD=&quot;none&quot;</span><br><span class="line">BROWSER_ONLY=&quot;no&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;	#IP 的配置方法[none|static|bootp|dhcp]（引导时不 使用协议|静态分配IP|BOOTP协议|DHCP协议）</span><br><span class="line">DEFROUTE=&quot;yes&quot;</span><br><span class="line">IPV4_FAILURE_FATAL=&quot;no&quot;</span><br><span class="line">IPV6INIT=&quot;yes&quot;</span><br><span class="line">IPV6_AUTOCONF=&quot;yes&quot;</span><br><span class="line">IPV6_DEFROUTE=&quot;yes&quot;</span><br><span class="line">IPV6_FAILURE_FATAL=&quot;no&quot;</span><br><span class="line">IPV6_ADDR_GEN_MODE=&quot;stable-privacy&quot;</span><br><span class="line">NAME=&quot;ens33&quot;</span><br><span class="line">UUID=&quot;e83804c1-3257-4584-81bb-660665ac22f6&quot;	#随机id</span><br><span class="line">DEVICE=&quot;ens33&quot;	#接口名（设备,网卡）</span><br><span class="line">ONBOOT=&quot;yes&quot;	#系统启动的时候网络接口是否有效（yes/no）</span><br><span class="line">#IP地址</span><br><span class="line">IPADDR=192.168.1.100</span><br><span class="line">#网关</span><br><span class="line">GATEWAY=192.168.1.2</span><br><span class="line">#域名解析器</span><br><span class="line">DNS1=192.168.1.2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>修改后，如图 5-6 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816018800.jpg" alt="img"></p>
+<p>图 5-6 IP 修改后</p>
+<p>编辑完后，按键盘 esc ，然后输入 :wq 回车即可。</p>
+<p><strong>2</strong>）执行<strong>service network restar t</strong> 重启网络,如图 5-7 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816021162.jpg" alt="img"></p>
+<p>图 5-7 重启网络</p>
+<h3 id="5-2-4-修改-IP-地址后可能会遇到的问题"><a href="#5-2-4-修改-IP-地址后可能会遇到的问题" class="headerlink" title="5.2.4 修改 IP 地址后可能会遇到的问题"></a><strong>5.2.4</strong> 修改 <strong>IP</strong> 地址后可能会遇到的问题</h3><p>（1） 物理机能ping通虚拟机，但是虚拟机ping不通物理机,一般都是因为物理机的防火墙问题,把防火墙关闭就行</p>
+<p>（2） 虚拟机能Ping通物理机,但是虚拟机Ping不通外网,一般都是因为DNS的设置有问题</p>
+<p>（3） 虚拟机Ping <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 显示域名未知等信息,一般查看GATEWAY和DNS设</p>
+<p>置是否正确</p>
+<p>（4） 如果以上全部设置完还是不行，需要关闭NetworkManager服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop NetworkManager 关闭</span><br><span class="line"></span><br><span class="line">systemctl disable NetworkManager 禁用</span><br></pre></td></tr></table></figure>
+
+<p>（5）如果检查发现 systemctl status network 有问题 需要检查ifcfg-ens33</p>
+<h2 id="5-3-配置主机名"><a href="#5-3-配置主机名" class="headerlink" title="5.3 配置主机名"></a><strong>5.3</strong> 配置主机名</h2><h3 id="5-3-1-修改主机名称"><a href="#5-3-1-修改主机名称" class="headerlink" title="5.3.1 修改主机名称"></a><strong>5.3.1</strong> 修改主机名称</h3><p><strong>1）</strong> 基本语法 hostname    （功能描述：查看当前服务器的主机名称）</p>
+<p><strong>2）</strong> 案例实操</p>
+<p>（1）查看当前服务器主机名称</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# hostname</span><br></pre></td></tr></table></figure>
+
+<p>（2）如果感觉此主机名不合适，我们可以进行修改。通过编辑/etc/hostname 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# vi /etc/hostname</span><br></pre></td></tr></table></figure>
+
+<p>修改完成后重启生效。</p>
+<p>(3).实时生效的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname hadoop100</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-2-修改-hosts-映射文件"><a href="#5-3-2-修改-hosts-映射文件" class="headerlink" title="5.3.2 修改 hosts 映射文件"></a><strong>5.3.2</strong> 修改 <strong>hosts</strong> 映射文件</h3><p><strong>1）</strong>  修改 linux 的主机映射文件（hosts 文件）后续在 hadoop 阶段，虚拟机会比较多，配置时通常会采用主机名的方式配置，比较简单方便。不用刻意记 ip 地址。</p>
+<p>（1）打开/etc/hosts</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# vim /etc/hosts</span><br></pre></td></tr></table></figure>
+
+<p>添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">192.168.2.100 hadoop100</span><br><span class="line">192.168.2.101 hadoop101</span><br><span class="line">192.168.2.102 hadoop102</span><br><span class="line">192.168.2.103 hadoop103</span><br><span class="line">192.168.2.104 hadoop104</span><br><span class="line">192.168.2.105 hadoop105</span><br></pre></td></tr></table></figure>
+
+<p>（2）重启设备，重启后，查看主机名，已经修改成功</p>
+<p><strong>2）</strong>  修改 windows 的主机映射文件（hosts 文件）</p>
+<p>（1）进入 C:\Windows\System32\drivers\etc 路径</p>
+<p>（2）打开 hosts 文件并添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">192.168.2.100 hadoop100</span><br><span class="line">192.168.2.101 hadoop101</span><br><span class="line">192.168.2.102 hadoop102</span><br><span class="line">192.168.2.103 hadoop103</span><br><span class="line">192.168.2.104 hadoop104</span><br><span class="line">192.168.2.105 hadoop105</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>3）</strong>  修改 window10 的主机映射文件（hosts 文件）</p>
+<p>（1）进入 C:\Windows\System32\drivers\etc 路径</p>
+<p>（2）拷贝 hosts 文件到桌面</p>
+<p>（3）打开桌面 hosts 文件并添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">192.168.2.100 hadoop100</span><br><span class="line">192.168.2.101 hadoop101</span><br><span class="line">192.168.2.102 hadoop102</span><br><span class="line">192.168.2.103 hadoop103</span><br><span class="line">192.168.2.104 hadoop104</span><br><span class="line">192.168.2.105 hadoop105</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（4）将桌面 hosts 文件覆盖 C:\Windows\System32\drivers\etc 路径 hosts 文件</p>
+<h2 id="5-4-远程登录"><a href="#5-4-远程登录" class="headerlink" title="5.4 远程登录"></a><strong>5.4</strong> 远程登录</h2><p>通常在工作过程中，公司中使用的真实服务器或者是云服务器，都不允许除运维人员之外的员工直接接触，因此就需要通过远程登录的方式来操作。所以，远程登录工具就是</p>
+<p>必不可缺的，目前，比较主流的有 Xshell, SSH Secure Shell, SecureCRT,FinalShell 等，同学</p>
+<p>们可以根据自己的习惯自行选择. </p>
+<h1 id="第-6-章系统管理"><a href="#第-6-章系统管理" class="headerlink" title="第 6 章系统管理"></a>第 <strong>6</strong> 章系统管理</h1><h2 id="6-1-Linux-中的进程和服务"><a href="#6-1-Linux-中的进程和服务" class="headerlink" title="6.1 Linux 中的进程和服务"></a><strong>6.1 Linux</strong> 中的进程和服务</h2><p>计算机中，一个正在执行的程序或命令，被叫做“进程”（process）。启动之后一只存在、常驻内存的进程，一般被称作“服务”（service）。</p>
+<h2 id="6-2-service-服务管理（CentOS-6-版本-了解）"><a href="#6-2-service-服务管理（CentOS-6-版本-了解）" class="headerlink" title="6.2 service 服务管理（CentOS 6 版本**-**了解）"></a><strong>6.2 service</strong> 服务管理（<strong>CentOS 6</strong> 版本**-**了解）</h2><p><strong>1）</strong> 基本语法</p>
+<p>service 服务名 start | stop |· restart | status</p>
+<p><strong>2）</strong> 经验技巧</p>
+<p>查看服务的方法：/etc/init.d/服务名 ,发现只有两个服务保留在 service</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100	init.d]#	pwd	</span><br><span class="line">/etc/init.d</span><br><span class="line">[root@hadoop100	init.d]#	ls -al	</span><br><span class="line">drwxr-xr-x. 2	root	root	4096	3月	19 15:24 .</span><br><span class="line">drwxr-xr-x. 10	root	root	4096	3月	19 15:24 ..</span><br><span class="line">-rw-r--r--. 1	root	root	18104	1月	3 2018 functions</span><br><span class="line">-rwxr-xr-x. 1	root	root	4334	1月	3 2018 netconsole</span><br><span class="line">-rwxr-xr-x. 1	root	root	7293	1月	3 2018 network</span><br><span class="line">-rw-r--r--. 1	root	root	1160	4月	11 2018 README</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>3）</strong> 案例实操</p>
+<p>（1）查看网络服务的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]#service network status</span><br></pre></td></tr></table></figure>
+
+<p>（2）停止网络服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]#service network stop</span><br></pre></td></tr></table></figure>
+
+<p>（3）启动网络服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]#service network start</span><br></pre></td></tr></table></figure>
+
+<p>（4）重启网络服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]#service network restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-3-chkconfig-设置后台服务的自启配置（CentOS-6-版本）"><a href="#6-3-chkconfig-设置后台服务的自启配置（CentOS-6-版本）" class="headerlink" title="6.3 chkconfig 设置后台服务的自启配置（CentOS 6 版本）"></a><strong>6.3 chkconfig</strong> 设置后台服务的自启配置（<strong>CentOS 6</strong> 版本）</h2><p><strong>1）</strong> 基本语法 chkconfig （功能描述：查看所有服务器自启配置）</p>
+<p>chkconfig 服务名 off （功能描述：关掉指定服务的自动启动） chkconfig 服务名 on （功能描述：开启指定服务的自动启动） chkconfig 服务名 –list （功能描述：查看服务开机启动状态）</p>
+<p><strong>2）</strong> 案例实操</p>
+<p>（1）开启/关闭 network(网络)服务的自动启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]#chkconfig network on</span><br><span class="line">[root@hadoop100 桌面]#chkconfig network off</span><br></pre></td></tr></table></figure>
+
+<p>（2）开启/关闭 network 服务指定级别的自动启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]#chkconfig --level 指定级别 network on</span><br><span class="line">[root@hadoop100 桌面]#chkconfig --level 指定级别 network off</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-4-systemctl-（CentOS-7-版本-重点掌握）"><a href="#6-4-systemctl-（CentOS-7-版本-重点掌握）" class="headerlink" title="6.4 systemctl （CentOS 7 版本**-**重点掌握）"></a><strong>6.4 systemctl</strong> （<strong>CentOS 7</strong> 版本**-**重点掌握）</h2><p><strong>1）</strong> 基本语法</p>
+<p>​    systemctl start | stop | restart | status    服务名</p>
+<p><strong>2）</strong> 经验技巧</p>
+<p>查看服务的方法：/usr/lib/systemd/system</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 system]# pwd</span><br><span class="line">/usr/lib/systemd/system</span><br><span class="line">[root@hadoop100 init.d]# ls -al</span><br><span class="line">-rw-r--r--. 1 root root 275 4月</span><br><span class="line">-rw-r--r--.	1	root	root	380 4月</span><br><span class="line">-rw-r--r--.	1	root	root	361 4月</span><br><span class="line">-rw-r--r--.	1	root	root	266 4月</span><br><span class="line">-rw-r--r--.	1	root	root	262 4月</span><br><span class="line">-rw-r--r--.	1	root	root	311 4月</span><br><span class="line">-rw-r--r--.	1	root	root	751 4月</span><br><span class="line">-rw-r--r--.	1	root	root	527 3月</span><br><span class="line">-rw-r--r--.</span><br><span class="line">……	1	root	root	486 3月</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>3）</strong> 案例实操</p>
+<p>（1）查看防火墙服务的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# systemctl status firewalld</span><br></pre></td></tr></table></figure>
+
+<p>（2）停止防火墙服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+
+<p>（3）启动防火墙服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# systemctl start firewalld</span><br></pre></td></tr></table></figure>
+
+<p>（4）重启防火墙服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# systemctl restart firewalld</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-5-systemctl-设置后台服务的自启配置"><a href="#6-5-systemctl-设置后台服务的自启配置" class="headerlink" title="6.5 systemctl 设置后台服务的自启配置"></a><strong>6.5 systemctl</strong> 设置后台服务的自启配置</h2><p><strong>1）</strong>  基本语法</p>
+<p>systemctl list-unit-files （功能描述：查看服务开机启动状态） systemctl disable service_name （功能描述：关掉指定服务的自动启动） systemctl enable service_name （功能描述：开启指定服务的自动启动）</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）开启/关闭 iptables(防火墙)服务的自动启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100 桌面]# systemctl enable firewalld.service</span><br><span class="line"></span><br><span class="line">[root@hadoop100 桌面]# systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-6-系统运行级别"><a href="#6-6-系统运行级别" class="headerlink" title="6.6 系统运行级别"></a><strong>6.6</strong> 系统运行级别</h2><h3 id="1）Linux-运行级别-CentOS-6-，如图-7-1-所示"><a href="#1）Linux-运行级别-CentOS-6-，如图-7-1-所示" class="headerlink" title="1）Linux 运行级别**[CentOS 6]**，如图 7-1 所示"></a><strong>1</strong>）<strong>Linux</strong> 运行级别**[CentOS 6]**，如图 <strong>7-1</strong> 所示</h3><p><img src="https://image.3001.net/images/20221009/16652816025839.jpg" alt="img"></p>
+<p>图 6-1 Linux进程运行级别</p>
+<h3 id="2）-CentOS7-的运行级别简化为"><a href="#2）-CentOS7-的运行级别简化为" class="headerlink" title="2） CentOS7 的运行级别简化为**:**"></a><strong>2）</strong> <strong>CentOS7</strong> 的运行级别简化为**:**</h3><p>multi-user.target 等价于原运行级别 3（多用户有网，无图形界面） graphical.target 等价于原运行级别 5（多用户有网，有图形界面）</p>
+<h3 id="3）-查看当前运行级别"><a href="#3）-查看当前运行级别" class="headerlink" title="3） 查看当前运行级别**:**"></a><strong>3）</strong> 查看当前运行级别**:**</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl get-default</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4）-修改当前运行级别"><a href="#4）-修改当前运行级别" class="headerlink" title="4） 修改当前运行级别"></a><strong>4）</strong> 修改当前运行级别</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default TARGET.target #1.（这里 TARGET 取 multi-user 或者 graphical）</span><br><span class="line"></span><br><span class="line">init 3/5 	#2.(这里3代表命令行模式/5代表图形模式)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-7-关闭防火墙"><a href="#6-7-关闭防火墙" class="headerlink" title="6.7 关闭防火墙"></a><strong>6.7</strong> 关闭防火墙</h2><p><strong>1）</strong> 临时关闭防火墙</p>
+<p>（1）查看防火墙状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]# systemctl status firewalld</span><br></pre></td></tr></table></figure>
+
+<p>（2）临时关闭防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]# systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+
+<p><strong>2）</strong> 开机启动时关闭防火墙</p>
+<p>（1）查看防火墙开机启动状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]# systemctl enable firewalld.service</span><br></pre></td></tr></table></figure>
+
+<p>（2）设置开机时关闭防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]# systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-8-关机重启命令"><a href="#6-8-关机重启命令" class="headerlink" title="6.8 关机重启命令"></a><strong>6.8</strong> 关机重启命令</h3><p>在 linux 领域内大多用在服务器上，很少遇到关机的操作。毕竟服务器上跑一个服务是永无止境的，除非特殊情况下，不得已才会关机。</p>
+<p><strong>1）</strong> 基本语法</p>
+<p>（1）sync （功能描述：将数据由内存同步到硬盘中）</p>
+<p>（2）halt （功能描述：停机，关闭系统，但不断电）</p>
+<p>（3）poweroff （功能描述：关机，断电）</p>
+<p>（3）reboot  （功能描述：就是重启，等同于 shutdown -r now）</p>
+<p>（4）shutdown [选项] 时间</p>
+<p>表 6-1</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-H</td>
+<td>相当于–halt，停机</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>-r=reboot  重启</td>
+</tr>
+</tbody></table>
+<p>表 6-2</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>now</td>
+<td>立刻关机</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>等待多久后关机（时间单位是分钟）。</td>
+</tr>
+</tbody></table>
+<p><strong>2）</strong> 经验技巧</p>
+<p>Linux 系统中为了提高磁盘的读写效率，对磁盘采取了 “预读迟写”操作方式。当用户保存文件时，Linux 核心并不一定立即将保存数据写入物理磁盘中，而是将数据保存在缓冲区中，等缓冲区满时再写入磁盘，这种方式可以极大的提高磁盘写入数据的效率。但是，也带来了安全隐患，如果数据还未写入磁盘时，系统掉电或者其他严重问题出现，则将导</p>
+<p>致数据丢失。使用 sync 指令可以立即将缓冲区的数据写入磁盘。</p>
+<p><strong>3）</strong> 案例实操</p>
+<p>（1）将数据由内存同步到硬盘中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]#sync</span><br></pre></td></tr></table></figure>
+
+<p>（2）重启</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]# reboot</span><br></pre></td></tr></table></figure>
+
+<p>（3）停机（不断电）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]#halt</span><br></pre></td></tr></table></figure>
+
+<p>（4）计算机将在 1 分钟后关机，并且会显示在登录用户的当前屏幕中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]#shutdown -h 1 ‘This server will shutdown after 1 mins’</span><br></pre></td></tr></table></figure>
+
+<p>（5）立马关机（等同于 poweroff）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]# shutdown -h now</span><br></pre></td></tr></table></figure>
+
+<p>（6）系统立马重启（等同于 reboot）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop100桌面]# shutdown -r now</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="第-7-章常用基本命令（重要）"><a href="#第-7-章常用基本命令（重要）" class="headerlink" title="第 7 章常用基本命令（重要）"></a>第 <strong>7</strong> 章常用基本命令（重要）</h1><p>Shell 可以看作是一个命令解释器，为我们提供了交互式的文本控制台界面。我们可以通过终端控制台来输入命令，由 shell 进行解释并最终交给内核执行。本章就将分类介绍常用的基本 shell 命令。</p>
+<h2 id="7-1-帮助命令"><a href="#7-1-帮助命令" class="headerlink" title="7.1 帮助命令"></a><strong>7.1</strong> 帮助命令</h2><p><strong>7.1.1 man</strong> 获得帮助信息</p>
+<p><strong>1）</strong>  基本语法</p>
+<p>​    man [命令或配置文件] （功能描述：获得帮助信息）</p>
+<p><strong>2）</strong>  显示说明</p>
+<p>表 7-1</p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NAME</td>
+<td>命令的名称和单行描述</td>
+</tr>
+<tr>
+<td>SYNOPSIS</td>
+<td>怎样使用命令</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>命令功能的深入讨论</td>
+</tr>
+<tr>
+<td>EXAMPLES</td>
+<td>怎样使用命令的例子</td>
+</tr>
+<tr>
+<td>SEE ALSO</td>
+<td>相关主题（通常是手册页）</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  案例实操</p>
+<p>（1）查看 ls 命令的帮助信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# man ls</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.1.2 help</strong> 获得 <strong>shell</strong> 内置命令的帮助信息</p>
+<p>一部分基础功能的系统命令是直接内嵌在 shell 中的，系统加载启动之后会随着 shell 一起加载，常驻系统内存中。这部分命令被称为“内置（built-in）命令”；相应的其它命令</p>
+<p>被称为“外部命令”。</p>
+<p><strong>1）</strong>  基本语法</p>
+<p>help 命令（功能描述：获得 shell 内置命令的帮助信息）</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）查看 cd 命令的帮助信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# help cd</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.1.3</strong> 常用快捷键表 7-2 常用快捷键</p>
+<table>
+<thead>
+<tr>
+<th>常用快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ctrl + c</td>
+<td>停止进程</td>
+</tr>
+<tr>
+<td>ctrl+l</td>
+<td>清屏，等同于 clear；彻底清屏是：reset</td>
+</tr>
+<tr>
+<td>善于用 tab 键</td>
+<td>提示(更重要的是可以防止敲错)</td>
+</tr>
+<tr>
+<td>上下键</td>
+<td>查找执行过的命令</td>
+</tr>
+</tbody></table>
+<h2 id="7-2-文件目录类"><a href="#7-2-文件目录类" class="headerlink" title="7.2 文件目录类"></a><strong>7.2</strong> 文件目录类</h2><h3 id="7-2-1-pwd-显示当前工作目录的绝对路径"><a href="#7-2-1-pwd-显示当前工作目录的绝对路径" class="headerlink" title="7.2.1 pwd 显示当前工作目录的绝对路径"></a><strong>7.2.1 pwd</strong> 显示当前工作目录的绝对路径</h3><p>pwd:print working directory 打印工作目录</p>
+<p><strong>1）</strong>  基本语法 pwd    （功能描述：显示当前工作目录的绝对路径）</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）显示当前工作目录的绝对路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# pwd</span><br><span class="line"></span><br><span class="line">/root</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-2-ls-列出目录的内容"><a href="#7-2-2-ls-列出目录的内容" class="headerlink" title="7.2.2 ls 列出目录的内容"></a><strong>7.2.2 ls</strong> 列出目录的内容</h3><p>ls:list 列出目录内容</p>
+<p><strong>1）</strong>  基本语法</p>
+<p>ls [选项] [目录或是文件]</p>
+<p><strong>2）</strong>  选项说明</p>
+<p>表7-3 选项说明</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>全部的文件，连同隐藏档( 开头为 . 的文件) 一起列出来(常用)</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>长数据串列出，包含文件的属性与权限等等数据；(常用)等价于“ll”</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  显示说明每行列出的信息依次是：文件类型与权限链接数文件属主文件属组文件大小用byte 来表示建立或最近修改的时间名字</p>
+<p><strong>4）</strong>  案例实操</p>
+<p>（1）查看当前目录的所有内容信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop101 ~]$ ls -al </span><br><span class="line">总用量 44 </span><br><span class="line">drwx------. 5 atguigu atguigu 4096 5月 27 15:15 . </span><br><span class="line">drwxr-xr-x. 3 root	root	4096 5月 27 14:03 .. </span><br><span class="line">drwxrwxrwx. 2 root	root	4096 5月 27 14:14 hello </span><br><span class="line">-rwxrw-r--. 1 atguigu atguigu	34 5月 27 14:20 test.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-3-cd-切换目录"><a href="#7-2-3-cd-切换目录" class="headerlink" title="7.2.3 cd 切换目录"></a><strong>7.2.3 cd</strong> 切换目录</h3><p>cd:Change Directory 切换路径</p>
+<p><strong>1）</strong>  基本语法</p>
+<p>cd [参数]</p>
+<p><strong>2）</strong>  参数说明</p>
+<p>表 7-4参数说明</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cd 绝对路径</td>
+<td>切换路径</td>
+</tr>
+<tr>
+<td>cd 相对路径</td>
+<td>切换路径</td>
+</tr>
+<tr>
+<td>cd ~或者 cd</td>
+<td>回到自己的家目录</td>
+</tr>
+<tr>
+<td>cd -</td>
+<td>回到上一次所在目录</td>
+</tr>
+<tr>
+<td>cd ..</td>
+<td>回到当前目录的上一级目录</td>
+</tr>
+<tr>
+<td>cd -P</td>
+<td>跳转到实际物理路径，而非快捷方式路径</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  案例实操</p>
+<p>（1）使用绝对路径切换到 root 目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# cd /root/</span><br></pre></td></tr></table></figure>
+
+<p>（2）使用相对路径切换到“公共的”目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# cd 公共的/</span><br></pre></td></tr></table></figure>
+
+<p>（3）表示回到自己的家目录，亦即是 /root 这个目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 公共的]# cd ~</span><br></pre></td></tr></table></figure>
+
+<p>（4）cd- 回到上一次所在目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# cd -</span><br></pre></td></tr></table></figure>
+
+<p>（5）表示回到当前目录的上一级目录，亦即是“/root/公共的”的上一级目录的意思；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 公共的]# cd ..</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-4-mkdir-创建一个新的目录"><a href="#7-2-4-mkdir-创建一个新的目录" class="headerlink" title="7.2.4 mkdir 创建一个新的目录"></a><strong>7.2.4 mkdir</strong> 创建一个新的目录</h3><p>mkdir:Make directory 建立目录</p>
+<p><strong>1）</strong>  基本语法 mkdir [选项] 要创建的目录</p>
+<p><strong>2）</strong>  选项说明</p>
+<p>表 7-5 选项说明</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-p</td>
+<td>创建多层目录</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  案例实操</p>
+<p>（1）创建一个目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# mkdir xiyou</span><br><span class="line"></span><br><span class="line">[root@hadoop101 ~]# mkdir xiyou/mingjie</span><br></pre></td></tr></table></figure>
+
+<p>（2）创建一个多级目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# mkdir -p xiyou/dssz/meihouwang</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-5-rmdir-删除一个空的目录"><a href="#7-2-5-rmdir-删除一个空的目录" class="headerlink" title="7.2.5 rmdir 删除一个空的目录"></a><strong>7.2.5 rmdir</strong> 删除一个空的目录</h3><p>rmdir:Remove directory 移除目录</p>
+<p><strong>1</strong>）基本语法 rmdir 要删除的空目录 <strong>2</strong>）案例实操</p>
+<p>（1）删除一个空的文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# rmdir xiyou/dssz/meihouwang</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-6-touch-创建空文件"><a href="#7-2-6-touch-创建空文件" class="headerlink" title="7.2.6 touch 创建空文件"></a><strong>7.2.6 touch</strong> 创建空文件</h3><p><strong>1）</strong>  基本语法</p>
+<p>touch 文件名称</p>
+<p><strong>2）</strong>  案例实操</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# touch xiyou/dssz/sunwukong.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-7-cp-复制文件或目录"><a href="#7-2-7-cp-复制文件或目录" class="headerlink" title="7.2.7 cp 复制文件或目录"></a><strong>7.2.7 cp</strong> 复制文件或目录</h3><p><strong>1</strong>）基本语法 cp [选项] source dest    （功能描述：复制source文件到dest）</p>
+<p><strong>1</strong>）选项说明</p>
+<p>表7-6 选项说明</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-r</td>
+<td>递归复制整个文件夹</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  参数说明</p>
+<p>表7-7 参数说明</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>source</td>
+<td>源文件</td>
+</tr>
+<tr>
+<td>dest</td>
+<td>目标文件</td>
+</tr>
+</tbody></table>
+<p><strong>4）</strong>  经验技巧强制覆盖不提示的方法：\cp</p>
+<p><strong>5）</strong>  案例实操</p>
+<p>（1）复制文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# cp xiyou/dssz/suwukong.txt xiyou/mingjie/</span><br></pre></td></tr></table></figure>
+
+<p>（2）递归复制整个文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# cp -r xiyou/dssz/ ./</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-8-rm-删除文件或目录"><a href="#7-2-8-rm-删除文件或目录" class="headerlink" title="7.2.8 rm 删除文件或目录"></a><strong>7.2.8 rm</strong> 删除文件或目录</h3><p><strong>1</strong>）基本语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm [选项] deleteFile</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2）选项说明    （功能描述：递归删除目录中所有内容）</p>
+<p>表7-8 选项说明</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>-r</td>
+<td>递归删除目录中所有内容</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>强制执行删除操作，而不提示用于进行确认。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示指令的详细执行过程</td>
+</tr>
+</tbody></table>
+<p><strong>3</strong>）案例实操</p>
+<p>（1）删除目录中的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# rm xiyou/mingjie/sunwukong.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）递归删除目录中所有内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# rm -rf dssz/</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-9-mv-移动文件与目录或重命名"><a href="#7-2-9-mv-移动文件与目录或重命名" class="headerlink" title="7.2.9 mv 移动文件与目录或重命名"></a><strong>7.2.9 mv</strong> 移动文件与目录或重命名</h3><p><strong>1）</strong>  基本语法</p>
+<p>（1）mv oldNameFile newNameFile （功能描述：重命名）</p>
+<p>（2）mv /temp/movefile /targetFolder （功能描述：移动文件）</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）重命名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# mv xiyou/dssz/suwukong.txt xiyou/dssz/houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）移动文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# mv xiyou/dssz/houge.txt ./</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-10-cat-查看文件内容"><a href="#7-2-10-cat-查看文件内容" class="headerlink" title="7.2.10 cat 查看文件内容"></a><strong>7.2.10 cat</strong> 查看文件内容</h3><p>查看文件内容，从第一行开始显示。</p>
+<p><strong>1）</strong>基本语法 cat [选项] 要查看的文件</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-9</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-n</td>
+<td>显示所有行的行号，包括空行。</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>经验技巧一般查看比较小的文件，一屏幕能显示全的。</p>
+<p><strong>4）</strong>案例实操</p>
+<p>（1）查看文件内容并显示行号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop101 ~]$ cat -n houge.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-11-more-文件内容分屏查看器"><a href="#7-2-11-more-文件内容分屏查看器" class="headerlink" title="7.2.11 more 文件内容分屏查看器"></a><strong>7.2.11 more</strong> 文件内容分屏查看器</h3><p>more 指令是一个基于 VI 编辑器的文本过滤器，它以全屏幕的方式按页显示文本文件的内容。more 指令中内置了若干快捷键，详见操作说明。</p>
+<p><strong>1）</strong>  基本语法 more 要查看的文件</p>
+<p><strong>2）</strong>  操作说明</p>
+<p>表 7-10 操作说明</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空白键 (space)</td>
+<td>代表向下翻一页；</td>
+</tr>
+<tr>
+<td>Enter</td>
+<td>代表向下翻『一行』；</td>
+</tr>
+<tr>
+<td>q</td>
+<td>代表立刻离开 more ，不再显示该文件内容。</td>
+</tr>
+<tr>
+<td>Ctrl+F</td>
+<td>向下滚动一屏</td>
+</tr>
+<tr>
+<td>Ctrl+B</td>
+<td>返回上一屏</td>
+</tr>
+<tr>
+<td>=</td>
+<td>输出当前行的行号</td>
+</tr>
+<tr>
+<td>:f</td>
+<td>输出文件名和当前行的行号</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  案例实操</p>
+<p>（1）采用more查看文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# more smartd.conf</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-12-less-分屏显示文件内容"><a href="#7-2-12-less-分屏显示文件内容" class="headerlink" title="7.2.12 less 分屏显示文件内容"></a><strong>7.2.12 less</strong> 分屏显示文件内容</h3><p>less 指令用来分屏查看文件内容，它的功能与 more 指令类似，但是比 more 指令更加强大，支持各种显示终端。less 指令在显示文件内容时，并不是一次将整个文件加载之后</p>
+<p>才显示，而是根据显示需要加载内容，对于显示大型文件具有较高的效率。</p>
+<p><strong>1）</strong>基本语法</p>
+<p>less 要查看的文件</p>
+<p><strong>2）</strong>操作说明</p>
+<p>表 7-11 操作说明</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空白键</td>
+<td>向下翻动一页；</td>
+</tr>
+<tr>
+<td>[pagedown]</td>
+<td>向下翻动一页</td>
+</tr>
+<tr>
+<td>[pageup]</td>
+<td>向上翻动一页；</td>
+</tr>
+<tr>
+<td>/字串</td>
+<td>向下搜寻『字串』的功能；n：向下查找；N：向上查找；</td>
+</tr>
+<tr>
+<td>?字串</td>
+<td>向上搜寻『字串』的功能；n：向上查找；N：向下查找；</td>
+</tr>
+<tr>
+<td>q</td>
+<td>离开 less 这个程序；</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>经验技巧</p>
+<p>用SecureCRT时[pagedown]和[pageup]可能会出现无法识别的问题。</p>
+<p><strong>4）</strong>案例实操</p>
+<p>（1）采用less查看文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# less smartd.conf</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-13-echo"><a href="#7-2-13-echo" class="headerlink" title="7.2.13 echo"></a><strong>7.2.13 echo</strong></h3><p>echo 输出内容到控制台</p>
+<p><strong>1）</strong>  基本语法</p>
+<p>echo [选项] [输出内容] 选项：</p>
+<p>-e： 支持反斜线控制的字符转换</p>
+<table>
+<thead>
+<tr>
+<th>控制字符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\</td>
+<td>输出\本身</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表符，也就是 Tab  键</td>
+</tr>
+</tbody></table>
+<p><strong>2）</strong>  案例实操</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop101 ~]$ echo “hello\tworld” hello\tworld</span><br><span class="line"></span><br><span class="line">[atguigu@hadoop101 ~]$ echo -e “hello\tworld” hello  world</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-14-head-显示文件头部内容"><a href="#7-2-14-head-显示文件头部内容" class="headerlink" title="7.2.14 head 显示文件头部内容"></a><strong>7.2.14 head</strong> 显示文件头部内容</h3><p>head 用于显示文件的开头部分内容，默认情况下 head 指令显示文件的前 10 行内容。</p>
+<p><strong>1）</strong>  基本语法 head 文件 （功能描述：查看文件头10行内容） head -n 5 文件 （功能描述：查看文件头5行内容，5可以是任意行数）</p>
+<p><strong>2）</strong>  选项说明</p>
+<p>表7-12</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-n&lt;行数&gt;</td>
+<td>指定显示头部内容的行数</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  案例实操</p>
+<p>（1）查看文件的头2行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# head -n 2 smartd.conf</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-15-tail-输出文件尾部内容"><a href="#7-2-15-tail-输出文件尾部内容" class="headerlink" title="7.2.15 tail 输出文件尾部内容"></a><strong>7.2.15 tail</strong> 输出文件尾部内容</h3><p>tail 用于输出文件中尾部的内容，默认情况下 tail 指令显示文件的后 10 行内容。</p>
+<table>
+<thead>
+<tr>
+<th><strong>1</strong>） 基本语法</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>（1）tail  文件</td>
+<td>（功能描述：查看文件尾部10行内容）</td>
+</tr>
+<tr>
+<td>（2）tail  -n 5 文件</td>
+<td>（功能描述：查看文件尾部5行内容，5可以是任意行数）</td>
+</tr>
+<tr>
+<td>（3）tail -f 文件  <strong>2</strong>） 选项说明</td>
+<td>（功能描述：实时追踪该文档的所有更新）</td>
+</tr>
+</tbody></table>
+<p>表7-13</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-n&lt;行数&gt;</td>
+<td>输出文件尾部 n 行内容</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>显示文件最新追加的内容，监视文件变化</td>
+</tr>
+</tbody></table>
+<p><strong>3</strong>）案例实操</p>
+<p>（1）查看文件尾 1 行内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# tail -n 1 smartd.conf</span><br></pre></td></tr></table></figure>
+
+<p>（2）实时追踪该档的所有更新</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# tail -f houge.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-16-gt-输出重定向和-gt-gt-追加"><a href="#7-2-16-gt-输出重定向和-gt-gt-追加" class="headerlink" title="7.2.16 &gt; 输出重定向和 &gt;&gt; 追加"></a><strong>7.2.16 &gt;</strong> 输出重定向和 <strong>&gt;&gt;</strong> 追加</h3><p><strong>1）</strong>  基本语法</p>
+<p>（1）ls -l &gt; 文件  （功能描述：列表的内容写入文件 a.txt 中（覆盖写））</p>
+<p>（2）ls -al &gt;&gt; 文件 （功能描述：列表的内容追加到文件 aa.txt 的末尾）</p>
+<p>（3）cat 文件 1 &gt; 文件 2   （功能描述：将文件 1 的内容覆盖到文件 2）</p>
+<p>（4）echo “内容” &gt;&gt; 文件</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）将 ls 查看信息写入到文件中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# ls -l&gt;houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）将 ls 查看信息追加到文件中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# ls -l&gt;&gt;houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（3）采用 echo 将 hello 单词追加到文件中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# echo hello&gt;&gt;houge.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-17-ln-软链接"><a href="#7-2-17-ln-软链接" class="headerlink" title="7.2.17 ln 软链接"></a><strong>7.2.17 ln</strong> 软链接</h3><p>软链接也称为符号链接，类似于 windows 里的快捷方式，有自己的数据块，主要存放了链接其他文件的路径。</p>
+<p><strong>1）</strong>  基本语法 ln -s [原文件或目录] [软链接名] （功能描述：给原文件创建一个软链接）</p>
+<p><strong>2）</strong>  经验技巧删除软链接： rm -rf 软链接名，而不是 rm -rf 软链接名/ 如果使用 rm -rf 软链接名/ 删除，会把软链接对应的真实目录下内容删掉查询：通过 ll 就可以查看，列表属性第 1 位是 l，尾部会有位置指向。</p>
+<p><strong>3）</strong>  案例实操</p>
+<p>（1）创建软连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# mv houge.txt xiyou/dssz/</span><br><span class="line">[root@hadoop101 ~]# ln -s xiyou/dssz/houge.txt ./houzi</span><br><span class="line">[root@hadoop101 ~]# ll</span><br><span class="line">lrwxrwxrwx. 1 root root  20 6月 17 12:56 houzi -&gt; xiyou/dssz/houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）删除软连接(注意不要写最后的/)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# rm -rf houzi</span><br></pre></td></tr></table></figure>
+
+<p>（3）进入软连接实际物理路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# ln -s xiyou/dssz/ ./dssz</span><br><span class="line">[root@hadoop101 ~]# cd -P dssz/</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-18-history-查看已经执行过历史命令"><a href="#7-2-18-history-查看已经执行过历史命令" class="headerlink" title="7.2.18 history 查看已经执行过历史命令"></a><strong>7.2.18 history</strong> 查看已经执行过历史命令</h3><p><strong>1）</strong>  基本语法</p>
+<p>​    history （功能描述：查看已经执行过历史命令）</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）查看已经执行过的历史命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 test1]# history</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-3-时间日期类"><a href="#7-3-时间日期类" class="headerlink" title="7.3 时间日期类"></a><strong>7.3</strong> 时间日期类</h2><p><strong>1）</strong>  基本语法</p>
+<p>date [OPTION]… [+FORMAT]</p>
+<p><strong>2）</strong>  选项说明</p>
+<p>表 7-14</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-d&lt;时间字符串&gt;</td>
+<td>显示指定的“时间字符串”表示的时间，而非当前时间</td>
+</tr>
+<tr>
+<td>-s&lt;日期时间&gt;</td>
+<td>设置系统日期时间</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  参数说明</p>
+<p>表 7-15</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;+日期时间格式&gt;</td>
+<td>指定显示时使用的日期时间格式</td>
+</tr>
+</tbody></table>
+<h3 id="7-3-1-date-显示当前时间"><a href="#7-3-1-date-显示当前时间" class="headerlink" title="7.3.1 date 显示当前时间"></a><strong>7.3.1 date</strong> 显示当前时间</h3><p><strong>1）</strong>  基本语法</p>
+<table>
+<thead>
+<tr>
+<th>（1）date</th>
+<th>（功能描述：显示当前时间）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>（2）date  +%Y</td>
+<td>（功能描述：显示当前年份）</td>
+</tr>
+<tr>
+<td>（3）date  +%m</td>
+<td>（功能描述：显示当前月份）</td>
+</tr>
+<tr>
+<td>（4）date  +%d</td>
+<td>（功能描述：显示当前是哪一天）</td>
+</tr>
+<tr>
+<td>（5）date  “+%Y-%m-%d %H:%M:%S”</td>
+<td>（功能描述：显示年月日时分秒）</td>
+</tr>
+</tbody></table>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）显示当前时间信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# date</span><br></pre></td></tr></table></figure>
+
+<p>2017 年 06 月 19 日星期一 20:53:30 CST</p>
+<p>（2）显示当前时间年月日</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# date +%Y%m%d</span><br></pre></td></tr></table></figure>
+
+<p>20170619</p>
+<p>（3）显示当前时间年月日时分秒</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# date &quot;+%Y-%m-%d %H:%M:%S&quot;</span><br></pre></td></tr></table></figure>
+
+<p>2017-06-19 20:54:58</p>
+<h3 id="7-3-2-date-显示非当前时间"><a href="#7-3-2-date-显示非当前时间" class="headerlink" title="7.3.2 date 显示非当前时间"></a><strong>7.3.2 date</strong> 显示非当前时间</h3><p><strong>1）</strong>  基本语法</p>
+<p>（1）date -d ‘1 days ago’ （功能描述：显示前一天时间）</p>
+<p>（2）date -d ‘-1 days ago’    （功能描述：显示明天时间）</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）显示前一天</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# date -d &#x27;1 days ago&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>2017 年 06 月 18 日星期日 21:07:22 CST</p>
+<p>（2）显示明天时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]#date -d &#x27;-1 days ago&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>2017 年 06 月 20 日星期日 21:07:22 CST</p>
+<h3 id="7-3-3-date-设置系统时间"><a href="#7-3-3-date-设置系统时间" class="headerlink" title="7.3.3 date 设置系统时间"></a><strong>7.3.3 date</strong> 设置系统时间</h3><p><strong>1</strong>）基本语法</p>
+<p>date -s 字符串时间 <strong>2</strong>）案例实操</p>
+<p>（1）设置系统当前时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# date -s &quot;2017-06-19 20:52:18&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-3-4-cal-查看日历"><a href="#7-3-4-cal-查看日历" class="headerlink" title="7.3.4 cal 查看日历"></a><strong>7.3.4 cal</strong> 查看日历</h3><p><strong>1）</strong>  基本语法 cal [选项]   （功能描述：不加选项，显示本月日历）</p>
+<p><strong>2）</strong>  选项说明</p>
+<p>表 7-16</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>具体某一年</td>
+<td>显示这一年的日历</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  案例实操</p>
+<p>（1）查看当前月的日历</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# cal</span><br></pre></td></tr></table></figure>
+
+<p>（2）查看 2017 年的日历</p>
+<p>[root@hadoop101 ~]# cal 2017</p>
+<h2 id="7-4-用户管理命令"><a href="#7-4-用户管理命令" class="headerlink" title="7.4 用户管理命令"></a><strong>7.4</strong> 用户管理命令</h2><h2 id="7-4-1-useradd-添加新用户"><a href="#7-4-1-useradd-添加新用户" class="headerlink" title="7.4.1 useradd 添加新用户"></a><strong>7.4.1 useradd</strong> 添加新用户</h2><p><strong>1）</strong>  基本语法 useradd 用户名 （功能描述：添加新用户）</p>
+<p>useradd -g 组名用户名（功能描述：添加新用户到某个组）</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）添加一个用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# useradd tangseng</span><br><span class="line">[root@hadoop101 ~]#ll /home/</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.4.2 passwd</strong> 设置用户密码</p>
+<p><strong>1</strong>）基本语法 passwd 用户名 （功能描述：设置用户密码） <strong>2</strong>）案例实操</p>
+<p>（1）设置用户的密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# passwd tangseng</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="7-4-3-id-查看用户是否存在"><a href="#7-4-3-id-查看用户是否存在" class="headerlink" title="7.4.3 id 查看用户是否存在"></a><strong>7.4.3 id</strong> 查看用户是否存在</h4><p><strong>1）</strong>  基本语法 id 用户名</p>
+<p><strong>2）</strong>  案例实操</p>
+<p>（1）查看用户是否存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]#id tangseng</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.4.4 cat /etc/passwd</strong> 查看创建了哪些用户</p>
+<p><strong>1</strong>）案例实操</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# cat	/etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.4.5 su</strong> 切换用户</p>
+<p>su: swith user 切换用户</p>
+<p><strong>1）</strong>基本语法su 用户名称 （功能描述：切换用户，只能获得用户的执行权限，不能获得环境变量） su - 用户名称 （功能描述：切换到用户并获得该用户的环境变量及执行权限）</p>
+<p><strong>2）</strong>案例实操</p>
+<p>（1）切换用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]#su tangseng</span><br><span class="line">[root@hadoop101 ~]#echo $PATH</span><br><span class="line">/usr/lib64/qt-</span><br><span class="line">3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/b in</span><br><span class="line">[root@hadoop101 ~]#exit</span><br><span class="line">[root@hadoop101 ~]#su - tangseng</span><br><span class="line">[root@hadoop101 ~]#echo $PATH</span><br><span class="line">/usr/lib64/qt-</span><br><span class="line">3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/t angseng/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>7.4.6 userdel</strong> 删除用户</p>
+<p><strong>1）</strong>基本语法</p>
+<p>（1）userdel 用户名  （功能描述：删除用户但保存用户主目录）</p>
+<p>（2）userdel -r 用户名 （功能描述：用户和用户主目录，都删除）</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-17</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-r</td>
+<td>删除用户的同时，删除与用户相关的所有文件。</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）删除用户但保存用户主目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]#userdel tangseng</span><br><span class="line">[root@hadoop101 ~]#ll /home/</span><br></pre></td></tr></table></figure>
+
+<p>（2）删除用户和用户主目录，都删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]#useradd zhubajie</span><br><span class="line">[root@hadoop101 ~]#ll /home/</span><br><span class="line">[root@hadoop101 ~]#userdel -r zhubajie</span><br><span class="line">[root@hadoop101 ~]#ll /home/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>7.4.7 who</strong> 查看登录用户信息</p>
+<p><strong>1）</strong>基本语法</p>
+<p>（1）whoami （功能描述：显示自身用户名称）</p>
+<p>（2）who am i    （功能描述：显示登录用户的用户名以及登陆时间）</p>
+<p><strong>2）</strong>案例实操</p>
+<p>（1）显示自身用户名称</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 opt]# whoami</span><br></pre></td></tr></table></figure>
+
+<p>（2）显示登录用户的用户名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 opt]# who am i</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.4.8 sudo</strong> 设置普通用户具有 <strong>root</strong> 权限</p>
+<p> <strong>1</strong>）添加 <strong>atguigu</strong> 用户，并对其设置密码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101	~]#useradd atguigu</span><br><span class="line">[root@hadoop101	~]#passwd atguigu</span><br></pre></td></tr></table></figure>
+
+<p><strong>2</strong>）修改配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101	~]#vi /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<p>修改 /etc/sudoers 文件，找到下面一行(91 行)，在 root 下面添加一行，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## Allow root to run any commands anywhere</span><br><span class="line">root ALL=(ALL) ALL </span><br><span class="line">atguigu ALL=(ALL) ALL</span><br></pre></td></tr></table></figure>
+
+<p>或者配置成采用 sudo 命令时，不需要输入密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## Allow root to run any commands anywhere</span><br><span class="line">root	ALL=(ALL)	ALL</span><br><span class="line">atguigu	ALL=(ALL)	NOPASSWD:ALL</span><br></pre></td></tr></table></figure>
+
+<p>​    修改完毕，现在可以用 atguigu 帐号登录，然后用命令 sudo ，即可获得 root 权限进行操作。</p>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）用普通用户在/opt 目录下创建一个文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop101 opt]$ sudo mkdir module</span><br><span class="line">[root@hadoop101 opt]# chown atguigu:atguigu module/</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.4.9 usermod</strong> 修改用户</p>
+<p><strong>1）</strong>基本语法</p>
+<p>usermod -g 用户组用户名</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表7-18</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-g</td>
+<td>修改用户的初始登录组，给定的组必须存在。默认组  id 是 1。</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）将用户加入到用户组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 opt]# usermod -g root zhubajie</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-5-用户组管理命令"><a href="#7-5-用户组管理命令" class="headerlink" title="7.5 用户组管理命令"></a><strong>7.5</strong> 用户组管理命令</h2><p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同</p>
+<p>Linux 系统对用户组的规定有所不同，如Linux下的用户属于与它同名的用户组，这个用户组在创建用户时同时创建。用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对</p>
+<p>/etc/group文件的更新。</p>
+<p><strong>7.5.1 groupadd</strong> 新增组</p>
+<p><strong>1）</strong>基本语法</p>
+<p>groupadd 组名</p>
+<p><strong>2）</strong>案例实操</p>
+<p>（1）添加一个xitianqujing组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 opt]#groupadd xitianqujing</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.5.2 groupdel</strong> 删除组</p>
+<p><strong>1）</strong>基本语法</p>
+<p>groupdel 组名</p>
+<p><strong>2）</strong>案例实操</p>
+<p>（1）删除xitianqujing组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 opt]# groupdel xitianqujing</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.5.3 groupmod</strong> 修改组</p>
+<p><strong>1</strong>）基本语法</p>
+<p>groupmod -n 新组名老组名</p>
+<p><strong>1</strong>）选项说明</p>
+<p>表7-19</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-n&lt;新组名&gt;</td>
+<td>指定工作组的新组名</td>
+</tr>
+</tbody></table>
+<p><strong>3</strong>）案例实操</p>
+<p>（1）修改atguigu组名称为atguigu1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]#groupadd xitianqujing</span><br><span class="line">[root@hadoop101 ~]# groupmod -n xitian xitianqujing</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.5.4 cat /etc/group</strong> 查看创建了哪些组</p>
+<p><strong>1</strong>）基本操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 atguigu]# cat /etc/group</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-6-文件权限类"><a href="#7-6-文件权限类" class="headerlink" title="7.6 文件权限类"></a><strong>7.6</strong> 文件权限类</h2><p><strong>7.6.1</strong> 文件属性</p>
+<p>Linux系统是一种典型的多用户系统，不同的用户处于不同的地位，拥有不同的权限。为了保护系统的安全性，Linux系统对不同的用户访问同一文件（包括目录文件）的权限做了不同的规定。在Linux中我们可以使用ll或者ls -l命令来显示一个文件的属性以及文件所属</p>
+<p>的用户和组。</p>
+<p><strong>1）</strong>从左到右的 <strong>10</strong> 个字符表示，如图 <strong>7-1</strong> 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816016638.jpg" alt="img"></p>
+<p>图 7-1 文件属性</p>
+<p>如果没有权限，就会出现减号[ - ]而已。从左至右用0-9这些数字来表示:</p>
+<p>（1）0 首位表示类型</p>
+<p>在Linux中第一个字符代表这个文件是目录、文件或链接文件等等</p>
+<p>- 代表文件 d 代表目录</p>
+<p>l 链接文档(link file)；</p>
+<p>（2）   第1-3位确定属主（该文件的所有者）拥有该文件的权限。—User</p>
+<p>（3）   第4-6位确定属组（所有者的同组用户）拥有该文件的权限，—Group</p>
+<p>（4）   第7-9位确定其他用户拥有该文件的权限 —Other</p>
+<p><strong>2）****rwx</strong> 作用文件和目录的不同解释</p>
+<p>（1）   作用到文件：</p>
+<p>[ r ]代表可读(read): 可以读取，查看</p>
+<p>[ w ]代表可写(write): 可以修改，但是不代表可以删除该文件，删除一个文件的前</p>
+<p>提条件是对该文件所在的目录有写权限，才能删除该文件.</p>
+<p>[ x ]代表可执行(execute):可以被系统执行</p>
+<p>（2）   作用到目录：</p>
+<p>[ r ]代表可读(read): 可以读取，ls查看目录内容</p>
+<p>[ w ]代表可写(write): 可以修改，目录内创建+删除+重命名目录</p>
+<p>[ x ]代表可执行(execute):可以进入该目录</p>
+<p><strong>3）</strong>案例实操</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# ll  </span><br><span class="line">总用量 104  </span><br><span class="line">-rw-------. 1 root root 1248 1月 8 17:36 anaconda-ks.cfg </span><br><span class="line">drwxr-xr-x. 2  root root 4096 1月 12 14:02  dssz  </span><br><span class="line">lrwxrwxrwx.  1 root root   20 1月 12 14:32 houzi -&gt; xiyou/dssz/houge.tx  </span><br></pre></td></tr></table></figure>
+
+<p>文件基本属性介绍，如图7-2所示：</p>
+<p><img src="https://image.3001.net/images/20221009/16652816018579.jpg" alt="img"></p>
+<p>图7-2 文件基本属性介绍</p>
+<p>（1）   如果查看到是文件：链接数指的是硬链接个数。</p>
+<p>（2）   如果查看的是文件夹：链接数指的是子文件夹个数。</p>
+<p><strong>7.6.2 chmod</strong> 改变权限</p>
+<p><strong>1）</strong>基本语法</p>
+<p>如图 7-3 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816018782.jpg" alt="img"></p>
+<p>图 7-3 基本语法第一种方式变更权限</p>
+<p>chmod [{ugoa}{+-=}{rwx}] 文件或目录第二种方式变更权限</p>
+<p>chmod [mode=421 ] [文件或目录]</p>
+<p><strong>2）</strong>经验技巧 u:所有者 g:所有组 o:其他人 a:所有人(u、g、o 的总和)</p>
+<p>​    r=4 w=2 x=1    rwx=4+2+1=7</p>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）   修改文件使其所属主用户具有执行权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# cp xiyou/dssz/houge.txt ./</span><br><span class="line">[root@hadoop101 ~]# chmod u+x houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）   修改文件使其所属组用户具有执行权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# chmod g+x houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（3）   修改文件所属主用户执行权限,并使其他用户具有执行权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# chmod u-x,o+x houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（4）   采用数字的方式，设置文件所有者、所属组、其他用户都具有可读可写可执行权限。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# chmod 777 houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（5）   修改整个文件夹里面的所有文件的所有者、所属组、其他用户都具有可读可写可执行权限。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# chmod -R 777 xiyou/</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.6.3 chown</strong> 改变所有者</p>
+<p><strong>1）</strong>基本语法chown [选项] [最终用户] [文件或目录] （功能描述：改变文件或者目录的所有者）</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表7-20</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-R</td>
+<td>递归操作</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）   修改文件所有者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# chown atguigu houge.txt</span><br><span class="line">[root@hadoop101 ~]# ls -al</span><br><span class="line">-rwxrwxrwx. 1 atguigu root 551 5月 23 13:02 houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）   递归改变文件所有者和所有组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 xiyou]# ll </span><br><span class="line">drwxrwxrwx. 2 root root 4096 9月 3 21:20 xiyou </span><br><span class="line">[root@hadoop101 xiyou]# chown -R atguigu:atguigu xiyou/</span><br><span class="line">[root@hadoop101 xiyou]# ll</span><br><span class="line">drwxrwxrwx. 2 atguigu atguigu 4096 9月 3 21:20 xiyou</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.6.4 chgrp</strong> 改变所属组</p>
+<p><strong>1）</strong>基本语法chgrp [最终用户组] [文件或目录] （功能描述：改变文件或者目录的所属组）</p>
+<p><strong>2）</strong>案例实操</p>
+<p>（1）修改文件的所属组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# chgrp root houge.txt</span><br><span class="line">[root@hadoop101 ~]# ls -al</span><br><span class="line">-rwxrwxrwx. 1 atguigu root 551 5月 23 13:02 houge.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-7-搜索查找类"><a href="#7-7-搜索查找类" class="headerlink" title="7.7 搜索查找类"></a><strong>7.7</strong> 搜索查找类</h2><p><strong>7.7.1 find</strong> 查找文件或者目录</p>
+<p>find 指令将从指定目录向下递归地遍历其各个子目录，将满足条件的文件显示在终端。</p>
+<p><strong>1）</strong>基本语法</p>
+<p>find [搜索范围] [选项]</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-21</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-name&lt;查询方式&gt;</td>
+<td>按照指定的文件名查找模式查找文件</td>
+</tr>
+<tr>
+<td>-user&lt;用户名&gt;</td>
+<td>查找属于指定用户名所有文件</td>
+</tr>
+<tr>
+<td>-size&lt;文件大小&gt;</td>
+<td>按照指定的文件大小查找文件,单位为:  <strong>b</strong>  —— 块（512  字节） <strong>c</strong> —— 字节 <strong>w</strong>  —— 字（2  字节） <strong>k</strong> —— 千字节  <strong>M</strong>  —— 兆字节 <strong>G</strong> ——  吉字节</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）   按文件名：根据名称查找/目录下的filename.txt文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# find xiyou/ -name &quot;*.txt&quot;</span><br></pre></td></tr></table></figure>
+
+<p>（2）   按拥有者：查找/opt目录下，用户名称为-user的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# find xiyou/ -user atguigu</span><br></pre></td></tr></table></figure>
+
+<p>（3）   按文件大小：在/home目录下查找大于200m的文件（+n 大于 -n小于 n等于）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]find /home -size +204800</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.7.2 locate</strong> 快速定位文件路径</p>
+<p>locate 指令利用事先建立的系统中所有文件名称及路径的 locate 数据库实现快速定位给定的文件。Locate 指令无需遍历整个文件系统，查询速度较快。为了保证查询结果的准确度，管理员必须定期更新 locate 时刻。</p>
+<p><strong>1）</strong>基本语法</p>
+<p>locate 搜索文件</p>
+<p><strong>2）</strong>经验技巧由于 locate 指令基于数据库进行查询，所以第一次运行前，必须使用 updatedb 指令创建 locate 数据库。</p>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）查询文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# updatedb</span><br><span class="line">[root@hadoop101 ~]#locate tmp</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.7.3 grep</strong> 过滤查找及<strong>“|”</strong>管道符</p>
+<p>管道符，“|”，表示将前一个命令的处理结果输出传递给后面的命令处理</p>
+<p><strong>1）</strong>基本语法grep 选项查找内容源文件</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表7-22</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-n</td>
+<td>显示匹配行及行号。</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）查找某文件在第几行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# ls | grep -n test</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-8-压缩和解压类"><a href="#7-8-压缩和解压类" class="headerlink" title="7.8 压缩和解压类"></a><strong>7.8</strong> 压缩和解压类</h2><p><strong>7.8.1 gzip/gunzip</strong> 压缩</p>
+<p><strong>1）</strong>基本语法gzip 文件 （功能描述：压缩文件，只能将文件压缩为*.gz 文件） gunzip 文件.gz （功能描述：解压缩文件命令）</p>
+<p><strong>2）</strong>经验技巧</p>
+<p>（1）只能压缩文件不能压缩目录</p>
+<p>（2）不保留原来的文件</p>
+<p>（3）同时多个文件会产生多个压缩包</p>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）gzip压缩</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# ls test.java</span><br><span class="line"></span><br><span class="line">[root@hadoop101 ~]# gzip houge.txt</span><br><span class="line"></span><br><span class="line">[root@hadoop101 ~]# ls houge.txt.gz</span><br></pre></td></tr></table></figure>
+
+<p>（2）gunzip解压缩文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]#  gunzip houge.txt.gz  </span><br><span class="line">[root@hadoop101 ~]# ls houge.txt  </span><br></pre></td></tr></table></figure>
+
+<p><strong>7.8.2 zip/unzip</strong> 压缩</p>
+<p><strong>1</strong>）基本语法 zip [选项] XXX.zip 将要压缩的内容 （功能描述：压缩文件和目录的命令）</p>
+<table>
+<thead>
+<tr>
+<th>unzip [选项]  XXX.zip  <strong>2</strong>）选项说明</th>
+<th>（功能描述：解压缩文件）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>表 7-23</p>
+<table>
+<thead>
+<tr>
+<th>zip 选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-r</td>
+<td>压缩目录</td>
+</tr>
+<tr>
+<td></td>
+<td>表 7-24</td>
+</tr>
+<tr>
+<td>unzip 选项</td>
+<td>功能</td>
+</tr>
+<tr>
+<td>-d&lt;目录&gt;</td>
+<td>指定解压后文件的存放目录</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  经验技巧 zip 压缩命令在windows/linux都通用，可以压缩目录且保留源文件。</p>
+<p><strong>4）</strong>  案例实操</p>
+<p>（1）   压缩 houge.txt 和bailongma.txt，压缩后的名称为mypackage.zip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 opt]# touch bailongma.txt</span><br><span class="line"></span><br><span class="line">[root@hadoop101 ~]# zip mypackage.zip houge.txt bailongma.txt adding: houge.txt (stored 0%) adding: bailongma.txt (stored 0%)</span><br><span class="line"></span><br><span class="line">[root@hadoop101 opt]# ls houge.txt bailongma.txt mypackage.zip</span><br></pre></td></tr></table></figure>
+
+<p>（2）   解压 mypackage.zip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# unzip mypackage.zip</span><br><span class="line">Archive: houma.zip extracting: houge.txt extracting: bailongma.txt [root@hadoop101 ~]# ls</span><br><span class="line">houge.txt bailongma.txt mypackage.zip</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（3）   解压mypackage.zip到指定目录-d</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# unzip mypackage.zip -d /opt</span><br><span class="line"></span><br><span class="line">[root@hadoop101 ~]# ls /opt/</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.8.3 tar</strong> 打包</p>
+<p><strong>1）</strong>基本语法tar [选项] XXX.tar.gz 将要打包进去的内容  （功能描述：打包目录，压缩后的</p>
+<p>文件格式.tar.gz）</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-25</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-c</td>
+<td>产生.tar 打包文件</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示详细信息</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>指定压缩后的文件名</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>打包同时压缩</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>解包.tar 文件</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>解压到指定目录</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）压缩多个文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 opt]# tar -zcvf houma.tar.gz houge.txt bailongma.txt</span><br><span class="line">houge.txt bailongma.txt</span><br><span class="line">[root@hadoop101 opt]# ls houma.tar.gz houge.txt bailongma.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（2）压缩目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# tar -zcvf xiyou.tar.gz xiyou/ xiyou/ xiyou/mingjie/ xiyou/dssz/ xiyou/dssz/houge.txt</span><br></pre></td></tr></table></figure>
+
+<p>（3）解压到当前目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# tar -zxvf houma.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>（4）解压到指定目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# tar -zxvf xiyou.tar.gz -C /opt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# ll /opt/</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-9-磁盘查看和分区类"><a href="#7-9-磁盘查看和分区类" class="headerlink" title="7.9 磁盘查看和分区类"></a><strong>7.9</strong> 磁盘查看和分区类</h2><h4 id="7-9-1-du-查看文件和目录占用的磁盘空间"><a href="#7-9-1-du-查看文件和目录占用的磁盘空间" class="headerlink" title="7.9.1 du 查看文件和目录占用的磁盘空间"></a><strong>7.9.1 du</strong> 查看文件和目录占用的磁盘空间</h4><p>du: disk usage 磁盘占用情况</p>
+<p><strong>1）</strong>基本语法du 目录/文件（功能描述：显示目录下每个子目录的磁盘使用情况）</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-26</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-h</td>
+<td>以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示；</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>不仅查看子目录大小，还要包括文件</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>显示所有的文件和子目录大小后，显示总和</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>只显示总和</td>
+</tr>
+<tr>
+<td>–max-depth=n</td>
+<td>指定统计子目录的深度为第 n 层</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）查看当前用户主目录占用的磁盘空间大小</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# du -sh</span><br></pre></td></tr></table></figure>
+
+<p>166M  .</p>
+<h4 id="7-9-2-df-查看磁盘空间使用情况"><a href="#7-9-2-df-查看磁盘空间使用情况" class="headerlink" title="7.9.2 df 查看磁盘空间使用情况"></a><strong>7.9.2 df</strong> 查看磁盘空间使用情况</h4><p>df: disk free 空余磁盘</p>
+<p><strong>1</strong>）基本语法 df 选项 （功能描述：列出文件系统的整体磁盘使用量，检查文件系统的磁盘空间占用情况） <strong>2</strong>）选项说明</p>
+<p>表 7-26</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-h</td>
+<td>以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示；</td>
+</tr>
+</tbody></table>
+<p><strong>3</strong>）案例实操</p>
+<p>（1）查看磁盘使用情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# df -h</span><br><span class="line">Filesystem	Size Used Avail Use% Mounted on</span><br><span class="line">/dev/sda2	15G 3.5G	11G 26% / tmpfs	939M 224K 939M	1% /dev/shm /dev/sda1	190M	39M 142M 22% /boot</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>7.9.3 lsblk</strong> 查看设备挂载情况</p>
+<p><strong>1）</strong>基本语法</p>
+<p>​    lsblk        （功能描述：查看设备挂载情况）</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-28</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-f</td>
+<td>查看详细的设备挂载情况，显示文件系统信息</td>
+</tr>
+</tbody></table>
+<p><strong>7.9.5</strong> <strong>mount/umount</strong> 挂载**/**卸载</p>
+<p>对于Linux用户来讲，不论有几个分区，分别分给哪一个目录使用，它总归就是一个根目录、一个独立且唯一的文件结构。</p>
+<p>Linux中每个分区都是用来组成整个文件系统的一部分，它在用一种叫做“挂载”的处理</p>
+<p>方法，它整个文件系统中包含了一整套的文件和目录，并将一个分区和一个目录联系起来，</p>
+<p>要载入的那个分区将使它的存储空间在这个目录下获得。</p>
+<p><strong>1）</strong>挂载前准备（必须要有光盘或者已经连接镜像文件），如图 <strong>7-5</strong>， <strong>7-6</strong> 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816017119.jpg" alt="img"></p>
+<p>图 7-5</p>
+<p><img src="https://image.3001.net/images/20221009/16652816026310.jpg" alt="img"></p>
+<p>图7-6 挂载镜像文件</p>
+<p><strong>2）</strong>基本语法</p>
+<p>​    mount [-t vfstype] [-o options] device dir  （功能描述：挂载设备）</p>
+<p>​    umount 设备文件名或挂载点 （功能描述：卸载设备）</p>
+<p><strong>3）</strong>参数说明</p>
+<p>表7-29</p>
+<table>
+<thead>
+<tr>
+<th>-t  vfstype</th>
+<th>指定文件系统的类型，通常不必指定。mount 会自动选择正确的类型。常用类型有：  光盘或光盘镜像：iso9660  DOS fat16 文件系统：msdos  <a target="_blank" rel="noopener" href="http://blog.csdn.net/hancunai0017/article/details/6995284">Windows</a> 9x fat32 文件系统：vfat  Windows NT ntfs 文件系统：ntfs  Mount Windows 文件<a target="_blank" rel="noopener" href="http://blog.csdn.net/hancunai0017/article/details/6995284">网络共</a>享：smbfs  <a target="_blank" rel="noopener" href="http://blog.csdn.net/hancunai0017/article/details/6995284">UNIX</a>(LINUX) 文件网络共享：nfs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-o  options</td>
+<td>主要用来描述设备或档案的挂接方式。常用的参数有：  loop：用来把一个文件当成硬盘分区挂接上系统  ro：采用只读方式挂接设备  rw：采用读写方式挂接设备  iocharset：指定访问文件系统所用字符集</td>
+</tr>
+<tr>
+<td>device</td>
+<td>要挂接(mount)的设备</td>
+</tr>
+<tr>
+<td>dir</td>
+<td>设备在系统上的挂接点(mount point)</td>
+</tr>
+</tbody></table>
+<p><strong>4）</strong>案例实操</p>
+<p>（1）挂载光盘镜像文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# mkdir /mnt/cdrom/</span><br><span class="line">[root@hadoop101 ~]# mount -t iso9660 /dev/cdrom /mnt/cdrom/ #挂载到挂载点： /mnt/cdrom中</span><br><span class="line">[root@hadoop101 ~]# ll /mnt/cdrom/	#建立挂载点</span><br><span class="line">设备/dev/cdrom</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（2）卸载光盘镜像文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]# umount /mnt/cdrom</span><br></pre></td></tr></table></figure>
+
+<p>添加红框中内容，保存退出。</p>
+<p>如图7-7所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816025041.jpg" alt="img"></p>
+<p>图7-7 设置开机自动挂载</p>
+<p><strong>7.9.4 fdisk</strong> 分区</p>
+<p><strong>1）</strong>基本语法fdisk -l   （功能描述：查看磁盘分区详情）</p>
+<p>fdisk 硬盘设备名 （功能描述：对新增硬盘进行分区操作）</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-27</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-l</td>
+<td>显示所有硬盘的分区列表</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>经验技巧</p>
+<p>该命令必须在 root 用户下才能使用</p>
+<p><strong>4）</strong>功能说明</p>
+<p>（1）Linux 分区</p>
+<p>Device：分区序列</p>
+<p>Boot：引导</p>
+<p>Start：从X磁柱开始</p>
+<p>End：到Y磁柱结束</p>
+<p>Blocks：容量</p>
+<p>Id：分区类型ID</p>
+<p>System：分区类型</p>
+<p>（2）分区操作按键说明</p>
+<p>m：显示命令列表</p>
+<p>p：显示当前磁盘分区 n：新增分区</p>
+<p>w：写入分区信息并退出</p>
+<p>q：不保存分区信息直接退出</p>
+<p><strong>5）</strong>案例实操</p>
+<p>（1）查看系统分区情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 /]# fdisk -l</span><br><span class="line">Disk /dev/sda: 21.5 GB, 21474836480 bytes</span><br><span class="line">255 heads, 63 sectors/track, 2610 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes Disk identifier: 0x0005e654</span><br><span class="line">Device Boot	Start	End	Blocks	Id	System</span><br><span class="line">/dev/sda1	*	1	26	204800	83 Linux</span><br><span class="line">Partition 1 does not end on cylinder boundary.</span><br><span class="line">/dev/sda2	26	1332	10485760	83 Linux</span><br><span class="line">/dev/sda3	1332	1593	2097152	82 Linux swap / Solaris</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-10-进程管理类"><a href="#7-10-进程管理类" class="headerlink" title="7.10 进程管理类"></a><strong>7.10</strong> 进程管理类</h2><p>进程是正在执行的一个程序或命令，每一个进程都是一个运行的实体，都有自己的地址空间，并占用一定的系统资源。</p>
+<h4 id="7-10-1-ps-查看当前系统进程状态"><a href="#7-10-1-ps-查看当前系统进程状态" class="headerlink" title="7.10.1 ps 查看当前系统进程状态"></a><strong>7.10.1 ps</strong> 查看当前系统进程状态</h4><p>ps:process status 进程状态</p>
+<p><strong>1</strong>）基本语法</p>
+<table>
+<thead>
+<tr>
+<th>ps aux | grep xxx</th>
+<th>（功能描述：查看系统中所有进程）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ps -ef | grep xxx  <strong>2</strong>）选项说明</td>
+<td>（功能描述：可以查看子父进程之间的关系）</td>
+</tr>
+</tbody></table>
+<p>表 7-30</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>列出带有终端的所有用户的进程</td>
+</tr>
+<tr>
+<td>x</td>
+<td>列出当前用户的所有进程，包括没有终端的进程</td>
+</tr>
+<tr>
+<td>u</td>
+<td>面向用户友好的显示风格</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>列出所有进程</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>列出某个用户关联的所有进程</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>显示完整格式的进程列表</td>
+</tr>
+</tbody></table>
+<p><strong>3</strong>）功能说明</p>
+<p>（1）ps aux 显示信息说明</p>
+<p>USER：该进程是由哪个用户产生的</p>
+<p>PID：进程的 ID 号</p>
+<p>%CPU：该进程占用 CPU 资源的百分比，占用越高，进程越耗费资源； %MEM：该进程占用物理内存的百分比，占用越高，进程越耗费资源；</p>
+<p>VSZ：该进程占用虚拟内存的大小，单位 KB；</p>
+<p>RSS：该进程占用实际物理内存的大小，单位 KB；</p>
+<p>TTY：该进程是在哪个终端中运行的。对于 CentOS 来说，tty1 是图形化终端， tty2-tty6 是本地的字符界面终端。pts/0-255 代表虚拟终端。</p>
+<p>STAT：进程状态。常见的状态有：R：运行状态、S：睡眠状态、T：暂停状态、</p>
+<p>Z：僵尸状态、s：包含子进程、l：多线程、+：前台显示</p>
+<p>START：该进程的启动时间</p>
+<p>TIME：该进程占用 CPU 的运算时间，注意不是系统时间</p>
+<p>COMMAND：产生此进程的命令名</p>
+<p>（2）ps -ef 显示信息说明</p>
+<p>UID：用户 ID PID：进程 ID</p>
+<p>PPID：父进程 ID</p>
+<p>C：CPU 用于计算执行优先级的因子。数值越大，表明进程是 CPU 密集型运算，执行优先级会降低；数值越小，表明进程是 I/O 密集型运算，执行优先级会提高</p>
+<p>STIME：进程启动的时间</p>
+<p>TTY：完整的终端名称</p>
+<p>TIME：CPU 时间</p>
+<p>CMD：启动进程所用的命令和参数</p>
+<p><strong>4）</strong>经验技巧如果想查看进程的 CPU 占用率和内存占用率，可以使用 aux;</p>
+<p>​    如果想查看进程的父进程 ID 可以使用 ef;</p>
+<p><strong>5）</strong>案例实操</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 datas]# ps aux</span><br></pre></td></tr></table></figure>
+
+<p>如图 1-161 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816026254.jpg" alt="img"></p>
+<p>图 1-161 查看进程的 CPU 占用率和内存占用率</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 datas]# ps -ef</span><br></pre></td></tr></table></figure>
+
+<p>如图 7-8 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816027514.jpg" alt="img"></p>
+<p>图 7-8 查看进程的父进程 ID</p>
+<p><strong>7.10.2 kill</strong> 终止进程</p>
+<p><strong>1）</strong>基本语法kill [选项] 进程号 （功能描述：通过进程号杀死进程） killall 进程名称 （功能描述：通过进程名称杀死进程，也支持通配符，这在系统因负载过大而变得很慢时很有用）</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-31</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-9</td>
+<td>表示强迫进程立即停止</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）   杀死浏览器进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 桌面]# kill -9 5102</span><br></pre></td></tr></table></figure>
+
+<p>（2）   通过进程名称杀死进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 桌面]# killall firefox</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.10.3 pstree</strong> 查看进程树</p>
+<p><strong>1）</strong>基本语法</p>
+<p>pstree [选项]</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-32</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-p</td>
+<td>显示进程的 PID</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>显示进程的所属用户</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）   显示进程 pid</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 datas]# pstree -p</span><br></pre></td></tr></table></figure>
+
+<p>（2）   显示进程所属用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 datas]# pstree -u</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="7-10-4-top-实时监控系统进程状态"><a href="#7-10-4-top-实时监控系统进程状态" class="headerlink" title="7.10.4 top 实时监控系统进程状态"></a><strong>7.10.4 top</strong> 实时监控系统进程状态</h4><p><strong>1）</strong> 基本命令</p>
+<p>top [选项]</p>
+<p><strong>2）</strong> 选项说明</p>
+<p>表 7-33</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-d 秒数</td>
+<td>指定 top 命令每隔几秒更新。默认是 3 秒在 top 命令的交互模式当中可以执行的命令：</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>使 top 不显示任何闲置或者僵死进程。</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>通过指定监控进程 ID 来仅仅监控某个进程的状态。</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong> 操作说明</p>
+<p>表 7-34</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P</td>
+<td>以 CPU 使用率排序，默认就是此项</td>
+</tr>
+<tr>
+<td>M</td>
+<td>以内存的使用率排序</td>
+</tr>
+<tr>
+<td>N</td>
+<td>以 PID 排序</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出 top</td>
+</tr>
+</tbody></table>
+<p><strong>4）</strong> 查询结果字段解释</p>
+<p>第一行信息为任务队列信息</p>
+<p>表 7-35</p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12:26:46</td>
+<td>系统当前时间</td>
+</tr>
+<tr>
+<td>up 1 day,  13:32</td>
+<td>系统的运行时间，本机已经运行 1 天  13 小时 32 分钟</td>
+</tr>
+<tr>
+<td>2 users</td>
+<td>当前登录了两个用户</td>
+</tr>
+<tr>
+<td>load average:  0.00, 0.00, 0.00</td>
+<td>系统在之前 1 分钟，5 分钟，15 分钟的平均负载。一般认为小于 1 时，负载较小。如果大于  1，系统已经超出负荷。</td>
+</tr>
+</tbody></table>
+<p>第二行为进程信息</p>
+<p>表 7-36</p>
+<table>
+<thead>
+<tr>
+<th>Tasks: 95  total</th>
+<th>系统中的进程总数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1  running</td>
+<td>正在运行的进程数</td>
+</tr>
+<tr>
+<td>94  sleeping</td>
+<td>睡眠的进程</td>
+</tr>
+<tr>
+<td>0  stopped</td>
+<td>正在停止的进程</td>
+</tr>
+<tr>
+<td>0  zombie</td>
+<td>僵尸进程。如果不是 0，需要手工检查僵尸进程</td>
+</tr>
+</tbody></table>
+<p>第三行为 CPU 信息</p>
+<p>表 7-37</p>
+<table>
+<thead>
+<tr>
+<th>Cpu(s):  0.1%us</th>
+<th>用户模式占用的 CPU  百分比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.1%sy</td>
+<td>系统模式占用的 CPU  百分比</td>
+</tr>
+<tr>
+<td>0.0%ni</td>
+<td>改变过优先级的用户进程占用的 CPU  百分比</td>
+</tr>
+<tr>
+<td>99.7%id</td>
+<td>空闲 CPU  的 CPU  百分比</td>
+</tr>
+<tr>
+<td>0.1%wa</td>
+<td>等待输入/输出的进程的占用 CPU  百分比</td>
+</tr>
+<tr>
+<td>0.0%hi</td>
+<td>硬中断请求服务占用的 CPU  百分比</td>
+</tr>
+<tr>
+<td>0.1%si</td>
+<td>软中断请求服务占用的 CPU  百分比</td>
+</tr>
+</tbody></table>
+<p><img src="https://image.3001.net/images/20221009/16652816025830.gif" alt="img"></p>
+<p>第四行为物理内存信息</p>
+<p>表 7-38</p>
+<table>
+<thead>
+<tr>
+<th>Mem:  625344k total</th>
+<th>物理内存的总量，单位 KB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>571504k  used</td>
+<td>已经使用的物理内存数量</td>
+</tr>
+<tr>
+<td>53840k  free</td>
+<td>空闲的物理内存数量，我们使用的是虚拟机，总共只分配了  628MB 内存，所以只有 53MB  的空闲内存了</td>
+</tr>
+<tr>
+<td>65800k  buffers</td>
+<td>作为缓冲的内存数量</td>
+</tr>
+</tbody></table>
+<p>第五行为交换分区（swap）信息</p>
+<p>表 7-39</p>
+<table>
+<thead>
+<tr>
+<th>Swap:  524280k total</th>
+<th>交换分区（虚拟内存）的总大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0k  used</td>
+<td>已经使用的交互分区的大小</td>
+</tr>
+<tr>
+<td>524280k  free</td>
+<td>空闲交换分区的大小</td>
+</tr>
+<tr>
+<td>409280k  cached</td>
+<td>作为缓存的交互分区的大小</td>
+</tr>
+</tbody></table>
+<p><strong>5）</strong> 案例实操</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 atguigu]# top -d 1</span><br><span class="line">[root@hadoop101 atguigu]# top -i</span><br><span class="line">[root@hadoop101 atguigu]# top -p 2575</span><br></pre></td></tr></table></figure>
+
+<p>执行上述命令后，可以按 P、M、N 对查询出的进程结果进行排序。</p>
+<p><strong>7.10.5 netstat</strong> 显示网络状态和端口占用信息</p>
+<p><strong>1）</strong>基本语法netstat -anp | grep 进程号  （功能描述：查看该进程网络信息） netstat –nlp | grep 端口号 （功能描述：查看网络端口号占用情况）</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-40</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>显示所有正在监听（listen）和未监听的套接字（socket）</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>拒绝显示别名，能显示数字的全部转化成数字</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>仅列出在监听的服务状态</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>表示显示哪个进程在调用</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）   通过进程号查看sshd进程的网络信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 hadoop-2.7.2]# netstat -anp | grep sshd</span><br><span class="line">tcp	0	0 0.0.0.0:22	0.0.0.0:*	LISTEN</span><br><span class="line">951/sshd</span><br><span class="line">tcp	0	0 192.168.202.100:22	192.168.202.1:57741</span><br><span class="line">ESTABLISHED 3380/sshd: root@pts</span><br><span class="line">tcp	0	52 192.168.202.100:22	192.168.202.1:57783</span><br><span class="line">ESTABLISHED 3568/sshd: root@pts</span><br><span class="line">tcp	0	0 192.168.202.100:22	192.168.202.1:57679</span><br><span class="line">ESTABLISHED 3142/sshd: root@pts</span><br><span class="line">tcp6	0	0 :::22	:::*	LISTEN</span><br><span class="line">951/sshd unix 2	[ ]	DGRAM	39574	3568/sshd: root@pts unix 2	[ ]	DGRAM	37452	3142/sshd: root@pts unix 2	[ ]	DGRAM	48651	3380/sshd: root@pts</span><br><span class="line">unix 3	[ ]	STREAM	CONNECTED	21224	951/sshd</span><br><span class="line">（2）	查看某端口号是否被</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（2）   查看某端口号是否被占用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101	桌面]# netstat -nltp | grep 22	</span><br><span class="line">tcp	0	0 192.168.122.1:53	0.0.0.0:*	LISTEN</span><br><span class="line">1324/dnsmasq tcp	0	0 0.0.0.0:22	0.0.0.0:*	LISTEN</span><br><span class="line">951/sshd</span><br><span class="line">tcp6	0</span><br><span class="line">951/sshd	0 :::22	:::*	LISTEN</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-11-crontab-系统定时任务"><a href="#7-11-crontab-系统定时任务" class="headerlink" title="7.11 crontab 系统定时任务"></a><strong>7.11 crontab</strong> 系统定时任务</h2><p><strong>7.11.1 crontab</strong> 服务管理</p>
+<p><strong>1</strong>）重新启动 crond 服务</p>
+<p>[root@hadoop101 ~]# systemctl restart crond</p>
+<p><strong>7.11.2 crontab</strong> 定时任务设置</p>
+<p><strong>1）</strong>基本语法</p>
+<p>crontab [选项]</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 7-41</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-e</td>
+<td>编辑 crontab  定时任务</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>查询 crontab  任务</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>删除当前用户所有的 crontab  任务</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>参数说明</p>
+<p>[root@hadoop101 ~]# crontab -e</p>
+<p>（1）进入 crontab 编辑界面。会打开 vim 编辑你的工作。</p>
+<p>* * * * * 执行的任务</p>
+<p>表 7-42</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>含义</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一个“*”</td>
+<td>一小时当中的第几分钟</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>第二个“*”</td>
+<td>一天当中的第几小时</td>
+<td>0-23</td>
+</tr>
+<tr>
+<td>第三个“*”</td>
+<td>一个月当中的第几天</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td>第四个“*”</td>
+<td>一年当中的第几月</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td>第五个“*”</td>
+<td>一周当中的星期几</td>
+<td>0-7 （ 0  和 7  都代表星期日）</td>
+</tr>
+</tbody></table>
+<p>（2）特殊符号</p>
+<p>表 7-43</p>
+<table>
+<thead>
+<tr>
+<th>特殊符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>代表任何时间。比如第一个“*”就代表一小时中每分钟都执行一次的意思。</td>
+</tr>
+<tr>
+<td>，</td>
+<td>代表不连续的时间。比如“0 8,12,16 * * * 命令”，就代表在每天的 8  点 0  分，12  点 0  分，16  点 0  分都执行一次命令</td>
+</tr>
+<tr>
+<td>-</td>
+<td>代表连续的时间范围。比如“0 5 * * 1-6 命令”，代表在周一到周六的凌晨  5 点 0  分执行命令</td>
+</tr>
+<tr>
+<td>*/n</td>
+<td>代表每隔多久执行一次。比如“*/10 * * * * 命令”，代表每隔 10  分钟就执行一遍命令</td>
+</tr>
+</tbody></table>
+<p>（3）特定时间执行命令</p>
+<p>表 7-44</p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>45  22 * * * 命令</td>
+<td>每天 22 点 45  分执行命令</td>
+</tr>
+<tr>
+<td>0  17 * * 1 命令</td>
+<td>每周 1 的 17  点 0  分执行命令</td>
+</tr>
+<tr>
+<td>0  5 1,15 * * 命令</td>
+<td>每月 1 号和 15  号的凌晨 5  点 0  分执行命令</td>
+</tr>
+<tr>
+<td>40  4 * * 1-5 命令</td>
+<td>每周一到周五的凌晨 4 点 40  分执行命令</td>
+</tr>
+<tr>
+<td>*/10  4 * * * 命令</td>
+<td>每天的凌晨 4 点，每隔 10  分钟执行一次命令</td>
+</tr>
+<tr>
+<td>0  0 1,15 * 1 命令</td>
+<td>每月 1 号和 15  号，每周 1  的 0  点 0  分都会执行命令。注意：星期几和几号最好不要同时出现，因为他们定义的都是天。非常容易让管理员混乱。</td>
+</tr>
+</tbody></table>
+<p><strong>4）</strong>案例实操</p>
+<p>（1）每隔 1 分钟，向/root/bailongma.txt 文件中添加一个 11 的数字</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/<span class="number">1</span> * * * * /bin/<span class="keyword">echo</span> ”<span class="number">11</span>” &gt;&gt; /root/bailongma.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="第-8-章软件包管理"><a href="#第-8-章软件包管理" class="headerlink" title="第 8 章软件包管理"></a>第 <strong>8</strong> 章软件包管理</h1><h1 id="8-1-RPM"><a href="#8-1-RPM" class="headerlink" title="8.1 RPM"></a><strong>8.1 RPM</strong></h1><p><strong>8.1.1 RPM</strong> 概述</p>
+<p>RPM（RedHat Package Manager），RedHat软件包管理工具，类似windows里面的setup.exe</p>
+<p>是Linux这系列操作系统里面的打包安装工具，它虽然是RedHat的标志，但理念是通用的。</p>
+<p>RPM包的名称格式</p>
+<p>Apache-1.3.23-11.i386.rpm</p>
+<p>-    “apache” 软件名称</p>
+<p>-    “1.3.23-11”软件的版本号，主版本和此版本</p>
+<p>-    “i386”是软件所运行的硬件平台，Intel 32位处理器的统称</p>
+<p>-    “rpm”文件扩展名，代表RPM包</p>
+<p><strong>8.1.2 RPM</strong> 查询命令（<strong>rpm -qa</strong>）</p>
+<p><strong>1）</strong>基本语法rpm -qa  （功能描述：查询所安装的所有 rpm 软件包）</p>
+<p><strong>2）</strong>经验技巧由于软件包比较多，一般都会采取过滤。rpm -qa | grep rpm软件包</p>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）查询firefox软件安装情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 Packages]# rpm -qa |grep firefox firefox-45.0.1-1.el6.centos.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>(2) 查询firefox软件安装包安装情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 Packages]# rpm -qi grep firefox </span><br></pre></td></tr></table></figure>
+
+<p><strong>8.1.3 RPM</strong> 卸载命令（<strong>rpm -e</strong>）</p>
+<p><strong>1）</strong>基本语法</p>
+<p>（1） rpm -e RPM软件包</p>
+<p>（2） rpm -e –nodeps 软件包</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 8-1</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-e</td>
+<td>卸载软件包</td>
+</tr>
+<tr>
+<td>–nodeps</td>
+<td>卸载软件时，不检查依赖。这样的话，那些使用该软件包的软件</td>
+</tr>
+</tbody></table>
+<p><img src="https://image.3001.net/images/20221009/16652816012041.gif" alt="img"></p>
+<p><strong>3）</strong>案例实操</p>
+<p>（1） 卸载firefox软件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 Packages]# rpm -e firefox</span><br></pre></td></tr></table></figure>
+
+<p><strong>8.1.4 RPM</strong> 安装命令（<strong>rpm -ivh</strong>）</p>
+<p><strong>1）</strong>基本语法</p>
+<p>rpm -ivh RPM 包全名</p>
+<p><strong>2）</strong>选项说明</p>
+<p>表 8-2</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i</td>
+<td>install，安装</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>–verbose，显示详细信息</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>–hash，进度条</td>
+</tr>
+<tr>
+<td>–nodeps</td>
+<td>安装前不检查依赖</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>案例实操</p>
+<p>（1）安装firefox软件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 Packages]# pwd</span><br><span class="line">/run/media/root/CentOS 7 x86_64/Packages</span><br><span class="line">[root@hadoop101 Packages]# rpm -ivh firefox-45.0.1-1.el6.centos.x86_64.rpm warning: firefox-45.0.1-1.el6.centos.x86_64.rpm: Header V3 RSA/SHA1</span><br><span class="line">Signature, key ID c105b9de: NOKEY</span><br><span class="line">Preparing...	###########################################</span><br><span class="line">[100%]</span><br><span class="line">	1:firefox	###########################################</span><br><span class="line">[100%]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="8-2-YUM-仓库配置"><a href="#8-2-YUM-仓库配置" class="headerlink" title="8.2 YUM 仓库配置"></a><strong>8.2 YUM</strong> 仓库配置</h1><p><strong>8.2.1</strong> <strong>YUM</strong> 概述</p>
+<p>YUM（全称为 Yellow dog Updater, Modified）是一个在 Fedora 和 RedHat 以及 CentOS</p>
+<p>中的 Shell 前端软件包管理器。基于 RPM 包管理，能够从指定的服务器自动下载 RPM 包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装，如图 8-1 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816017318.jpg" alt="img"></p>
+<p>图 8-1 YUM 概述</p>
+<p><strong>8.2.2</strong> <strong>YUM</strong> 的常用命令</p>
+<p><strong>1）</strong>  基本语法</p>
+<p>yum [选项] [参数]</p>
+<p><strong>2）</strong>  选项说明</p>
+<p>表 8-3</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-y</td>
+<td>对所有提问都回答“yes”</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>  参数说明</p>
+<p>表 8-4</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>install</td>
+<td>安装 rpm  软件包</td>
+</tr>
+<tr>
+<td>update</td>
+<td>更新 rpm  软件包</td>
+</tr>
+<tr>
+<td>check-update</td>
+<td>检查是否有可用的更新 rpm  软件包</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>删除指定的 rpm  软件包</td>
+</tr>
+<tr>
+<td>list</td>
+<td>显示软件包信息</td>
+</tr>
+<tr>
+<td>clean</td>
+<td>清理 yum  过期的缓存</td>
+</tr>
+<tr>
+<td>deplist</td>
+<td>显示 yum  软件包的所有依赖关系</td>
+</tr>
+</tbody></table>
+<p><strong>4）</strong>  案例实操实操</p>
+<p>（1）采用 yum 方式安装 firefox</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~]#yum -y install firefox</span><br></pre></td></tr></table></figure>
+
+<p><strong>8.2.3</strong> 修改网络 <strong>YUM</strong> 源</p>
+<p>默认的系统 YUM 源，需要连接国外 apache 网站，网速比较慢，可以修改关联的网络</p>
+<p>YUM 源为国内镜像的网站，比如网易 163,aliyun 等</p>
+<p><strong>1）</strong>  安装 wget, wget 用来从指定的 URL 下载文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 ~] yum install wget</span><br></pre></td></tr></table></figure>
+
+<p><strong>2）</strong>  在/etc/yum.repos.d/目录下，备份默认的 repos 文件,</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 yum.repos.d] pwd</span><br><span class="line">/etc/yum.repos.d</span><br><span class="line">[root@hadoop101 yum.repos.d] cp CentOS-Base.repo .repo.backup	CentOS-Base</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>3）</strong>  下载网易 163 或者是 aliyun 的 repos 文件,任选其一，如图 8-2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 yum.repos.d] wget http://mirrors.aliyun.com/repo/Centos-7.repo #阿里云</span><br><span class="line"></span><br><span class="line">[root@hadoop101 yum.repos.d] wget http://mirrors.163.com/.help/CentOS7-Base-163.repo #网易163</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20221009/16652816017849.jpg" alt="img"></p>
+<p>图 8-2 <strong>4</strong>）使用下载好的 repos 文件替换默认的 repos 文件</p>
+<p>例如:用 CentOS7-Base-163.repo 替换 CentOS-Base.repo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 yum.repos.d]# mv CentOS7-Base-163.repo	CentOS-Base.repo</span><br></pre></td></tr></table></figure>
+
+<p><strong>5</strong>）清理旧缓存数据，缓存新数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 yum.repos.d]#yum clean all</span><br><span class="line">[root@hadoop101 yum.repos.d]#yum makecache</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>yum makecache 就是把服务器的包信息下载到本地电脑缓存起来</p>
+<p><strong>6</strong>）测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop101 yum.repos.d]# yum list | grep firefox</span><br><span class="line">[root@hadoop101 ~]#yum -y install firefox</span><br></pre></td></tr></table></figure>
+
+<h1 id="第9章克隆虚拟机"><a href="#第9章克隆虚拟机" class="headerlink" title="第9章克隆虚拟机"></a>第<strong>9</strong>章克隆虚拟机</h1><p><strong>9.1</strong> 克隆</p>
+<p><strong>1）</strong>  从现有虚拟机(关机状态)克隆出新虚拟机，右键选择管理=&gt;克隆，如图 9-1</p>
+<p><img src="https://image.3001.net/images/20221009/16652816027361.jpg" alt="img"></p>
+<p>图 9-1</p>
+<p><strong>2）</strong>  点击下一步,如图 9-2</p>
+<p><img src="https://image.3001.net/images/20221009/16652816024993.jpg" alt="img"></p>
+<p>图 9-2</p>
+<p><strong>3）</strong>  选择虚拟机中的当前状态,如图 9-3</p>
+<p><img src="https://image.3001.net/images/20221009/16652816028336.jpg" alt="img"></p>
+<p>图 9-3</p>
+<p><strong>4）</strong>  选择创建完整克隆，如图 9-4</p>
+<p><img src="https://image.3001.net/images/20221009/16652816029486.jpg" alt="img"></p>
+<p>图 9-4</p>
+<p><strong>5）</strong>  设置虚拟机名称及存储位置，如图 9-5</p>
+<p><img src="https://image.3001.net/images/20221009/16652816028125.jpg" alt="img"></p>
+<p>图 9-5</p>
+<p><strong>6）</strong>  等等等……等待克隆完成，如图 9-6,9-7</p>
+<p><img src="https://image.3001.net/images/20221009/16652816012990.jpg" alt="img"></p>
+<p>图 9-6</p>
+<p><img src="https://image.3001.net/images/20221009/16652816028081.jpg" alt="img"></p>
+<p>图 9-7</p>
+<p><strong>9.2</strong> 开机修改系统相关配置</p>
+<p>注意: 使用 root 用户。</p>
+<p><strong>1</strong>）修改 vim /etc/sysconfig/network-scripts/ifcfg-ens33 ,修改 IP 地址,如图 9-8 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/network-scripts/ifcfg-eth0</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20221009/16652816017784.jpg" alt="img"></p>
+<p>图 9-8 <strong>2</strong>）修改 /etc/hostname ,修改主机名,如图 9-9 vim /etc/hostname</p>
+<p><img src="https://image.3001.net/images/20221009/16652816012674.jpg" alt="img"></p>
+<p>图 9-9</p>
+<h1 id="第-10-章常见错误及解决方案"><a href="#第-10-章常见错误及解决方案" class="headerlink" title="第 10 章常见错误及解决方案"></a>第 <strong>10</strong> 章常见错误及解决方案</h1><p><strong>1</strong>）虚拟化支持异常情况如下几种情况</p>
+<p><img src="https://image.3001.net/images/20221009/16652816025024.jpg" alt="img"></p>
+<p>图 10-1</p>
+<p><img src="https://image.3001.net/images/20221009/16652816027706.jpg" alt="img"></p>
+<p>图10-2</p>
+<p><img src="https://image.3001.net/images/20221009/16652816027033.jpg" alt="img"></p>
+<p>图10-3</p>
+<p><img src="https://image.3001.net/images/20221009/16652816016913.jpg" alt="img"></p>
+<p>图 10-4</p>
+<p>问题原因：宿主机 BIOS 设置中的硬件虚拟化被禁用了解决办法：需要打开笔记本 BIOS 中的 IVT 对虚拟化的支持</p>
+<p><img src="https://image.3001.net/images/20221009/16652816029585.jpg" alt="img"></p>
+<p>图 10-5 </p>
+<h1 id="第-11-章企业真实面试题"><a href="#第-11-章企业真实面试题" class="headerlink" title="第 11 章企业真实面试题"></a>第 <strong>11</strong> 章企业真实面试题</h1><p><strong>11.1</strong> 百度**&amp;**考满分</p>
+<p>问题：Linux 常用命令参考答案：find、df、tar、ps、top、netstat等。（尽量说一些高级命令）</p>
+<p><strong>11.2</strong> 瓜子二手车</p>
+<p>问题：Linux 查看内存、磁盘存储、io 读写、端口占用、进程等命令</p>
+<p>答案：</p>
+<p>1、查看内存：top</p>
+<p>2、查看磁盘存储情况：df -h</p>
+<p>3、查 看磁盘IO读写情况：iotop（需要安装一下：yum install iotop）、 iotop -o（直接查看输出比较高的磁盘读写程序）</p>
+<p>4、查看端口占用情况：netstat -tunlp | grep 端口号</p>
+<p>5、查看进程：ps -aux</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux-shell/" rel="tag"># linux+shell</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/08/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/VMware%20%E5%AE%89%E8%A3%85/" rel="prev" title="VMware 安装">
+      <i class="fa fa-chevron-left"></i> VMware 安装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/10/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/shell/" rel="next" title="shell">
+      shell <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%9A%E7%A1%85%E8%B0%B7%E9%AB%98%E7%BA%A7%E6%8A%80%E6%9C%AF%E4%B9%8B-Linux"><span class="nav-number">1.</span> <span class="nav-text">尚硅谷高级技术之 Linux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-1-%E7%AB%A0-Linux-%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">第 1 章 Linux 入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-2-%E7%AB%A0-VM-%E4%B8%8E-Linux-%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">第 2 章 VM 与 Linux 的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-3-%E7%AB%A0-Linux-%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">第 3 章 Linux 文件与目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Linux-%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Linux 文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-4-%E7%AB%A0-VI-VIM-%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">第 4 章 VI&#x2F;VIM 编辑器（重要）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 测试数据准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89%E6%8B%B7%E8%B4%9D-etc-profile-%E6%95%B0%E6%8D%AE%E5%88%B0-root-%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="nav-number">5.2.0.1.</span> <span class="nav-text">1）拷贝**&#x2F;etc&#x2F;profile** 数据到**&#x2F;root** 目录下</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E4%B8%80%E8%88%AC%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 一般模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 编辑模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-%E6%8C%87%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.5.</span> <span class="nav-text">4.5 指令模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-5-%E7%AB%A0%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">第 5 章网络配置（重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C-IP-%E5%92%8C%E7%BD%91%E5%85%B3"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 查看网络 IP 和网关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%BC%89%E6%9F%A5%E7%9C%8B-windows-%E7%8E%AF%E5%A2%83%E7%9A%84%E4%B8%AD-VMnet8-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%EF%BC%8C%E5%A6%82%E5%9B%BE-5-4-%E6%89%80%E7%A4%BA"><span class="nav-number">6.1.0.1.</span> <span class="nav-text">4）查看 windows 环境的中 VMnet8 网络配置，如图 5-4 所示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C-ip-%E5%9C%B0%E5%9D%80"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 配置网络 ip 地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-ifconfig-%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.2.1.</span> <span class="nav-text">5.2.1 ifconfig 配置网络接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-ping-%E6%B5%8B%E8%AF%95%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%BD%91%E7%BB%9C%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="nav-number">6.2.2.</span> <span class="nav-text">5.2.2 ping 测试主机之间网络连通性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-%E4%BF%AE%E6%94%B9-IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">6.2.3.</span> <span class="nav-text">5.2.3 修改 IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-4-%E4%BF%AE%E6%94%B9-IP-%E5%9C%B0%E5%9D%80%E5%90%8E%E5%8F%AF%E8%83%BD%E4%BC%9A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">6.2.4.</span> <span class="nav-text">5.2.4 修改 IP 地址后可能会遇到的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-%E9%85%8D%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 配置主机名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-1-%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%A7%B0"><span class="nav-number">6.3.1.</span> <span class="nav-text">5.3.1 修改主机名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-2-%E4%BF%AE%E6%94%B9-hosts-%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6"><span class="nav-number">6.3.2.</span> <span class="nav-text">5.3.2 修改 hosts 映射文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 远程登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-6-%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">第 6 章系统管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-Linux-%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.1.</span> <span class="nav-text">6.1 Linux 中的进程和服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-service-%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%EF%BC%88CentOS-6-%E7%89%88%E6%9C%AC-%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 service 服务管理（CentOS 6 版本**-**了解）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-chkconfig-%E8%AE%BE%E7%BD%AE%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E7%9A%84%E8%87%AA%E5%90%AF%E9%85%8D%E7%BD%AE%EF%BC%88CentOS-6-%E7%89%88%E6%9C%AC%EF%BC%89"><span class="nav-number">7.3.</span> <span class="nav-text">6.3 chkconfig 设置后台服务的自启配置（CentOS 6 版本）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-systemctl-%EF%BC%88CentOS-7-%E7%89%88%E6%9C%AC-%E9%87%8D%E7%82%B9%E6%8E%8C%E6%8F%A1%EF%BC%89"><span class="nav-number">7.4.</span> <span class="nav-text">6.4 systemctl （CentOS 7 版本**-**重点掌握）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-systemctl-%E8%AE%BE%E7%BD%AE%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E7%9A%84%E8%87%AA%E5%90%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">7.5.</span> <span class="nav-text">6.5 systemctl 设置后台服务的自启配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-6-%E7%B3%BB%E7%BB%9F%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB"><span class="nav-number">7.6.</span> <span class="nav-text">6.6 系统运行级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%89Linux-%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB-CentOS-6-%EF%BC%8C%E5%A6%82%E5%9B%BE-7-1-%E6%89%80%E7%A4%BA"><span class="nav-number">7.6.1.</span> <span class="nav-text">1）Linux 运行级别**[CentOS 6]**，如图 7-1 所示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89-CentOS7-%E7%9A%84%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB%E7%AE%80%E5%8C%96%E4%B8%BA"><span class="nav-number">7.6.2.</span> <span class="nav-text">2） CentOS7 的运行级别简化为**:**</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%89-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB"><span class="nav-number">7.6.3.</span> <span class="nav-text">3） 查看当前运行级别**:**</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%89-%E4%BF%AE%E6%94%B9%E5%BD%93%E5%89%8D%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB"><span class="nav-number">7.6.4.</span> <span class="nav-text">4） 修改当前运行级别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">7.7.</span> <span class="nav-text">6.7 关闭防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-%E5%85%B3%E6%9C%BA%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4"><span class="nav-number">7.7.1.</span> <span class="nav-text">6.8 关机重启命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-7-%E7%AB%A0%E5%B8%B8%E7%94%A8%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">第 7 章常用基本命令（重要）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">8.1.</span> <span class="nav-text">7.1 帮助命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%B1%BB"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 文件目录类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-1-pwd-%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E7%9A%84%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="nav-number">8.2.1.</span> <span class="nav-text">7.2.1 pwd 显示当前工作目录的绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-2-ls-%E5%88%97%E5%87%BA%E7%9B%AE%E5%BD%95%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">8.2.2.</span> <span class="nav-text">7.2.2 ls 列出目录的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-3-cd-%E5%88%87%E6%8D%A2%E7%9B%AE%E5%BD%95"><span class="nav-number">8.2.3.</span> <span class="nav-text">7.2.3 cd 切换目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-4-mkdir-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="nav-number">8.2.4.</span> <span class="nav-text">7.2.4 mkdir 创建一个新的目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-5-rmdir-%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="nav-number">8.2.5.</span> <span class="nav-text">7.2.5 rmdir 删除一个空的目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-6-touch-%E5%88%9B%E5%BB%BA%E7%A9%BA%E6%96%87%E4%BB%B6"><span class="nav-number">8.2.6.</span> <span class="nav-text">7.2.6 touch 创建空文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-7-cp-%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95"><span class="nav-number">8.2.7.</span> <span class="nav-text">7.2.7 cp 复制文件或目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-8-rm-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95"><span class="nav-number">8.2.8.</span> <span class="nav-text">7.2.8 rm 删除文件或目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-9-mv-%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%88%96%E9%87%8D%E5%91%BD%E5%90%8D"><span class="nav-number">8.2.9.</span> <span class="nav-text">7.2.9 mv 移动文件与目录或重命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-10-cat-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">8.2.10.</span> <span class="nav-text">7.2.10 cat 查看文件内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-11-more-%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%88%86%E5%B1%8F%E6%9F%A5%E7%9C%8B%E5%99%A8"><span class="nav-number">8.2.11.</span> <span class="nav-text">7.2.11 more 文件内容分屏查看器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-12-less-%E5%88%86%E5%B1%8F%E6%98%BE%E7%A4%BA%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">8.2.12.</span> <span class="nav-text">7.2.12 less 分屏显示文件内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-13-echo"><span class="nav-number">8.2.13.</span> <span class="nav-text">7.2.13 echo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-14-head-%E6%98%BE%E7%A4%BA%E6%96%87%E4%BB%B6%E5%A4%B4%E9%83%A8%E5%86%85%E5%AE%B9"><span class="nav-number">8.2.14.</span> <span class="nav-text">7.2.14 head 显示文件头部内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-15-tail-%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6%E5%B0%BE%E9%83%A8%E5%86%85%E5%AE%B9"><span class="nav-number">8.2.15.</span> <span class="nav-text">7.2.15 tail 输出文件尾部内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-16-gt-%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C-gt-gt-%E8%BF%BD%E5%8A%A0"><span class="nav-number">8.2.16.</span> <span class="nav-text">7.2.16 &gt; 输出重定向和 &gt;&gt; 追加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-17-ln-%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="nav-number">8.2.17.</span> <span class="nav-text">7.2.17 ln 软链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-18-history-%E6%9F%A5%E7%9C%8B%E5%B7%B2%E7%BB%8F%E6%89%A7%E8%A1%8C%E8%BF%87%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4"><span class="nav-number">8.2.18.</span> <span class="nav-text">7.2.18 history 查看已经执行过历史命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">8.3.</span> <span class="nav-text">7.3 时间日期类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-1-date-%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4"><span class="nav-number">8.3.1.</span> <span class="nav-text">7.3.1 date 显示当前时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-2-date-%E6%98%BE%E7%A4%BA%E9%9D%9E%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4"><span class="nav-number">8.3.2.</span> <span class="nav-text">7.3.2 date 显示非当前时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-3-date-%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="nav-number">8.3.3.</span> <span class="nav-text">7.3.3 date 设置系统时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-4-cal-%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%8E%86"><span class="nav-number">8.3.4.</span> <span class="nav-text">7.3.4 cal 查看日历</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">8.4.</span> <span class="nav-text">7.4 用户管理命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-1-useradd-%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%94%A8%E6%88%B7"><span class="nav-number">8.5.</span> <span class="nav-text">7.4.1 useradd 添加新用户</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-3-id-%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">8.5.0.1.</span> <span class="nav-text">7.4.3 id 查看用户是否存在</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">8.6.</span> <span class="nav-text">7.5 用户组管理命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%E7%B1%BB"><span class="nav-number">8.7.</span> <span class="nav-text">7.6 文件权限类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-7-%E6%90%9C%E7%B4%A2%E6%9F%A5%E6%89%BE%E7%B1%BB"><span class="nav-number">8.8.</span> <span class="nav-text">7.7 搜索查找类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-8-%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B%E7%B1%BB"><span class="nav-number">8.9.</span> <span class="nav-text">7.8 压缩和解压类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-9-%E7%A3%81%E7%9B%98%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%86%E5%8C%BA%E7%B1%BB"><span class="nav-number">8.10.</span> <span class="nav-text">7.9 磁盘查看和分区类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-9-1-du-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E5%8D%A0%E7%94%A8%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4"><span class="nav-number">8.10.0.1.</span> <span class="nav-text">7.9.1 du 查看文件和目录占用的磁盘空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-9-2-df-%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-number">8.10.0.2.</span> <span class="nav-text">7.9.2 df 查看磁盘空间使用情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-10-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E7%B1%BB"><span class="nav-number">8.11.</span> <span class="nav-text">7.10 进程管理类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-10-1-ps-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">8.11.0.1.</span> <span class="nav-text">7.10.1 ps 查看当前系统进程状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-10-4-top-%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">8.11.0.2.</span> <span class="nav-text">7.10.4 top 实时监控系统进程状态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-11-crontab-%E7%B3%BB%E7%BB%9F%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">8.12.</span> <span class="nav-text">7.11 crontab 系统定时任务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-8-%E7%AB%A0%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86"><span class="nav-number">9.</span> <span class="nav-text">第 8 章软件包管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-1-RPM"><span class="nav-number">10.</span> <span class="nav-text">8.1 RPM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-2-YUM-%E4%BB%93%E5%BA%93%E9%85%8D%E7%BD%AE"><span class="nav-number">11.</span> <span class="nav-text">8.2 YUM 仓库配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC9%E7%AB%A0%E5%85%8B%E9%9A%86%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">12.</span> <span class="nav-text">第9章克隆虚拟机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-10-%E7%AB%A0%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">13.</span> <span class="nav-text">第 10 章常见错误及解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-11-%E7%AB%A0%E4%BC%81%E4%B8%9A%E7%9C%9F%E5%AE%9E%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">14.</span> <span class="nav-text">第 11 章企业真实面试题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="希文"
+      src="/images/%E5%A4%B4%E5%83%8F.gif">
+  <p class="site-author-name" itemprop="name">希文</p>
+  <div class="site-description" itemprop="description">日常笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yangmour" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangmour" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiwenya999@gmail.com" title="E-Mail → mailto:xiwenya999@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://poc10.cn/" title="http:&#x2F;&#x2F;poc10.cn&#x2F;" rel="noopener" target="_blank">网络安全方面</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">希文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
