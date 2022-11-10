@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangmour.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="[TOC] Hadoop HA 高可用6.1 HA 概述（1）   所谓 HA（High Availablity），即高可用（7*24 小时不中断服务）。  （2）   实现高可用最关键的策略是消除单点故障。HA 严格来说应该分成各个组件的 HA 机制：HDFS 的 HA 和 YARN 的 HA。  （3）   NameNode 主要在以下两个方面影响 HDFS 集群   ➢ NameNode 机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop HA高可用">
+<meta property="og:url" content="https://yangmour.github.io/2022/11/03/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop-3.1.3-ha/Hadoop%20HA%E9%AB%98%E5%8F%AF%E7%94%A8/index.html">
+<meta property="og:site_name" content="希文的个人博客">
+<meta property="og:description" content="[TOC] Hadoop HA 高可用6.1 HA 概述（1）   所谓 HA（High Availablity），即高可用（7*24 小时不中断服务）。  （2）   实现高可用最关键的策略是消除单点故障。HA 严格来说应该分成各个组件的 HA 机制：HDFS 的 HA 和 YARN 的 HA。  （3）   NameNode 主要在以下两个方面影响 HDFS 集群   ➢ NameNode 机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yangmour.github.io/2022/11/03/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/AppData/Roaming/Typora/typora-user-images/image-20221103131748003.png">
+<meta property="og:image" content="https://image.3001.net/images/20221103/16674527076456.png">
+<meta property="og:image" content="https://image.3001.net/images/20221103/16674527162824.png">
+<meta property="og:image" content="https://image.3001.net/images/20221103/16674527762758.png">
+<meta property="og:image" content="https://image.3001.net/images/20221103/16674530655152.png">
+<meta property="og:image" content="https://image.3001.net/images/20221103/16674532342117.png">
+<meta property="article:published_time" content="2022-11-03T05:06:17.000Z">
+<meta property="article:modified_time" content="2022-11-03T07:01:32.977Z">
+<meta property="article:author" content="希文">
+<meta property="article:tag" content="hadoop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangmour.github.io/2022/11/03/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/AppData/Roaming/Typora/typora-user-images/image-20221103131748003.png">
+
+<link rel="canonical" href="https://yangmour.github.io/2022/11/03/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop-3.1.3-ha/Hadoop%20HA%E9%AB%98%E5%8F%AF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>hadoop HA高可用 | 希文的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="希文的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">希文的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">白日依山尽，黄河入海流。欲穷千里目，更上一层楼。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/11/03/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop-3.1.3-ha/Hadoop%20HA%E9%AB%98%E5%8F%AF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hadoop HA高可用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-03 13:06:17 / 修改时间：15:01:32" itemprop="dateCreated datePublished" datetime="2022-11-03T13:06:17+08:00">2022-11-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>22k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>20 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>[TOC]</p>
+<h1 id="Hadoop-HA-高可用"><a href="#Hadoop-HA-高可用" class="headerlink" title="Hadoop HA 高可用"></a><strong>Hadoop HA</strong> 高可用</h1><h2 id="6-1-HA-概述"><a href="#6-1-HA-概述" class="headerlink" title="6.1 HA 概述"></a>6.1 HA 概述</h2><p>（1）   所谓 HA（High Availablity），即高可用（7*24 小时不中断服务）。 </p>
+<p>（2）   实现高可用最关键的策略是消除单点故障。HA 严格来说应该分成各个组件的 HA 机制：HDFS 的 HA 和 YARN 的 HA。 </p>
+<p>（3）   NameNode 主要在以下两个方面影响 HDFS 集群 </p>
+<ul>
+<li>➢ NameNode 机器发生意外，如宕机，集群将无法使用，直到管理员重启 </li>
+</ul>
+<ul>
+<li>➢ NameNode 机器需要升级，包括软件、硬件升级，此时集群也将无法使用 </li>
+</ul>
+<p>HDFS HA 功能通过配置多个 NameNodes(Active/Standby)实现在集群中对 NameNode 的热备来解决上述问题。如果出现故障，如机器崩溃或机器需要升级维护，这时可通过此种方式将 NameNode 很快的切换到另外一台机器。 </p>
+<span id="more"></span>
+
+<h2 id="6-2-HDFS-HA-集群搭建"><a href="#6-2-HDFS-HA-集群搭建" class="headerlink" title="6.2 HDFS-HA 集群搭建"></a>6.2 HDFS-HA 集群搭建</h2><p>当前 HDFS 集群的规划 </p>
+<table>
+<thead>
+<tr>
+<th>hadoop102</th>
+<th>hadoop103</th>
+<th>hadoop104</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NameNode</td>
+<td></td>
+<td>Secondarynamenode</td>
+</tr>
+<tr>
+<td>DataNode</td>
+<td>DataNode</td>
+<td>DataNode</td>
+</tr>
+</tbody></table>
+<p>HA 的主要目的是消除 namenode 的单点故障,需要将 hdfs 集群规划成以下模样 </p>
+<table>
+<thead>
+<tr>
+<th>hadoop102</th>
+<th>hadoop103</th>
+<th>hadoop104</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NameNode</td>
+<td>NameNode</td>
+<td>NameNode</td>
+</tr>
+<tr>
+<td>DataNode</td>
+<td>DataNode</td>
+<td>DataNode</td>
+</tr>
+</tbody></table>
+<h3 id="6-2-1-HDFS-HA-核心问题"><a href="#6-2-1-HDFS-HA-核心问题" class="headerlink" title="6.2.1 HDFS-HA 核心问题"></a>6.2.1 HDFS-HA 核心问题</h3><p><strong>1）</strong>怎么保证三台 <strong>namenode</strong> 的数据一致</p>
+<pre><code>  a.Fsimage:让一台 nn 生成数据,让其他机器 nn 同步 
+  
+  b.Edits:需要引进新的模块 JournalNode 来保证 edtis 的文件的数据一致性 
+</code></pre>
+<p><strong>2）</strong>怎么让同时只有一台 <strong>nn</strong> 是 <strong>active</strong>，其他所有是 <strong>standby</strong> 的</p>
+<p>​        a.手动分配 </p>
+<p>​        b.自动分配 </p>
+<p><strong>3）****2nn</strong> 在 <strong>ha</strong> 架构中并不存在，定期合并 <strong>fsimage</strong> 和 <strong>edtis</strong> 的活谁来干</p>
+<pre><code>  由 standby 的 nn 来干 
+</code></pre>
+<p><strong>4）</strong>如果 <strong>nn</strong> 真的发生了问题，怎么让其他的 <strong>nn</strong> 上位干活 </p>
+<pre><code>  a.手动故障转移 
+ 
+ b.自动故障转移 
+</code></pre>
+<h1 id="6-3-HDFS-HA-手动模式"><a href="#6-3-HDFS-HA-手动模式" class="headerlink" title="6.3 HDFS-HA 手动模式"></a>6.3 HDFS-HA 手动模式</h1><h2 id="6-3-1-环境准备"><a href="#6-3-1-环境准备" class="headerlink" title="6.3.1 环境准备"></a>6.3.1 环境准备</h2><p>（1）修改 IP </p>
+<p>（2）修改主机名及主机名和 IP 地址的映射 </p>
+<p>（3）关闭防火墙 </p>
+<p>（4）ssh 免密登录 </p>
+<p>（5）安装 JDK，配置环境变量等 </p>
+<h2 id="6-3-2-规划集群"><a href="#6-3-2-规划集群" class="headerlink" title="6.3.2 规划集群"></a>6.3.2 规划集群</h2><table>
+<thead>
+<tr>
+<th>hadoop102</th>
+<th>hadoop103</th>
+<th>hadoop104</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NameNode</td>
+<td>NameNode</td>
+<td>NameNode</td>
+</tr>
+<tr>
+<td>JournalNode</td>
+<td>JournalNode</td>
+<td>JournalNode</td>
+</tr>
+<tr>
+<td>DataNode</td>
+<td>DataNode</td>
+<td>DataNode</td>
+</tr>
+</tbody></table>
+<h2 id="6-3-3-配置-HDFS-HA-集群"><a href="#6-3-3-配置-HDFS-HA-集群" class="headerlink" title="6.3.3 配置 HDFS-HA 集群"></a>6.3.3 配置 HDFS-HA 集群</h2><p><strong>1）</strong>官方地址：<a target="_blank" rel="noopener" href="http://hadoop.apache.org/"><strong>http://hadoop.apache.org/</strong></a><a target="_blank" rel="noopener" href="http://hadoop.apache.org/"> </a></p>
+<p><strong>2）</strong>在 <strong>opt</strong> 目录下创建一个 <strong>ha</strong> 文件夹 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ cd /opt </span><br><span class="line">[atguigu@hadoop102 opt]$ sudo mkdir ha </span><br><span class="line">[atguigu@hadoop102 opt]$ sudo chown atguigu:atguigu /opt/ha </span><br></pre></td></tr></table></figure>
+
+<p><strong>3）</strong>将**/opt/module/<strong>下的 <strong>hadoop-3.1.3</strong> 拷贝到</strong>/opt/ha** 目录下（记得删除 <strong>data</strong> 和 <strong>log</strong> 目录） </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 opt]$ cp -r /opt/module/hadoop-3.1.3 /opt/module/ha</span><br></pre></td></tr></table></figure>
+
+<h3 id="4）配置-core-site-xml"><a href="#4）配置-core-site-xml" class="headerlink" title="4）配置 core-site.xml"></a>4）配置 core-site.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 把多个 NameNode 的地址组装成一个集群 mycluster --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://mycluster<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 指定 hadoop 运行时产生文件的存储目录 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>/opt/module/ha/hadoop-3.1.3/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5）配置-hdfs-site-xml"><a href="#5）配置-hdfs-site-xml" class="headerlink" title="5）配置 hdfs-site.xml"></a>5）配置 hdfs-site.xml</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;!-- NameNode 数据存储目录 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;file://$&#123;hadoop.tmp.dir&#125;/name&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- DataNode 数据存储目录 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;file://$&#123;hadoop.tmp.dir&#125;/data&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- JournalNode 数据存储目录 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.journalnode.edits.dir&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;$&#123;hadoop.tmp.dir&#125;/jn&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- 完全分布式集群名称 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.nameservices&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;mycluster&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- 集群中 NameNode 节点都有哪些 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.ha.namenodes.mycluster&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;nn1,nn2,nn3&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- NameNode 的 RPC 通信地址 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.namenode.rpc-address.mycluster.nn1&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;hadoop102:8020&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.namenode.rpc-address.mycluster.nn2&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;hadoop103:8020&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.namenode.rpc-address.mycluster.nn3&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;hadoop104:8020&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- NameNode 的 http 通信地址 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.namenode.http-address.mycluster.nn1&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;hadoop102:9870&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.namenode.http-address.mycluster.nn2&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;hadoop103:9870&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.namenode.http-address.mycluster.nn3&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;hadoop104:9870&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- 指定 NameNode 元数据在 JournalNode 上的存放位置 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.namenode.shared.edits.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;qjournal://hadoop102:8485;hadoop103:8485;hadoop104:8485/mycluster&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- 访问代理类：client 用于确定哪个 NameNode 为 Active --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.client.failover.proxy.provider.mycluster&lt;/name&gt;		</span><br><span class="line">         &lt;value&gt;org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- 配置隔离机制，即同一时刻只能有一台服务器对外响应 --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.ha.fencing.methods&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;sshfence&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">    &lt;!-- 使用隔离机制时需要 ssh 秘钥登录--&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;dfs.ha.fencing.ssh.private-key-files&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;/home/study/.ssh/id_rsa&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>6</strong>）分发配置好的 <strong>hadoop</strong> 环境到其他节点 </p>
+<h2 id="6-3-4-启动-HDFS-HA-集群"><a href="#6-3-4-启动-HDFS-HA-集群" class="headerlink" title="6.3.4 启动 HDFS-HA 集群"></a>6.3.4 启动 HDFS-HA 集群</h2><p><strong>1</strong>）将 <strong>HADOOP_HOME</strong> 环境变量更改到 <strong>HA</strong> 目录**(<strong>三台机器</strong>)**</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ sudo vim /etc/profile.d/my_env.sh </span><br></pre></td></tr></table></figure>
+
+<p>将 HADOOP_HOME 部分改为如下 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#HADOOP_HOME </span><br><span class="line">export HADOOP_HOME=/opt/ha/hadoop-3.1.3 </span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin </span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/sbin </span><br></pre></td></tr></table></figure>
+
+<p>  去三台机器上 <strong>source</strong> 环境变量 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h3 id="2）在各个-JournalNode-节点上，输入以下命令启动-journalnode-服务"><a href="#2）在各个-JournalNode-节点上，输入以下命令启动-journalnode-服务" class="headerlink" title="2）在各个 JournalNode 节点上，输入以下命令启动 journalnode 服务"></a>2）在各个 JournalNode 节点上，输入以下命令启动 journalnode 服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ hdfs --daemon start journalnode </span><br><span class="line"></span><br><span class="line">[atguigu@hadoop103 ~]$ hdfs --daemon start journalnode </span><br><span class="line"></span><br><span class="line">[atguigu@hadoop104 ~]$ hdfs --daemon start journalnode </span><br></pre></td></tr></table></figure>
+
+<p><strong>3</strong>）在**[nn1]**上，对其进行格式化，并启动 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ hdfs namenode -format </span><br><span class="line">[atguigu@hadoop102 ~]$ hdfs --daemon start namenode </span><br></pre></td></tr></table></figure>
+
+<h3 id="4）在-nn2-和-nn3-上，同步-nn1-的元数据信息"><a href="#4）在-nn2-和-nn3-上，同步-nn1-的元数据信息" class="headerlink" title="4）在[nn2]和[nn3]上，同步 nn1 的元数据信息"></a>4）在[nn2]和[nn3]上，同步 nn1 的元数据信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop103 ~]$ hdfs namenode -bootstrapStandby </span><br><span class="line"></span><br><span class="line">[atguigu@hadoop104 ~]$ hdfs namenode -bootstrapStandby </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5）启动-nn2-和-nn3"><a href="#5）启动-nn2-和-nn3" class="headerlink" title="5）启动[nn2]和[nn3]"></a>5）启动[nn2]和[nn3]</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop103 ~]$ hdfs --daemon start namenode </span><br><span class="line">[atguigu@hadoop104 ~]$ hdfs --daemon start namenode </span><br></pre></td></tr></table></figure>
+
+<p><img src="../../AppData/Roaming/Typora/typora-user-images/image-20221103131748003.png" alt="image-20221103131748003"></p>
+<p><img src="https://image.3001.net/images/20221103/16674527076456.png" alt="image-20221103131814876"></p>
+<p><img src="https://image.3001.net/images/20221103/16674527162824.png" alt="image-20221103131823550"></p>
+<p><strong>7）</strong>在所有节点上，启动 <strong>datanode</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ hdfs --daemon start datanode </span><br><span class="line"></span><br><span class="line">[atguigu@hadoop103 ~]$ hdfs --daemon start datanode </span><br><span class="line"></span><br><span class="line">[atguigu@hadoop104 ~]$ hdfs --daemon start datanode </span><br></pre></td></tr></table></figure>
+
+<p><strong>8）</strong>将**[nn1]**切换为 <strong>Active</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ hdfs haadmin -transitionToActive nn1 </span><br></pre></td></tr></table></figure>
+
+<p><strong>9）</strong>查看是否 <strong>Active</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ hdfs haadmin -getServiceState nn1 </span><br></pre></td></tr></table></figure>
+
+<h1 id="6-4-HDFS-HA-自动模式"><a href="#6-4-HDFS-HA-自动模式" class="headerlink" title="6.4 HDFS-HA 自动模式"></a>6.4 HDFS-HA 自动模式</h1><h2 id="6-4-1-HDFS-HA-自动故障转移工作机制"><a href="#6-4-1-HDFS-HA-自动故障转移工作机制" class="headerlink" title="6.4.1 HDFS-HA 自动故障转移工作机制"></a>6.4.1 HDFS-HA 自动故障转移工作机制</h2><p>自动故障转移为 HDFS 部署增加了两个新组件：ZooKeeper 和 ZKFailoverController （ZKFC）进程，如图所示。ZooKeeper 是维护少量协调数据，通知客户端这些数据的改变和监视客户端故障的高可用服务。 </p>
+<p><img src="https://image.3001.net/images/20221103/16674527762758.png" alt="image-20221103131923621"> </p>
+<h2 id="6-4-2-HDFS-HA-自动故障转移的集群规划"><a href="#6-4-2-HDFS-HA-自动故障转移的集群规划" class="headerlink" title="6.4.2 HDFS-HA 自动故障转移的集群规划"></a>6.4.2 HDFS-HA 自动故障转移的集群规划</h2><table>
+<thead>
+<tr>
+<th>hadoop102</th>
+<th>hadoop103</th>
+<th>hadoop104</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NameNode</td>
+<td>NameNode</td>
+<td>NameNode</td>
+</tr>
+<tr>
+<td>JournalNode</td>
+<td>JournalNode</td>
+<td>JournalNode</td>
+</tr>
+<tr>
+<td>DataNode</td>
+<td>DataNode</td>
+<td>DataNode</td>
+</tr>
+<tr>
+<td>Zookeeper</td>
+<td>Zookeeper</td>
+<td>Zookeeper</td>
+</tr>
+<tr>
+<td>ZKFC</td>
+<td>ZKFC</td>
+<td>ZKFC</td>
+</tr>
+</tbody></table>
+<h2 id="6-4-3-配置-HDFS-HA-自动故障转移"><a href="#6-4-3-配置-HDFS-HA-自动故障转移" class="headerlink" title="6.4.3 配置 HDFS-HA 自动故障转移"></a>6.4.3 配置 HDFS-HA 自动故障转移</h2><p><strong>1）</strong>具体配置 </p>
+<p>（1）在 hdfs-site.xml 中增加 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 启用nn故障自动转移 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.automatic-failover.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>（2）在 core-site.xml 文件中增加 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定 zkfc 要连接的 zkServer 地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;ha.zookeeper.quorum&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;hadoop102:2181,hadoop103:2181,hadoop104:2181&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改后分发配置文件 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 etc]$ pwd </span><br><span class="line">/opt/ha/hadoop-3.1.3/etc</span><br><span class="line">[atguigu@hadoop102 etc]$ xsync hadoop/ </span><br></pre></td></tr></table></figure>
+
+<p><strong>2）</strong>启动 </p>
+<p>（1）关闭所有 HDFS 服务： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ stop-dfs.sh </span><br></pre></td></tr></table></figure>
+
+<p>（2）启动 Zookeeper 集群： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ zkServer.sh start </span><br><span class="line">[atguigu@hadoop103 ~]$ zkServer.sh start </span><br><span class="line">[atguigu@hadoop104 ~]$ zkServer.sh start </span><br></pre></td></tr></table></figure>
+
+<p>（3）启动 Zookeeper 以后，然后再初始化 HA 在 Zookeeper 中状态： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ hdfs zkfc -formatZK </span><br></pre></td></tr></table></figure>
+
+<p>（4）启动 HDFS 服务： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ start-dfs.sh </span><br></pre></td></tr></table></figure>
+
+<p>（5）可以去 zkCli.sh 客户端查看 Namenode 选举锁节点内容： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 7] get -s /hadoop-ha/mycluster/ActiveStandbyElectorLock</span><br><span class="line"></span><br><span class="line">myclusternn2 hadoop103 �&gt;(�&gt;</span><br><span class="line">cZxid = 0x10000000b</span><br><span class="line">ctime = Tue Jul 14 17:00:13 CST 2020</span><br><span class="line">mZxid = 0x10000000b</span><br><span class="line">mtime = Tue Jul 14 17:00:13 CST 2020</span><br><span class="line">pZxid = 0x10000000b</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x40000da2eb70000</span><br><span class="line">dataLength = 33</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>3）</strong>验证 </p>
+<p>（1）将 Active NameNode 进程 kill，查看网页端三台 Namenode 的状态变化 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ kill -9 namenode的进程id </span><br></pre></td></tr></table></figure>
+
+<h3 id="6-4-3-解决-NN-连接不上-JN-的问题"><a href="#6-4-3-解决-NN-连接不上-JN-的问题" class="headerlink" title="6.4.3 解决 NN 连接不上 JN 的问题"></a>6.4.3 解决 NN 连接不上 JN 的问题</h3><p>自动故障转移配置好以后，然后使用 start-dfs.sh 群起脚本启动 hdfs 集群，有可能会遇到 NameNode 起来一会后，进程自动关闭的问题。查看 NameNode 日志，报错信息如下： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line">2020-08-17 10:11:40,658 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 0 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:40,659 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 0 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:40,659 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 0 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:41,660 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 1 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:41,660 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 1 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:41,665 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 1 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:42,661 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 2 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:42,661 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 2 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:42,667 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 2 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:43,662 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 3 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:43,662 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 3 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:43,668 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 3 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:44,663 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 4 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:44,663 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 4 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:44,670 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 4 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:45,467 INFO</span><br><span class="line">org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager: Waited 6001</span><br><span class="line">ms (timeout=20000 ms) for a response for selectStreamingInputStreams. No</span><br><span class="line">responses yet.</span><br><span class="line">2020-08-17 10:11:45,664 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 5 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:45,664 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 5 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:45,672 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 5 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:46,469 INFO</span><br><span class="line">org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager: Waited 7003</span><br><span class="line">ms (timeout=20000 ms) for a response for selectStreamingInputStreams. No</span><br><span class="line">responses yet.</span><br><span class="line">2020-08-17 10:11:46,665 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 6 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:46,665 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 6 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:46,673 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 6 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:47,470 INFO</span><br><span class="line">org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager: Waited 8004</span><br><span class="line">ms (timeout=20000 ms) for a response for selectStreamingInputStreams. No</span><br><span class="line">responses yet.</span><br><span class="line">2020-08-17 10:11:47,666 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 7 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:47,667 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 7 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:47,674 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 7 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:48,471 INFO</span><br><span class="line">org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager: Waited 9005</span><br><span class="line">ms (timeout=20000 ms) for a response for selectStreamingInputStreams. No</span><br><span class="line">responses yet.</span><br><span class="line">2020-08-17 10:11:48,668 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 8 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:48,668 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 8 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:48,675 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 8 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:49,669 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop102/192.168.6.102:8485. Already tried 9 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:49,673 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop104/192.168.6.104:8485. Already tried 9 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:49,676 INFO org.apache.hadoop.ipc.Client: Retrying connect</span><br><span class="line">to server: hadoop103/192.168.6.103:8485. Already tried 9 time(s); retry</span><br><span class="line">policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10,</span><br><span class="line">sleepTime=1000 MILLISECONDS)</span><br><span class="line">2020-08-17 10:11:49,678 WARN</span><br><span class="line">org.apache.hadoop.hdfs.server.namenode.FSEditLog: Unable to determine input</span><br><span class="line">streams from QJM to [192.168.6.102:8485, 192.168.6.103:8485,</span><br><span class="line">192.168.6.104:8485]. Skipping.</span><br><span class="line">org.apache.hadoop.hdfs.qjournal.client.QuorumException: Got too many</span><br><span class="line">exceptions to achieve quorum size 2/3. 3 exceptions thrown:</span><br><span class="line">192.168.6.103:8485: Call From hadoop102/192.168.6.102 to hadoop103:8485</span><br><span class="line">failed on connection exception: java.net.ConnectException: 拒绝连接; For more</span><br><span class="line">details see: http://wiki.apache.org/hadoop/ConnectionRefused</span><br><span class="line">192.168.6.102:8485: Call From hadoop102/192.168.6.102 to hadoop102:8485</span><br><span class="line">failed on connection exception: java.net.ConnectException: 拒绝连接; For more</span><br><span class="line">details see: http://wiki.apache.org/hadoop/ConnectionRefused</span><br><span class="line">192.168.6.104:8485: Call From hadoop102/192.168.6.102 to hadoop104:8485</span><br><span class="line">failed on connection exception: java.net.ConnectException: 拒绝连接; For more</span><br><span class="line">details see: http://wiki.apache.org/hadoop/ConnectionRefused</span><br></pre></td></tr></table></figure>
+
+<p>查看报错日志，可分析出报错原因是因为 NameNode 连接不上 JournalNode，而利用 jps 命令查看到三台 JN 都已经正常启动，为什么 NN 还是无法正常连接到 JN 呢？这是因为 start-dfs.sh 群起脚本默认的启动顺序是先启动 NN，再启动 DN，然后再启动 JN，并且默认的 rpc 连接参数是重试次数为 10，每次重试的间隔是 1s，也就是说启动完 NN 以后的 10s 中内，JN 还启动不起来，NN 就会报错了。 </p>
+<p>core-default.xml 里面有两个参数如下： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- NN 连接 JN 重试次数，默认是 10 次 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;ipc.client.connect.max.retries&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;10&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 重试时间间隔，默认 1s --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;ipc.client.connect.retry.interval&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;1000&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p> 解决方案：遇到上述问题后，可以稍等片刻，等 JN 成功启动后，手动启动下三台</p>
+<p>NN： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ hdfs --daemon start namenode </span><br><span class="line"></span><br><span class="line">[atguigu@hadoop103 ~]$ hdfs --daemon start namenode </span><br><span class="line"></span><br><span class="line">[atguigu@hadoop104 ~]$ hdfs --daemon start namenode </span><br></pre></td></tr></table></figure>
+
+<p>  也可以在 core-site.xml 里面适当调大上面的两个参数： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- NN 连接 JN 重试次数，默认是 10 次 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;ipc.client.connect.max.retries&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;20&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 重试时间间隔，默认 1s --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;ipc.client.connect.retry.interval&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;5000&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="6-5-YARN-HA-配置"><a href="#6-5-YARN-HA-配置" class="headerlink" title="6.5 YARN-HA 配置"></a>6.5 YARN-HA 配置</h1><h2 id="6-5-1-YARN-HA-工作机制"><a href="#6-5-1-YARN-HA-工作机制" class="headerlink" title="6.5.1 YARN-HA 工作机制"></a>6.5.1 YARN-HA 工作机制</h2><p><strong>1</strong>）官方文档： </p>
+<p><a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html">http://hadoop.apache.org/docs/r3.1.3/hadoop</a><a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html">-</a><a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html">yarn/hadoop</a><a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html">-</a><a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html">yarn</a><a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html">-</a><a target="_blank" rel="noopener" href="http://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html">site/ResourceManagerHA.html</a></p>
+<h3 id="2）YARN-HA-工作机制"><a href="#2）YARN-HA-工作机制" class="headerlink" title="2）YARN-HA 工作机制"></a>2）YARN-HA 工作机制</h3><p><img src="https://image.3001.net/images/20221103/16674530655152.png" alt="image-20221103132413106"></p>
+<p><strong>1）</strong>环境准备 </p>
+<p>（1）修改 IP </p>
+<p>（2）修改主机名及主机名和 IP 地址的映射 </p>
+<p>（3）关闭防火墙 </p>
+<p>（4）ssh 免密登录 </p>
+<p>（5）安装 JDK，配置环境变量等 </p>
+<p>（6）配置 Zookeeper 集群 </p>
+<p><strong>2）</strong>规划集群 </p>
+<table>
+<thead>
+<tr>
+<th>hadoop102</th>
+<th>hadoop103</th>
+<th>hadoop104</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResourceManager</td>
+<td>ResourceManager</td>
+<td>ResourceManager</td>
+</tr>
+<tr>
+<td>NodeManager</td>
+<td>NodeManager</td>
+<td>NodeManager</td>
+</tr>
+<tr>
+<td>Zookeeper</td>
+<td>Zookeeper</td>
+<td>Zookeeper</td>
+</tr>
+</tbody></table>
+<p><strong>3）</strong>核心问题 </p>
+<p>​    **a .**如果当前 <strong>active rm</strong> 挂了，其他 <strong>rm</strong> 怎么将其他 <strong>standby rm</strong> 上位</p>
+<p>​            核心原理跟 hdfs 一样，利用了 zk 的临时节点 </p>
+<p>​    <strong>b.</strong> 当前 <strong>rm</strong> 上有很多的计算程序在等待运行**,**其他的 <strong>rm</strong> 怎么将这些程序接手过来接着跑</p>
+<pre><code>        rm 会将当前的所有计算程序的状态存储在 zk 中,其他 rm 上位后会去读取，然后接着跑 
+</code></pre>
+<p><strong>4</strong>）具体配置 </p>
+<p>（1）yarn-site.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line"> &lt;!-- 启用 resourcemanager ha --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.ha.enabled&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;true&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line"> &lt;!-- 声明两台 resourcemanager 的地址 --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.cluster-id&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;cluster-yarn1&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line"> &lt;!--指定 resourcemanager 的逻辑列表--&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.ha.rm-ids&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;rm1,rm2,rm3&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- ========== rm1 的配置 ========== --&gt;</span><br><span class="line">&lt;!-- 指定 rm1 的主机名 --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.hostname.rm1&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop102&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定 rm1 的 web 端地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.webapp.address.rm1&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop102:8088&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定 rm1 的内部通信地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.address.rm1&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop102:8032&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定 AM 向 rm1 申请资源的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.scheduler.address.rm1&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop102:8030&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定供 NM 连接的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.resource-tracker.address.rm1&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop102:8031&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- ========== rm2 的配置 ========== --&gt;</span><br><span class="line"> &lt;!-- 指定 rm2 的主机名 --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.hostname.rm2&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop103&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.webapp.address.rm2&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop103:8088&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.address.rm2&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop103:8032&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.scheduler.address.rm2&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop103:8030&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.resource-tracker.address.rm2&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop103:8031&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- ========== rm3 的配置 ========== --&gt;</span><br><span class="line">&lt;!-- 指定 rm1 的主机名 --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.hostname.rm3&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop104&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定 rm1 的 web 端地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.webapp.address.rm3&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop104:8088&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定 rm1 的内部通信地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.address.rm3&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop104:8032&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定 AM 向 rm1 申请资源的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.scheduler.address.rm3&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop104:8030&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定供 NM 连接的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.resource-tracker.address.rm3&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop104:8031&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"> &lt;!-- 指定 zookeeper 集群的地址 --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.zk-address&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;hadoop102:2181,hadoop103:2181,hadoop104:2181&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line"> &lt;!-- 启用自动恢复 --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.recovery.enabled&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;true&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line"> &lt;!-- 指定 resourcemanager 的状态信息存储在 zookeeper 集群 --&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.resourcemanager.store.class&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 环境变量的继承 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.nodemanager.env-whitelist&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">    &lt;value&gt;JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLAS</span><br><span class="line">SPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（2）同步更新其他节点的配置信息，分发配置文件 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 etc]$ xsync hadoop/ </span><br></pre></td></tr></table></figure>
+
+<h3 id="4）启动-YARN"><a href="#4）启动-YARN" class="headerlink" title="4）启动 YARN"></a>4）启动 YARN</h3><p>（1）在 hadoop102 或者 hadoop103 中执行： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ start-yarn.sh </span><br></pre></td></tr></table></figure>
+
+<p>（2）查看服务状态 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ yarn rmadmin -getServiceState rm1 </span><br></pre></td></tr></table></figure>
+
+<p>（3）可以去 zkCli.sh 客户端查看 ResourceManager 选举锁节点内容： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ zkCli.sh</span><br><span class="line">[zk: localhost:2181(CONNECTED) 16] get -s /yarn-leader-election/cluster-yarn1/ActiveStandbyElectorLock</span><br><span class="line">cluster-yarn1rm1</span><br><span class="line">cZxid = 0x100000022</span><br><span class="line">ctime = Tue Jul 14 17:06:44 CST 2020</span><br><span class="line">mZxid = 0x100000022</span><br><span class="line">mtime = Tue Jul 14 17:06:44 CST 2020</span><br><span class="line">pZxid = 0x100000022</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x30000da33080005</span><br><span class="line">dataLength = 20</span><br><span class="line">numChildren = 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（4）web 端查看 hadoop102:8088 和 hadoop103:8088 的 YARN 的状态 </p>
+<p><img src="https://image.3001.net/images/20221103/16674532342117.png" alt="image-20221103132702112"></p>
+<p>将整个 ha 搭建完成后,集群将形成以下模样 </p>
+<table>
+<thead>
+<tr>
+<th>hadoop102</th>
+<th>hadoop103</th>
+<th>hadoop104</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NameNode</td>
+<td>NameNode</td>
+<td>NameNode</td>
+</tr>
+<tr>
+<td>JournalNode</td>
+<td>JournalNode</td>
+<td>JournalNode</td>
+</tr>
+<tr>
+<td>DataNode</td>
+<td>DataNode</td>
+<td>DataNode</td>
+</tr>
+<tr>
+<td>Zookeeper</td>
+<td>Zookeeper</td>
+<td>Zookeeper</td>
+</tr>
+<tr>
+<td>ZKFC</td>
+<td>ZKFC</td>
+<td>ZKFC</td>
+</tr>
+<tr>
+<td>ResourceManager</td>
+<td>ResourceManager</td>
+<td>ResourceManager</td>
+</tr>
+<tr>
+<td>NodeManager</td>
+<td>NodeManager</td>
+<td>NodeManager</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hadoop/" rel="tag"># hadoop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/03/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E8%B7%AF%E7%BA%BF/%E8%B7%AF%E7%BA%BF/" rel="prev" title="学习路线">
+      <i class="fa fa-chevron-left"></i> 学习路线
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop-HA-%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">Hadoop HA 高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-HA-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">6.1 HA 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-HDFS-HA-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="nav-number">1.2.</span> <span class="nav-text">6.2 HDFS-HA 集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-1-HDFS-HA-%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.1.</span> <span class="nav-text">6.2.1 HDFS-HA 核心问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-3-HDFS-HA-%E6%89%8B%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">6.3 HDFS-HA 手动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">2.1.</span> <span class="nav-text">6.3.1 环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-2-%E8%A7%84%E5%88%92%E9%9B%86%E7%BE%A4"><span class="nav-number">2.2.</span> <span class="nav-text">6.3.2 规划集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-3-%E9%85%8D%E7%BD%AE-HDFS-HA-%E9%9B%86%E7%BE%A4"><span class="nav-number">2.3.</span> <span class="nav-text">6.3.3 配置 HDFS-HA 集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%89%E9%85%8D%E7%BD%AE-core-site-xml"><span class="nav-number">2.3.1.</span> <span class="nav-text">4）配置 core-site.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%EF%BC%89%E9%85%8D%E7%BD%AE-hdfs-site-xml"><span class="nav-number">2.3.2.</span> <span class="nav-text">5）配置 hdfs-site.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-4-%E5%90%AF%E5%8A%A8-HDFS-HA-%E9%9B%86%E7%BE%A4"><span class="nav-number">2.4.</span> <span class="nav-text">6.3.4 启动 HDFS-HA 集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89%E5%9C%A8%E5%90%84%E4%B8%AA-JournalNode-%E8%8A%82%E7%82%B9%E4%B8%8A%EF%BC%8C%E8%BE%93%E5%85%A5%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E5%90%AF%E5%8A%A8-journalnode-%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.4.1.</span> <span class="nav-text">2）在各个 JournalNode 节点上，输入以下命令启动 journalnode 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%89%E5%9C%A8-nn2-%E5%92%8C-nn3-%E4%B8%8A%EF%BC%8C%E5%90%8C%E6%AD%A5-nn1-%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E4%BF%A1%E6%81%AF"><span class="nav-number">2.4.2.</span> <span class="nav-text">4）在[nn2]和[nn3]上，同步 nn1 的元数据信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%EF%BC%89%E5%90%AF%E5%8A%A8-nn2-%E5%92%8C-nn3"><span class="nav-number">2.4.3.</span> <span class="nav-text">5）启动[nn2]和[nn3]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-4-HDFS-HA-%E8%87%AA%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">6.4 HDFS-HA 自动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-1-HDFS-HA-%E8%87%AA%E5%8A%A8%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">3.1.</span> <span class="nav-text">6.4.1 HDFS-HA 自动故障转移工作机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-2-HDFS-HA-%E8%87%AA%E5%8A%A8%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%9A%84%E9%9B%86%E7%BE%A4%E8%A7%84%E5%88%92"><span class="nav-number">3.2.</span> <span class="nav-text">6.4.2 HDFS-HA 自动故障转移的集群规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-3-%E9%85%8D%E7%BD%AE-HDFS-HA-%E8%87%AA%E5%8A%A8%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="nav-number">3.3.</span> <span class="nav-text">6.4.3 配置 HDFS-HA 自动故障转移</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-3-%E8%A7%A3%E5%86%B3-NN-%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A-JN-%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.3.1.</span> <span class="nav-text">6.4.3 解决 NN 连接不上 JN 的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-5-YARN-HA-%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">6.5 YARN-HA 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-1-YARN-HA-%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">4.1.</span> <span class="nav-text">6.5.1 YARN-HA 工作机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89YARN-HA-%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="nav-number">4.1.1.</span> <span class="nav-text">2）YARN-HA 工作机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%89%E5%90%AF%E5%8A%A8-YARN"><span class="nav-number">4.1.2.</span> <span class="nav-text">4）启动 YARN</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="希文"
+      src="/images/%E5%A4%B4%E5%83%8F.gif">
+  <p class="site-author-name" itemprop="name">希文</p>
+  <div class="site-description" itemprop="description">日常笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yangmour" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangmour" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiwenya999@gmail.com" title="E-Mail → mailto:xiwenya999@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://poc10.cn/" title="http:&#x2F;&#x2F;poc10.cn&#x2F;" rel="noopener" target="_blank">网络安全方面</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">希文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">804k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">12:11</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

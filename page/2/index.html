@@ -135,7 +135,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">39</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
 
   </li>
         <li class="menu-item menu-item-commonweal">
@@ -197,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/09/18/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/jdbc/JDBC/">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/10/31/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop-3.1.3/01_%E5%B0%9A%E7%A1%85%E8%B0%B7%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E4%B9%8B%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A6%82%E8%AE%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
@@ -211,7 +211,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/09/18/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/jdbc/JDBC/" class="post-title-link" itemprop="url">JDBC</a>
+            <a href="/2022/10/31/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop-3.1.3/01_%E5%B0%9A%E7%A1%85%E8%B0%B7%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E4%B9%8B%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A6%82%E8%AE%BA/" class="post-title-link" itemprop="url">01_尚硅谷大数据技术之大数据概论</a>
         </h2>
 
         <div class="post-meta">
@@ -221,14 +221,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-09-18 13:06:17" itemprop="dateCreated datePublished" datetime="2022-09-18T13:06:17+08:00">2022-09-18</time>
+              <time title="创建时间：2022-10-31 13:06:17" itemprop="dateCreated datePublished" datetime="2022-10-31T13:06:17+08:00">2022-10-31</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-17 14:52:44" itemprop="dateModified" datetime="2022-09-17T14:52:44+08:00">2022-09-17</time>
+                <time title="修改时间：2022-11-10 17:42:39" itemprop="dateModified" datetime="2022-11-10T17:42:39+08:00">2022-11-10</time>
               </span>
 
           <br>
@@ -237,94 +237,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>46k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>42 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="JDBC核心技术"><a href="#JDBC核心技术" class="headerlink" title="JDBC核心技术"></a>JDBC核心技术</h1><p>[TOC]</p>
-<hr>
-<h2 id="第1章：JDBC概述"><a href="#第1章：JDBC概述" class="headerlink" title="第1章：JDBC概述"></a>第1章：JDBC概述</h2><h3 id="1-1-数据的持久化"><a href="#1-1-数据的持久化" class="headerlink" title="1.1 数据的持久化"></a>1.1 数据的持久化</h3><ul>
-<li><p>持久化(persistence)：<strong>把数据保存到可掉电式存储设备中以供之后使用</strong>。大多数情况下，特别是企业级应用，<strong>数据持久化意味着将内存中的数据保存到硬盘</strong>上加以”固化”<strong>，而持久化的实现过程大多通过各种关系数据库来完成</strong>。</p>
-</li>
-<li><p>持久化的主要应用是将内存中的数据存储在关系型数据库中，当然也可以存储在磁盘文件、XML数据文件中。</p>
-<p><img src="https://image.3001.net/images/20220905/16623565283254.png" alt="1566741430592"> </p>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/09/18/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/jdbc/JDBC/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/09/08/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/09/08/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-09-08 10:17:05" itemprop="dateCreated datePublished" datetime="2022-09-08T10:17:05+08:00">2022-09-08</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>212</span>
+              <span>106</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -343,10 +256,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>测试文档</p>
+          <p>[TOC]</p>
+<p>尚硅谷大数据技术之大数据概论<br>（作者：尚硅谷大数据研发部）<br>版本：V3.3</p>
+<h1 id="1-大数据概念"><a href="#1-大数据概念" class="headerlink" title="1 大数据概念"></a>1 大数据概念</h1><p><img src="https://image.3001.net/images/20221110/16680731107314.png" alt="image"></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/09/08/hello-world/#more" rel="contents">
+              <a class="btn" href="/2022/10/31/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop-3.1.3/01_%E5%B0%9A%E7%A1%85%E8%B0%B7%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E4%B9%8B%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A6%82%E8%AE%BA/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -370,7 +285,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/08/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/docker/docker/">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/10/31/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop-3.1.3/02.1_%E5%B0%9A%E7%A1%85%E8%B0%B7%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E4%B9%8B%E6%A8%A1%E6%9D%BF%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
@@ -384,7 +299,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/08/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/docker/docker/" class="post-title-link" itemprop="url">Docker</a>
+            <a href="/2022/10/31/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop-3.1.3/02.1_%E5%B0%9A%E7%A1%85%E8%B0%B7%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E4%B9%8B%E6%A8%A1%E6%9D%BF%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" class="post-title-link" itemprop="url">VMware安装与hadoop100base版</a>
         </h2>
 
         <div class="post-meta">
@@ -394,14 +309,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-08-25 09:06:17" itemprop="dateCreated datePublished" datetime="2022-08-25T09:06:17+08:00">2022-08-25</time>
+              <time title="创建时间：2022-10-31 13:06:17" itemprop="dateCreated datePublished" datetime="2022-10-31T13:06:17+08:00">2022-10-31</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:05" itemprop="dateModified" datetime="2022-09-08T10:17:05+08:00">2022-09-08</time>
+                <time title="修改时间：2022-11-10 17:31:44" itemprop="dateModified" datetime="2022-11-10T17:31:44+08:00">2022-11-10</time>
               </span>
 
           <br>
@@ -410,14 +325,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>114k</span>
+              <span>9.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1:44</span>
+              <span>9 分钟</span>
             </span>
 
         </div>
@@ -429,27 +344,536 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Docker与微服务实战"><a href="#Docker与微服务实战" class="headerlink" title="Docker与微服务实战"></a>Docker与微服务实战</h1><p>[TOC]</p>
-<h2 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a>Docker简介</h2><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td><img src="https://image.3001.net/images/20220823/16612291781365.jpg" alt="img"></td>
-</tr>
-</tbody></table>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/08/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/docker/docker/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <p>[TOC]</p>
+<p>尚硅谷大数据技术之模板虚拟机环境准备</p>
+<p>（作者：尚硅谷大数据研发部）</p>
+<p>版本：V3.3</p>
+<h1 id="第1章-VMware"><a href="#第1章-VMware" class="headerlink" title="第1章 VMware"></a>第1章 VMware</h1><h2 id="1-1-VMware安装"><a href="#1-1-VMware安装" class="headerlink" title="1.1 VMware安装"></a>1.1 VMware安装</h2><p>一台电脑本身是可以装多个操作系统的，但是做不到多个操作系统切换自如，所以我们需要一款软件帮助我们达到这个目的，不然数仓项目搭建不起来。</p>
+<p>推荐的软件为VMware，VMware可以使用户在一台计算机上同时运行多个操作系统，还可以像Windows应用程序一样来回切换。用户可以如同操作真实安装的系统一样操作虚拟机系统，甚至可以在一台计算机上将几个虚拟机系统连接为一个局域网或者连接到互联网。<br>以下是VMware Workstation Pro 15.5的安装步骤</p>
+<h3 id="1-1-1-开始安装"><a href="#1-1-1-开始安装" class="headerlink" title="1.1.1 开始安装"></a>1.1.1 开始安装</h3><p><img src="https://image.3001.net/images/20221031/16671947211395.gif#alt=img"></p>
+<h3 id="1-2-2-欢迎界面"><a href="#1-2-2-欢迎界面" class="headerlink" title="1.2.2 欢迎界面"></a>1.2.2 欢迎界面</h3><p><img src="https://image.3001.net/images/20221031/16671947217450.gif#alt=img"></p>
+<h3 id="1-2-3-同意许可证"><a href="#1-2-3-同意许可证" class="headerlink" title="1.2.3 同意许可证"></a>1.2.3 同意许可证</h3><p><img src="https://image.3001.net/images/20221031/16671947218105.gif#alt=img"></p>
+<h3 id="1-2-4-选择安装路径"><a href="#1-2-4-选择安装路径" class="headerlink" title="1.2.4 选择安装路径"></a>1.2.4 选择安装路径</h3><p><img src="https://image.3001.net/images/20221031/16671947226102.gif#alt=img"></p>
+<h3 id="1-2-5-用户体检计划"><a href="#1-2-5-用户体检计划" class="headerlink" title="1.2.5 用户体检计划"></a>1.2.5 用户体检计划</h3><p>每次开启虚拟机时，会提醒让你更新版本，建议两个都不勾</p>
+<p><img src="https://image.3001.net/images/20221031/16671947226345.gif#alt=img"></p>
+<h3 id="1-2-6-快捷方式"><a href="#1-2-6-快捷方式" class="headerlink" title="1.2.6 快捷方式"></a>1.2.6 快捷方式</h3><p>建议勾选，安装后使用起来会比较方便</p>
+<p><img src="https://image.3001.net/images/20221031/16671947229787.gif#alt=img"></p>
+<h3 id="1-2-7-开始安装"><a href="#1-2-7-开始安装" class="headerlink" title="1.2.7 开始安装"></a>1.2.7 开始安装</h3><p><img src="https://image.3001.net/images/20221031/16671947211957.gif#alt=img"></p>
+<h3 id="1-2-8-等待安装完成"><a href="#1-2-8-等待安装完成" class="headerlink" title="1.2.8 等待安装完成"></a>1.2.8 等待安装完成</h3><p><img src="https://image.3001.net/images/20221031/16671947227357.gif#alt=img"></p>
+<h3 id="1-2-9-安装完成"><a href="#1-2-9-安装完成" class="headerlink" title="1.2.9 安装完成"></a>1.2.9 安装完成</h3><p>输入许可证，激活VMware</p>
+<p>注：如果点击的是完成也没关系，后面还是输入许可证的。</p>
+<p><img src="https://image.3001.net/images/20221031/16671947226031.gif#alt=img"></p>
+<h3 id="1-2-10-输入许可证"><a href="#1-2-10-输入许可证" class="headerlink" title="1.2.10 输入许可证"></a>1.2.10 输入许可证</h3><p><strong>1）生成许可证（在当时安装包的同名的目录下）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/1667194722504.gif#alt=img"></p>
+<p><strong>2）选择版本并生成许可证</strong></p>
+<p><img src="https://image.3001.net/images/20221031/1667194721239.gif#alt=img"></p>
+<p><strong>3）复制生成好的序列号</strong></p>
+<p><img src="https://image.3001.net/images/20221031/1667194722965.gif#alt=img"></p>
+<p><strong>4）将生成好的序列号粘贴到vmware里</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947224968.gif#alt=img"></p>
+<h3 id="1-2-11-VMware安装完毕"><a href="#1-2-11-VMware安装完毕" class="headerlink" title="1.2.11 VMware安装完毕"></a>1.2.11 VMware安装完毕</h3><p><img src="https://image.3001.net/images/20221031/16671947237094.gif#alt=img"></p>
+<p>桌面上的快捷方式，双击它就可以使用啦。</p>
+<h1 id="第2章-CentOS"><a href="#第2章-CentOS" class="headerlink" title="第2章 CentOS"></a>第2章 CentOS</h1><p>系统的安装得分两个步骤，第一步得配置一台电脑，选配CPU，内存，磁盘，网卡等硬件。第二步才是安装系统。</p>
+<h2 id="2-1-配置电脑"><a href="#2-1-配置电脑" class="headerlink" title="2.1 配置电脑"></a>2.1 配置电脑</h2><h3 id="2-1-1-进入VMware"><a href="#2-1-1-进入VMware" class="headerlink" title="2.1.1 进入VMware"></a>2.1.1 进入VMware</h3><p>双击VMware图标，看到如下界面</p>
+<p><img src="https://image.3001.net/images/20221031/16671947232759.gif#alt=img"></p>
+<h3 id="2-1-2-自定义新的虚拟机"><a href="#2-1-2-自定义新的虚拟机" class="headerlink" title="2.1.2 自定义新的虚拟机"></a>2.1.2 自定义新的虚拟机</h3><p><img src="https://image.3001.net/images/20221031/16671947226220.gif#alt=img"></p>
+<h3 id="2-1-3-解决虚拟机的兼容性"><a href="#2-1-3-解决虚拟机的兼容性" class="headerlink" title="2.1.3 解决虚拟机的兼容性"></a>2.1.3 解决虚拟机的兼容性</h3><p><img src="https://image.3001.net/images/20221031/16671947221748.gif#alt=img"></p>
+<h3 id="2-1-4-选择当前虚拟机的操作系统"><a href="#2-1-4-选择当前虚拟机的操作系统" class="headerlink" title="2.1.4 选择当前虚拟机的操作系统"></a>2.1.4 选择当前虚拟机的操作系统</h3><p>我们先配置电脑，再安装系统。</p>
+<p><img src="https://image.3001.net/images/20221031/16671947229397.gif#alt=img"></p>
+<h3 id="2-1-5-选择虚拟机将来需要安装的系统"><a href="#2-1-5-选择虚拟机将来需要安装的系统" class="headerlink" title="2.1.5 选择虚拟机将来需要安装的系统"></a>2.1.5 选择虚拟机将来需要安装的系统</h3><p>因为不同的操作系统需要解决不同的兼容性问题，所以需要选择将来用什么系统，提前做适配。</p>
+<p><img src="https://image.3001.net/images/20221031/16671947224927.gif#alt=img"></p>
+<h3 id="2-1-6-配置电脑"><a href="#2-1-6-配置电脑" class="headerlink" title="2.1.6 配置电脑"></a>2.1.6 配置电脑</h3><p>给自己配置电脑取个名字，并存放在物理机的位置在哪。</p>
+<p><img src="https://image.3001.net/images/20221031/16671947227217.gif#alt=img"></p>
+<h3 id="2-1-7-选择CPU的个数"><a href="#2-1-7-选择CPU的个数" class="headerlink" title="2.1.7 选择CPU的个数"></a>2.1.7 选择CPU的个数</h3><p>有个原则就是选满（跟物理机的CPU个数相同，但是不能超过）</p>
+<p><strong>1）</strong> <strong>查看物理机CPU个数（Windows10为例）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947234601.gif#alt=img"></p>
+<p><strong>2）</strong> <strong>设置虚拟机处理器的数量</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947234788.gif#alt=img"></p>
+<h3 id="2-1-8-设置虚拟机的内存"><a href="#2-1-8-设置虚拟机的内存" class="headerlink" title="2.1.8 设置虚拟机的内存"></a>2.1.8 设置虚拟机的内存</h3><p>内存大小有一定要求，建议4G，不能给太多，后期会有多台虚拟机同时启动</p>
+<p><img src="https://image.3001.net/images/20221031/16671947231371.gif#alt=img"></p>
+<h3 id="2-1-9-选择虚拟机上网方式"><a href="#2-1-9-选择虚拟机上网方式" class="headerlink" title="2.1.9 选择虚拟机上网方式"></a>2.1.9 选择虚拟机上网方式</h3><p><strong>1）</strong> <strong>选择NAT的方式</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947246231.gif#alt=img"></p>
+<p>2） 没有VMware之前物理机的网络适配器信息（每个人不同，我只有3个）</p>
+<p><img src="https://image.3001.net/images/20221031/1667194722654.gif#alt=img"></p>
+<p>3）安装VMware之后物理机的网络适配器信息（会多两个vmnet1和vmnet8）</p>
+<p><img src="https://image.3001.net/images/20221031/1667194724426.gif#alt=img"></p>
+<p>注：vmnet8是虚拟机使用NAT模式上网的网卡</p>
+<h3 id="2-1-10-选择对应的文件系统的IO方式"><a href="#2-1-10-选择对应的文件系统的IO方式" class="headerlink" title="2.1.10 选择对应的文件系统的IO方式"></a>2.1.10 选择对应的文件系统的IO方式</h3><p><img src="https://image.3001.net/images/20221031/16671947223244.gif#alt=img"></p>
+<h3 id="2-1-11-选择磁盘的类型"><a href="#2-1-11-选择磁盘的类型" class="headerlink" title="2.1.11 选择磁盘的类型"></a>2.1.11 选择磁盘的类型</h3><p><img src="https://image.3001.net/images/20221031/16671947232797.gif#alt=img"></p>
+<h3 id="2-1-12-选择磁盘的种类"><a href="#2-1-12-选择磁盘的种类" class="headerlink" title="2.1.12 选择磁盘的种类"></a>2.1.12 选择磁盘的种类</h3><p><img src="https://image.3001.net/images/20221031/16671947233343.gif#alt=img"></p>
+<h3 id="2-1-13-选择虚拟机的磁盘大小"><a href="#2-1-13-选择虚拟机的磁盘大小" class="headerlink" title="2.1.13 选择虚拟机的磁盘大小"></a>2.1.13 选择虚拟机的磁盘大小</h3><p><img src="https://image.3001.net/images/20221031/16671947246355.gif#alt=img"></p>
+<h3 id="1-1-14-虚拟机文件的存放位置"><a href="#1-1-14-虚拟机文件的存放位置" class="headerlink" title="1.1.14 虚拟机文件的存放位置"></a>1.1.14 虚拟机文件的存放位置</h3><p><img src="https://image.3001.net/images/20221031/16671947222930.gif#alt=img"></p>
+<h3 id="2-1-14-电脑配置完毕"><a href="#2-1-14-电脑配置完毕" class="headerlink" title="2.1.14 电脑配置完毕"></a>2.1.14 电脑配置完毕</h3><p><img src="https://image.3001.net/images/20221031/16671947236261.gif#alt=img"></p>
+<h2 id="2-2-安装系统（CentOS7）"><a href="#2-2-安装系统（CentOS7）" class="headerlink" title="2.2 安装系统（CentOS7）"></a>2.2 安装系统（CentOS7）</h2><p><img src="https://image.3001.net/images/20221031/16671947233747.gif#alt=img"></p>
+<p>注意：在安装系统之前需要检查自己虚拟机的bios的虚拟化是否打开（大部分的电脑都是打开的，大家可以先尝试直接安装，如果出现错误再去调试，没有出错就不用管了）</p>
+<p>以下是查看虚拟机bios是否开启的方式</p>
+<p>（1）window10</p>
+<p><img src="https://image.3001.net/images/20221031/16671947231676.gif#alt=img"></p>
+<p>（2）window7里面看不到（得去bios里面看）</p>
+<p>（3）如果发现bios虚拟化没有开启怎么办，重启电脑，在加载界面时按f1-f10,或者电脑旁边一个小洞，具体怎么进入得去查一下（按照自己电脑的型号去查）</p>
+<p>（4）修改虚拟化为开启（thinkpad为例）找到security 里面的VT并改成enabled</p>
+<p><img src="https://image.3001.net/images/20221031/16671947249852.gif#alt=img"></p>
+<p>注：如果虚拟化没有开启报的是以下错误</p>
+<p><img src="https://image.3001.net/images/20221031/16671947245836.gif#alt=img"></p>
+<h3 id="2-2-1-选择cd-dvd的方式安装系统"><a href="#2-2-1-选择cd-dvd的方式安装系统" class="headerlink" title="2.2.1 选择cd/dvd的方式安装系统"></a>2.2.1 选择cd/dvd的方式安装系统</h3><p><img src="https://image.3001.net/images/20221031/1667194724444.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947233304.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947257257.gif#alt=img"></p>
+<h3 id="2-2-2-系统安装引导界面"><a href="#2-2-2-系统安装引导界面" class="headerlink" title="2.2.2 系统安装引导界面"></a>2.2.2 系统安装引导界面</h3><p>你得需要将鼠标点击进入界面中，但是鼠标会消失，你此刻得用键盘的上下键来控制选项，图标变白了表示当前选中的是哪个选项，然后敲回车，表示执行所选选项。</p>
+<p>注意：如果这个时候你需要鼠标可以使用ctrl+alt一起按呼出鼠标</p>
+<p><img src="https://image.3001.net/images/20221031/16671947236994.gif#alt=img"></p>
+<p>（1）耐心等待它的安装</p>
+<p><img src="https://image.3001.net/images/20221031/1667194723689.gif#alt=img"></p>
+<p>（2）会自动跳转下面的界面</p>
+<p><img src="https://image.3001.net/images/20221031/16671947236817.gif#alt=img"></p>
+<h3 id="2-2-3-需要定制化的内容"><a href="#2-2-3-需要定制化的内容" class="headerlink" title="2.2.3 需要定制化的内容"></a>2.2.3 需要定制化的内容</h3><p>按照编号依次点击</p>
+<p><img src="https://image.3001.net/images/20221031/16671947249507.gif#alt=img"></p>
+<p><strong>1）调整时间差</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947245323.gif#alt=img"></p>
+<p><strong>2）安装GHOME（图形化界面的方式）注意图上标注的点击顺序</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947285633.gif#alt=img"></p>
+<p><strong>3）配置磁盘分区</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947245592.gif#alt=img"></p>
+<p>（1）手动添加分区</p>
+<p><img src="https://image.3001.net/images/20221031/16671947247243.gif#alt=img"></p>
+<p>（2） 添加boot区 给上1G容量后点击添加挂载点</p>
+<p><img src="https://image.3001.net/images/20221031/16671947256758.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947247928.gif#alt=img"></p>
+<p>（3）添加swap交换分区</p>
+<p><img src="https://image.3001.net/images/20221031/16671947256816.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947235054.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/1667194725114.gif#alt=img"></p>
+<p>（4）配置根(/)目录</p>
+<p><img src="https://image.3001.net/images/20221031/16671947256563.gif#alt=img"></p>
+<p>根目录作为存储使用，将剩下的空间都给他（50 - 4 - 1）= 45</p>
+<p><img src="https://image.3001.net/images/20221031/16671947247839.gif#alt=img"></p>
+<p>3个分区都配置完毕过后可以点击完成</p>
+<p><img src="https://image.3001.net/images/20221031/16671947269287.gif#alt=img"></p>
+<p>（5）分区配置完毕，点击接受更改</p>
+<p><img src="https://image.3001.net/images/20221031/16671947248999.gif#alt=img"></p>
+<p><strong>4）关闭kdump本身虚拟机内存就不够，他会吃掉一部分内存，我们尽量省一点</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947257300.gif#alt=img"></p>
+<p><strong>5）修改主机名</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947251613.gif#alt=img"></p>
+<p><strong>6）是否打开安全协议（开启与否都可以）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947283642.gif#alt=img"></p>
+<p><strong>7）开始安装</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947249259.gif#alt=img"></p>
+<p><strong>8）安装时间比较长，大概需要10几分钟（设置root用户密码，一定要设置）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947298988.gif#alt=img"></p>
+<p>密码设置成什么自己决定，但是不要忘 建议使用（000000）</p>
+<p><img src="https://image.3001.net/images/20221031/16671947242740.gif#alt=img"></p>
+<h3 id="2-2-4-虚拟机的使用引导界面"><a href="#2-2-4-虚拟机的使用引导界面" class="headerlink" title="2.2.4 虚拟机的使用引导界面"></a>2.2.4 虚拟机的使用引导界面</h3><p><strong>1）</strong> <strong>安装完成</strong> <strong>重启虚拟机</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947265547.gif#alt=img"></p>
+<p><strong>2）进入引导界面（以下内容就按照图片走，就不做过多解释）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947251051.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947259089.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947267936.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947255232.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947252942.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947253003.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947251497.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947252020.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947265926.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947305505.gif#alt=img"></p>
+<p>安装完成</p>
+<h3 id="2-2-5-切换root用户"><a href="#2-2-5-切换root用户" class="headerlink" title="2.2.5 切换root用户"></a>2.2.5 切换root用户</h3><p>当前登录的用户是刚刚创建的用户，权限会缺少，所以使用root，修改一些内容更加方便</p>
+<p><img src="https://image.3001.net/images/20221031/16671947251327.gif#alt=img"></p>
+<p>1）切换root用户</p>
+<p><img src="https://image.3001.net/images/20221031/16671947258341.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947245841.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947253969.gif#alt=img"></p>
+<p>刚才的引导再来一遍（就不再放图片了）</p>
+<p><img src="https://image.3001.net/images/20221031/1667194725652.gif#alt=img"></p>
+<p>最后的用户变成root表示切换成功</p>
+<h2 id="2-3-网络配置"><a href="#2-3-网络配置" class="headerlink" title="2.3 网络配置"></a>2.3 网络配置</h2><p>对安装好的VMware进行网络配置，方便虚拟机连接网络，本次设置建议选择NAT模式，需要宿主机的Windows和虚拟机的Linux能够进行网络连接，同时虚拟机的Linux可以通过宿主机的Windows进入互联网。</p>
+<h3 id="2-3-1-编辑VMware的网络配置"><a href="#2-3-1-编辑VMware的网络配置" class="headerlink" title="2.3.1 编辑VMware的网络配置"></a>2.3.1 编辑VMware的网络配置</h3><p><img src="https://image.3001.net/images/20221031/1667194726386.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947263076.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947258240.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947265147.gif#alt=img"></p>
+<p>然后全部点击确定，VMware的网络配置就好了。</p>
+<h3 id="2-3-2-Windows的网络配置"><a href="#2-3-2-Windows的网络配置" class="headerlink" title="2.3.2 Windows的网络配置"></a>2.3.2 Windows的网络配置</h3><p>以下以Window10为例</p>
+<p>1）找到</p>
+<p><img src="https://image.3001.net/images/20221031/16671947255958.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947251415.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947289503.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/1667194730615.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947268542.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947262886.gif#alt=img"></p>
+<p>按如上格式修改IP信息（地址，网关，DNS服务器），修改完毕后全部点击确定退出。</p>
+<h2 id="2-4-虚拟机网络IP修改地址配置"><a href="#2-4-虚拟机网络IP修改地址配置" class="headerlink" title="2.4 虚拟机网络IP修改地址配置"></a>2.4 虚拟机网络IP修改地址配置</h2><p>1）修改网络IP地址为静态IP地址，避免IP地址经常变化，从而方便节点服务器间的互相通信。</p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]#vim /etc/sysconfig/network-scripts/ifcfg-ens33 </p>
+<p>2）以下加粗的项必须修改，有值的按照下面的值修改，没有该项的则需要增加。</p>
+<p>TYPE=”Ethernet”  #网络类型（通常是Ethemet）</p>
+<p>PROXY_METHOD=”none”</p>
+<p>BROWSER_ONLY=”no”</p>
+<p><strong>BOOTPROTO=”static”  #IP的配置方法[none|static|bootp|dhcp]（引导时不使用协议|静态分配IP|BOOTP协议|DHCP协议）</strong></p>
+<p>DEFROUTE=”yes”</p>
+<p>IPV4_FAILURE_FATAL=”no”</p>
+<p>IPV6INIT=”yes”</p>
+<p>IPV6_AUTOCONF=”yes”</p>
+<p>IPV6_DEFROUTE=”yes”</p>
+<p>IPV6_FAILURE_FATAL=”no”</p>
+<p>IPV6_ADDR_GEN_MODE=”stable-privacy”</p>
+<p>NAME=”ens33”</p>
+<p>UUID=”e83804c1-3257-4584-81bb-660665ac22f6”  #随机id</p>
+<p>DEVICE=”ens33”  #接口名（设备,网卡）</p>
+<p>ONBOOT=”yes”  #系统启动的时候网络接口是否有效（yes/no）</p>
+<p>#IP地址</p>
+<p><strong>IPADDR=192.168.10.100</strong></p>
+<p>#网关</p>
+<p><strong>GATEWAY=192.168.10.2</strong></p>
+<p>#域名解析器</p>
+<p><strong>DNS1=192.168.10.2</strong></p>
+<p>3）修改IP地址后的结果如图所示，执行“:wq”命令，保存退出</p>
+<p><img src="https://image.3001.net/images/20221031/16671947262102.gif#alt=img"></p>
+<p>4）执行systemctl restart network命令，重启网络服务。如果报错，则执行“reboot”命令，重启虚拟机</p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# systemctl restart network </p>
+<p>5）使用ifconfig命令查看当前IP</p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# ifconfig </p>
+<p><img src="https://image.3001.net/images/20221031/16671947265042.gif#alt=img"></p>
+<p>6）保证Linux系统ifcfg-ens33文件中IP地址、虚拟网络编辑器地址和Windows系统VM8网络IP地址相同</p>
+<h2 id="2-5-修改主机名和hosts文件"><a href="#2-5-修改主机名和hosts文件" class="headerlink" title="2.5 修改主机名和hosts文件"></a>2.5 修改主机名和hosts文件</h2><p><strong>1）修改主机名称</strong></p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# vim /etc/hostname </p>
+<p>hadoop100</p>
+<p><strong>2）配置Linux克隆机主机名称映射hosts文件，打开/etc/hosts</strong></p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# vim /etc/hosts </p>
+<p>添加如下内容</p>
+<p>192.168.10.100 hadoop100</p>
+<p>192.168.10.101 hadoop101</p>
+<p>192.168.10.102 hadoop102</p>
+<p>192.168.10.103 hadoop103</p>
+<p>192.168.10.104 hadoop104</p>
+<p>192.168.10.105 hadoop105</p>
+<p>192.168.10.106 hadoop106</p>
+<p>192.168.10.107 hadoop107</p>
+<p>192.168.10.108 hadoop108</p>
+<p><strong>3）重启克隆机hadoop102</strong></p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# reboot </p>
+<p><strong>4）修改windows的主机映射文件（hosts文件）</strong></p>
+<p>（1）如果操作系统是window7，可以直接修改</p>
+<p>    （a）进入C:\Windows\System32\drivers\etc路径</p>
+<p>    （b）打开hosts文件并添加如下内容，然后保存</p>
+<p>192.168.10.100 hadoop100</p>
+<p>192.168.10.101 hadoop101</p>
+<p>192.168.10.102 hadoop102</p>
+<p>192.168.10.103 hadoop103</p>
+<p>192.168.10.104 hadoop104</p>
+<p>192.168.10.105 hadoop105</p>
+<p>192.168.10.106 hadoop106</p>
+<p>192.168.10.107 hadoop107</p>
+<p>192.168.10.108 hadoop108</p>
+<p>（2）如果操作系统是window10，先拷贝出来，修改保存以后，再覆盖即可</p>
+<p>（a）进入C:\Windows\System32\drivers\etc路径</p>
+<p>（b）拷贝hosts文件到桌面</p>
+<p>（c）打开桌面hosts文件并添加如下内容</p>
+<p>192.168.10.100 hadoop100</p>
+<p>192.168.10.101 hadoop101</p>
+<p>192.168.10.102 hadoop102</p>
+<p>192.168.10.103 hadoop103</p>
+<p>192.168.10.104 hadoop104</p>
+<p>192.168.10.105 hadoop105</p>
+<p>192.168.10.106 hadoop106</p>
+<p>192.168.10.107 hadoop107</p>
+<p>192.168.10.108 hadoop108</p>
+<p>（d）将桌面hosts文件覆盖C:\Windows\System32\drivers\etc路径hosts文件</p>
+<h1 id="第3章-远程终端工具安装"><a href="#第3章-远程终端工具安装" class="headerlink" title="第3章 远程终端工具安装"></a>第3章 远程终端工具安装</h1><p>通常在工作过程中，公司中使用的真实服务器或者是云服务器，都不允许除运维人员之外的员工直接接触，因此就需要通过远程登录的方式来操作。所以，远程登录工具就是必不可缺的，目前，比较主流的有Xshell，SecureCRT等，同学们可以根据自己的习惯自行选择，以下以Xshell5为例。</p>
+<h2 id="3-1-Xshell5安装和配置"><a href="#3-1-Xshell5安装和配置" class="headerlink" title="3.1 Xshell5安装和配置"></a>3.1 Xshell5安装和配置</h2><h3 id="3-1-1-安装Xshell5"><a href="#3-1-1-安装Xshell5" class="headerlink" title="3.1.1 安装Xshell5"></a>3.1.1 安装Xshell5</h3><p><img src="https://image.3001.net/images/20221031/16671947265769.gif#alt=img"></p>
+<p>1）一直点击下一步，但是有一页收费页，点击免费版，图如下</p>
+<p><img src="https://image.3001.net/images/20221031/16671947261590.gif#alt=img"></p>
+<p>2）出现如下界面安装成功</p>
+<p><img src="https://image.3001.net/images/20221031/1667194725274.gif#alt=img"></p>
+<h3 id="3-1-2-配置Xshell终端"><a href="#3-1-2-配置Xshell终端" class="headerlink" title="3.1.2 配置Xshell终端"></a>3.1.2 配置Xshell终端</h3><p>1）打开安装好的Xshell</p>
+<p><img src="https://image.3001.net/images/20221031/16671947252270.gif#alt=img"></p>
+<p>2）编辑新链接</p>
+<p><img src="https://image.3001.net/images/20221031/16671947309165.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947276191.gif#alt=img"></p>
+<p>3）测试链接</p>
+<p><img src="https://image.3001.net/images/20221031/1667194726531.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947277821.gif#alt=img"></p>
+<p>4）连接成功</p>
+<p><img src="https://image.3001.net/images/20221031/16671947273376.gif#alt=img"></p>
+<h2 id="3-2-Xftp传输工具"><a href="#3-2-Xftp传输工具" class="headerlink" title="3.2 Xftp传输工具"></a>3.2 Xftp传输工具</h2><h3 id="3-2-1-安装Xftp"><a href="#3-2-1-安装Xftp" class="headerlink" title="3.2.1 安装Xftp"></a>3.2.1 安装Xftp</h3><p><img src="https://image.3001.net/images/20221031/16671947261431.gif#alt=img"></p>
+<p>1）一直点击下一步，但是有一页收费页，点击免费版，图如下</p>
+<p><img src="https://image.3001.net/images/20221031/16671947262931.gif#alt=img"></p>
+<p>2）出现如下界面表示安装成功</p>
+<p><img src="https://image.3001.net/images/20221031/16671947274888.gif#alt=img"></p>
+<h3 id="3-2-2-配置Xftp"><a href="#3-2-2-配置Xftp" class="headerlink" title="3.2.2 配置Xftp"></a>3.2.2 配置Xftp</h3><p>1）打开安装好的Xftp</p>
+<p><img src="https://image.3001.net/images/20221031/16671947314399.gif#alt=img"></p>
+<p>2）创建新链接</p>
+<p><img src="https://image.3001.net/images/20221031/1667194727322.gif#alt=img"></p>
+<p>3）编辑新链接</p>
+<p><img src="https://image.3001.net/images/20221031/16671947269130.gif#alt=img"></p>
+<p>4）测试新链接</p>
+<p><img src="https://image.3001.net/images/20221031/1667194725865.gif#alt=img"></p>
+<p>出现以上界面表示链接成功，可以进行windows和linux系统互传数据</p>
+<p>注：有可能会有部分人右边是乱码，可以使用以下方式修改，修改后重启Xftp</p>
+<p><img src="https://image.3001.net/images/20221031/16671947261376.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947264072.gif#alt=img">尚硅谷大数据技术之模板虚拟机环境准备</p>
+<p>（作者：尚硅谷大数据研发部）</p>
+<p>版本：V3.3</p>
+<h1 id="第1章-VMware-1"><a href="#第1章-VMware-1" class="headerlink" title="第1章 VMware"></a>第1章 VMware</h1><h2 id="1-1-VMware安装-1"><a href="#1-1-VMware安装-1" class="headerlink" title="1.1 VMware安装"></a>1.1 VMware安装</h2><p>一台电脑本身是可以装多个操作系统的，但是做不到多个操作系统切换自如，所以我们需要一款软件帮助我们达到这个目的，不然数仓项目搭建不起来。</p>
+<p>推荐的软件为VMware，VMware可以使用户在一台计算机上同时运行多个操作系统，还可以像Windows应用程序一样来回切换。用户可以如同操作真实安装的系统一样操作虚拟机系统，甚至可以在一台计算机上将几个虚拟机系统连接为一个局域网或者连接到互联网。</p>
+<p>以下是VMware Workstation Pro 15.5的安装步骤</p>
+<h3 id="1-1-1-开始安装-1"><a href="#1-1-1-开始安装-1" class="headerlink" title="1.1.1 开始安装"></a>1.1.1 开始安装</h3><p><img src="https://image.3001.net/images/20221031/16671947211395.gif#alt=img"></p>
+<h3 id="1-2-2-欢迎界面-1"><a href="#1-2-2-欢迎界面-1" class="headerlink" title="1.2.2 欢迎界面"></a>1.2.2 欢迎界面</h3><p><img src="https://image.3001.net/images/20221031/16671947217450.gif#alt=img"></p>
+<h3 id="1-2-3-同意许可证-1"><a href="#1-2-3-同意许可证-1" class="headerlink" title="1.2.3 同意许可证"></a>1.2.3 同意许可证</h3><p><img src="https://image.3001.net/images/20221031/16671947218105.gif#alt=img"></p>
+<h3 id="1-2-4-选择安装路径-1"><a href="#1-2-4-选择安装路径-1" class="headerlink" title="1.2.4 选择安装路径"></a>1.2.4 选择安装路径</h3><p><img src="https://image.3001.net/images/20221031/16671947226102.gif#alt=img"></p>
+<h3 id="1-2-5-用户体检计划-1"><a href="#1-2-5-用户体检计划-1" class="headerlink" title="1.2.5 用户体检计划"></a>1.2.5 用户体检计划</h3><p>每次开启虚拟机时，会提醒让你更新版本，建议两个都不勾</p>
+<p><img src="https://image.3001.net/images/20221031/16671947226345.gif#alt=img"></p>
+<h3 id="1-2-6-快捷方式-1"><a href="#1-2-6-快捷方式-1" class="headerlink" title="1.2.6 快捷方式"></a>1.2.6 快捷方式</h3><p>建议勾选，安装后使用起来会比较方便</p>
+<p><img src="https://image.3001.net/images/20221031/16671947229787.gif#alt=img"></p>
+<h3 id="1-2-7-开始安装-1"><a href="#1-2-7-开始安装-1" class="headerlink" title="1.2.7 开始安装"></a>1.2.7 开始安装</h3><p><img src="https://image.3001.net/images/20221031/16671947211957.gif#alt=img"></p>
+<h3 id="1-2-8-等待安装完成-1"><a href="#1-2-8-等待安装完成-1" class="headerlink" title="1.2.8 等待安装完成"></a>1.2.8 等待安装完成</h3><p><img src="https://image.3001.net/images/20221031/16671947227357.gif#alt=img"></p>
+<h3 id="1-2-9-安装完成-1"><a href="#1-2-9-安装完成-1" class="headerlink" title="1.2.9 安装完成"></a>1.2.9 安装完成</h3><p>输入许可证，激活VMware</p>
+<p>注：如果点击的是完成也没关系，后面还是输入许可证的。</p>
+<p><img src="https://image.3001.net/images/20221031/16671947226031.gif#alt=img"></p>
+<h3 id="1-2-10-输入许可证-1"><a href="#1-2-10-输入许可证-1" class="headerlink" title="1.2.10 输入许可证"></a>1.2.10 输入许可证</h3><p><strong>1）生成许可证（在当时安装包的同名的目录下）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/1667194722504.gif#alt=img"></p>
+<p><strong>2）选择版本并生成许可证</strong></p>
+<p><img src="https://image.3001.net/images/20221031/1667194721239.gif#alt=img"></p>
+<p><strong>3）复制生成好的序列号</strong></p>
+<p><img src="https://image.3001.net/images/20221031/1667194722965.gif#alt=img"></p>
+<p><strong>4）将生成好的序列号粘贴到vmware里</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947224968.gif#alt=img"></p>
+<h3 id="1-2-11-VMware安装完毕-1"><a href="#1-2-11-VMware安装完毕-1" class="headerlink" title="1.2.11 VMware安装完毕"></a>1.2.11 VMware安装完毕</h3><p><img src="https://image.3001.net/images/20221031/16671947237094.gif#alt=img"></p>
+<p>桌面上的快捷方式，双击它就可以使用啦。</p>
+<h1 id="第2章-CentOS-1"><a href="#第2章-CentOS-1" class="headerlink" title="第2章 CentOS"></a>第2章 CentOS</h1><p>系统的安装得分两个步骤，第一步得配置一台电脑，选配CPU，内存，磁盘，网卡等硬件。第二步才是安装系统。</p>
+<h2 id="2-1-配置电脑-1"><a href="#2-1-配置电脑-1" class="headerlink" title="2.1 配置电脑"></a>2.1 配置电脑</h2><h3 id="2-1-1-进入VMware-1"><a href="#2-1-1-进入VMware-1" class="headerlink" title="2.1.1 进入VMware"></a>2.1.1 进入VMware</h3><p>双击VMware图标，看到如下界面</p>
+<p><img src="https://image.3001.net/images/20221031/16671947232759.gif#alt=img"></p>
+<h3 id="2-1-2-自定义新的虚拟机-1"><a href="#2-1-2-自定义新的虚拟机-1" class="headerlink" title="2.1.2 自定义新的虚拟机"></a>2.1.2 自定义新的虚拟机</h3><p><img src="https://image.3001.net/images/20221031/16671947226220.gif#alt=img"></p>
+<h3 id="2-1-3-解决虚拟机的兼容性-1"><a href="#2-1-3-解决虚拟机的兼容性-1" class="headerlink" title="2.1.3 解决虚拟机的兼容性"></a>2.1.3 解决虚拟机的兼容性</h3><p><img src="https://image.3001.net/images/20221031/16671947221748.gif#alt=img"></p>
+<h3 id="2-1-4-选择当前虚拟机的操作系统-1"><a href="#2-1-4-选择当前虚拟机的操作系统-1" class="headerlink" title="2.1.4 选择当前虚拟机的操作系统"></a>2.1.4 选择当前虚拟机的操作系统</h3><p>我们先配置电脑，再安装系统。</p>
+<p><img src="https://image.3001.net/images/20221031/16671947229397.gif#alt=img"></p>
+<h3 id="2-1-5-选择虚拟机将来需要安装的系统-1"><a href="#2-1-5-选择虚拟机将来需要安装的系统-1" class="headerlink" title="2.1.5 选择虚拟机将来需要安装的系统"></a>2.1.5 选择虚拟机将来需要安装的系统</h3><p>因为不同的操作系统需要解决不同的兼容性问题，所以需要选择将来用什么系统，提前做适配。</p>
+<p><img src="https://image.3001.net/images/20221031/16671947224927.gif#alt=img"></p>
+<h3 id="2-1-6-配置电脑-1"><a href="#2-1-6-配置电脑-1" class="headerlink" title="2.1.6 配置电脑"></a>2.1.6 配置电脑</h3><p>给自己配置电脑取个名字，并存放在物理机的位置在哪。</p>
+<p><img src="https://image.3001.net/images/20221031/16671947227217.gif#alt=img"></p>
+<h3 id="2-1-7-选择CPU的个数-1"><a href="#2-1-7-选择CPU的个数-1" class="headerlink" title="2.1.7 选择CPU的个数"></a>2.1.7 选择CPU的个数</h3><p>有个原则就是选满（跟物理机的CPU个数相同，但是不能超过）</p>
+<p><strong>1）</strong> <strong>查看物理机CPU个数（Windows10为例）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947234601.gif#alt=img"></p>
+<p><strong>2）</strong> <strong>设置虚拟机处理器的数量</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947234788.gif#alt=img"></p>
+<h3 id="2-1-8-设置虚拟机的内存-1"><a href="#2-1-8-设置虚拟机的内存-1" class="headerlink" title="2.1.8 设置虚拟机的内存"></a>2.1.8 设置虚拟机的内存</h3><p>内存大小有一定要求，建议4G，不能给太多，后期会有多台虚拟机同时启动</p>
+<p><img src="https://image.3001.net/images/20221031/16671947231371.gif#alt=img"></p>
+<h3 id="2-1-9-选择虚拟机上网方式-1"><a href="#2-1-9-选择虚拟机上网方式-1" class="headerlink" title="2.1.9 选择虚拟机上网方式"></a>2.1.9 选择虚拟机上网方式</h3><p><strong>1）</strong> <strong>选择NAT的方式</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947246231.gif#alt=img"></p>
+<p>2） 没有VMware之前物理机的网络适配器信息（每个人不同，我只有3个）</p>
+<p><img src="https://image.3001.net/images/20221031/1667194722654.gif#alt=img"></p>
+<p>3）安装VMware之后物理机的网络适配器信息（会多两个vmnet1和vmnet8）</p>
+<p><img src="https://image.3001.net/images/20221031/1667194724426.gif#alt=img"></p>
+<p>注：vmnet8是虚拟机使用NAT模式上网的网卡</p>
+<h3 id="2-1-10-选择对应的文件系统的IO方式-1"><a href="#2-1-10-选择对应的文件系统的IO方式-1" class="headerlink" title="2.1.10 选择对应的文件系统的IO方式"></a>2.1.10 选择对应的文件系统的IO方式</h3><p><img src="https://image.3001.net/images/20221031/16671947223244.gif#alt=img"></p>
+<h3 id="2-1-11-选择磁盘的类型-1"><a href="#2-1-11-选择磁盘的类型-1" class="headerlink" title="2.1.11 选择磁盘的类型"></a>2.1.11 选择磁盘的类型</h3><p><img src="https://image.3001.net/images/20221031/16671947232797.gif#alt=img"></p>
+<h3 id="2-1-12-选择磁盘的种类-1"><a href="#2-1-12-选择磁盘的种类-1" class="headerlink" title="2.1.12 选择磁盘的种类"></a>2.1.12 选择磁盘的种类</h3><p><img src="https://image.3001.net/images/20221031/16671947233343.gif#alt=img"></p>
+<h3 id="2-1-13-选择虚拟机的磁盘大小-1"><a href="#2-1-13-选择虚拟机的磁盘大小-1" class="headerlink" title="2.1.13 选择虚拟机的磁盘大小"></a>2.1.13 选择虚拟机的磁盘大小</h3><p><img src="https://image.3001.net/images/20221031/16671947246355.gif#alt=img"></p>
+<h3 id="1-1-14-虚拟机文件的存放位置-1"><a href="#1-1-14-虚拟机文件的存放位置-1" class="headerlink" title="1.1.14 虚拟机文件的存放位置"></a>1.1.14 虚拟机文件的存放位置</h3><p><img src="https://image.3001.net/images/20221031/16671947222930.gif#alt=img"></p>
+<h3 id="2-1-14-电脑配置完毕-1"><a href="#2-1-14-电脑配置完毕-1" class="headerlink" title="2.1.14 电脑配置完毕"></a>2.1.14 电脑配置完毕</h3><p><img src="https://image.3001.net/images/20221031/16671947236261.gif#alt=img"></p>
+<h2 id="2-2-安装系统（CentOS7）-1"><a href="#2-2-安装系统（CentOS7）-1" class="headerlink" title="2.2 安装系统（CentOS7）"></a>2.2 安装系统（CentOS7）</h2><p><img src="https://image.3001.net/images/20221031/16671947233747.gif#alt=img"></p>
+<p>注意：在安装系统之前需要检查自己虚拟机的bios的虚拟化是否打开（大部分的电脑都是打开的，大家可以先尝试直接安装，如果出现错误再去调试，没有出错就不用管了）</p>
+<p>以下是查看虚拟机bios是否开启的方式</p>
+<p>（1）window10</p>
+<p><img src="https://image.3001.net/images/20221031/16671947231676.gif#alt=img"></p>
+<p>（2）window7里面看不到（得去bios里面看）</p>
+<p>（3）如果发现bios虚拟化没有开启怎么办，重启电脑，在加载界面时按f1-f10,或者电脑旁边一个小洞，具体怎么进入得去查一下（按照自己电脑的型号去查）</p>
+<p>（4）修改虚拟化为开启（thinkpad为例）找到security 里面的VT并改成enabled</p>
+<p><img src="https://image.3001.net/images/20221031/16671947249852.gif#alt=img"></p>
+<p>注：如果虚拟化没有开启报的是以下错误</p>
+<p><img src="https://image.3001.net/images/20221031/16671947245836.gif#alt=img"></p>
+<h3 id="2-2-1-选择cd-dvd的方式安装系统-1"><a href="#2-2-1-选择cd-dvd的方式安装系统-1" class="headerlink" title="2.2.1 选择cd/dvd的方式安装系统"></a>2.2.1 选择cd/dvd的方式安装系统</h3><p><img src="https://image.3001.net/images/20221031/1667194724444.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947233304.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947257257.gif#alt=img"></p>
+<h3 id="2-2-2-系统安装引导界面-1"><a href="#2-2-2-系统安装引导界面-1" class="headerlink" title="2.2.2 系统安装引导界面"></a>2.2.2 系统安装引导界面</h3><p>你得需要将鼠标点击进入界面中，但是鼠标会消失，你此刻得用键盘的上下键来控制选项，图标变白了表示当前选中的是哪个选项，然后敲回车，表示执行所选选项。</p>
+<p>注意：如果这个时候你需要鼠标可以使用ctrl+alt一起按呼出鼠标</p>
+<p><img src="https://image.3001.net/images/20221031/16671947236994.gif#alt=img"></p>
+<p>（1）耐心等待它的安装</p>
+<p><img src="https://image.3001.net/images/20221031/1667194723689.gif#alt=img"></p>
+<p>（2）会自动跳转下面的界面</p>
+<p><img src="https://image.3001.net/images/20221031/16671947236817.gif#alt=img"></p>
+<h3 id="2-2-3-需要定制化的内容-1"><a href="#2-2-3-需要定制化的内容-1" class="headerlink" title="2.2.3 需要定制化的内容"></a>2.2.3 需要定制化的内容</h3><p>按照编号依次点击</p>
+<p><img src="https://image.3001.net/images/20221031/16671947249507.gif#alt=img"></p>
+<p><strong>1）调整时间差</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947245323.gif#alt=img"></p>
+<p><strong>2）安装GHOME（图形化界面的方式）注意图上标注的点击顺序</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947285633.gif#alt=img"></p>
+<p><strong>3）配置磁盘分区</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947245592.gif#alt=img"></p>
+<p>（1）手动添加分区</p>
+<p><img src="https://image.3001.net/images/20221031/16671947247243.gif#alt=img"></p>
+<p>（2） 添加boot区 给上1G容量后点击添加挂载点</p>
+<p><img src="https://image.3001.net/images/20221031/16671947256758.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947247928.gif#alt=img"></p>
+<p>（3）添加swap交换分区</p>
+<p><img src="https://image.3001.net/images/20221031/16671947256816.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947235054.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/1667194725114.gif#alt=img"></p>
+<p>（4）配置根(/)目录</p>
+<p><img src="https://image.3001.net/images/20221031/16671947256563.gif#alt=img"></p>
+<p>根目录作为存储使用，将剩下的空间都给他（50 - 4 - 1）= 45</p>
+<p><img src="https://image.3001.net/images/20221031/16671947247839.gif#alt=img"></p>
+<p>3个分区都配置完毕过后可以点击完成</p>
+<p><img src="https://image.3001.net/images/20221031/16671947269287.gif#alt=img"></p>
+<p>（5）分区配置完毕，点击接受更改</p>
+<p><img src="https://image.3001.net/images/20221031/16671947248999.gif#alt=img"></p>
+<p><strong>4）关闭kdump本身虚拟机内存就不够，他会吃掉一部分内存，我们尽量省一点</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947257300.gif#alt=img"></p>
+<p><strong>5）修改主机名</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947251613.gif#alt=img"></p>
+<p><strong>6）是否打开安全协议（开启与否都可以）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947283642.gif#alt=img"></p>
+<p><strong>7）开始安装</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947249259.gif#alt=img"></p>
+<p><strong>8）安装时间比较长，大概需要10几分钟（设置root用户密码，一定要设置）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947298988.gif#alt=img"></p>
+<p>密码设置成什么自己决定，但是不要忘 建议使用（000000）</p>
+<p><img src="https://image.3001.net/images/20221031/16671947242740.gif#alt=img"></p>
+<h3 id="2-2-4-虚拟机的使用引导界面-1"><a href="#2-2-4-虚拟机的使用引导界面-1" class="headerlink" title="2.2.4 虚拟机的使用引导界面"></a>2.2.4 虚拟机的使用引导界面</h3><p><strong>1）</strong> <strong>安装完成</strong> <strong>重启虚拟机</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947265547.gif#alt=img"></p>
+<p><strong>2）进入引导界面（以下内容就按照图片走，就不做过多解释）</strong></p>
+<p><img src="https://image.3001.net/images/20221031/16671947251051.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947259089.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947267936.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947255232.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947252942.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947253003.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947251497.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947252020.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947265926.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947305505.gif#alt=img"></p>
+<p>安装完成</p>
+<h3 id="2-2-5-切换root用户-1"><a href="#2-2-5-切换root用户-1" class="headerlink" title="2.2.5 切换root用户"></a>2.2.5 切换root用户</h3><p>当前登录的用户是刚刚创建的用户，权限会缺少，所以使用root，修改一些内容更加方便</p>
+<p><img src="https://image.3001.net/images/20221031/16671947251327.gif#alt=img"></p>
+<p>1）切换root用户</p>
+<p><img src="https://image.3001.net/images/20221031/16671947258341.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947245841.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947253969.gif#alt=img"></p>
+<p>刚才的引导再来一遍（就不再放图片了）</p>
+<p><img src="https://image.3001.net/images/20221031/1667194725652.gif#alt=img"></p>
+<p>最后的用户变成root表示切换成功</p>
+<h2 id="2-3-网络配置-1"><a href="#2-3-网络配置-1" class="headerlink" title="2.3 网络配置"></a>2.3 网络配置</h2><p>对安装好的VMware进行网络配置，方便虚拟机连接网络，本次设置建议选择NAT模式，需要宿主机的Windows和虚拟机的Linux能够进行网络连接，同时虚拟机的Linux可以通过宿主机的Windows进入互联网。</p>
+<h3 id="2-3-1-编辑VMware的网络配置-1"><a href="#2-3-1-编辑VMware的网络配置-1" class="headerlink" title="2.3.1 编辑VMware的网络配置"></a>2.3.1 编辑VMware的网络配置</h3><p><img src="https://image.3001.net/images/20221031/1667194726386.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947263076.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947258240.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947265147.gif#alt=img"></p>
+<p>然后全部点击确定，VMware的网络配置就好了。</p>
+<h3 id="2-3-2-Windows的网络配置-1"><a href="#2-3-2-Windows的网络配置-1" class="headerlink" title="2.3.2 Windows的网络配置"></a>2.3.2 Windows的网络配置</h3><p>以下以Window10为例</p>
+<p>1）找到</p>
+<p><img src="https://image.3001.net/images/20221031/16671947255958.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947251415.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947289503.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/1667194730615.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947268542.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947262886.gif#alt=img"></p>
+<p>按如上格式修改IP信息（地址，网关，DNS服务器），修改完毕后全部点击确定退出。</p>
+<h2 id="2-4-虚拟机网络IP修改地址配置-1"><a href="#2-4-虚拟机网络IP修改地址配置-1" class="headerlink" title="2.4 虚拟机网络IP修改地址配置"></a>2.4 虚拟机网络IP修改地址配置</h2><p>1）修改网络IP地址为静态IP地址，避免IP地址经常变化，从而方便节点服务器间的互相通信。</p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]#vim /etc/sysconfig/network-scripts/ifcfg-ens33 </p>
+<p>2）以下加粗的项必须修改，有值的按照下面的值修改，没有该项的则需要增加。</p>
+<p>TYPE=”Ethernet”  #网络类型（通常是Ethemet）</p>
+<p>PROXY_METHOD=”none”</p>
+<p>BROWSER_ONLY=”no”</p>
+<p><strong>BOOTPROTO=”static”  #IP的配置方法[none|static|bootp|dhcp]（引导时不使用协议|静态分配IP|BOOTP协议|DHCP协议）</strong></p>
+<p>DEFROUTE=”yes”</p>
+<p>IPV4_FAILURE_FATAL=”no”</p>
+<p>IPV6INIT=”yes”</p>
+<p>IPV6_AUTOCONF=”yes”</p>
+<p>IPV6_DEFROUTE=”yes”</p>
+<p>IPV6_FAILURE_FATAL=”no”</p>
+<p>IPV6_ADDR_GEN_MODE=”stable-privacy”</p>
+<p>NAME=”ens33”</p>
+<p>UUID=”e83804c1-3257-4584-81bb-660665ac22f6”  #随机id</p>
+<p>DEVICE=”ens33”  #接口名（设备,网卡）</p>
+<p>ONBOOT=”yes”  #系统启动的时候网络接口是否有效（yes/no）</p>
+<p>#IP地址</p>
+<p><strong>IPADDR=192.168.10.100</strong></p>
+<p>#网关</p>
+<p><strong>GATEWAY=192.168.10.2</strong></p>
+<p>#域名解析器</p>
+<p><strong>DNS1=192.168.10.2</strong></p>
+<p>3）修改IP地址后的结果如图所示，执行“:wq”命令，保存退出</p>
+<p><img src="https://image.3001.net/images/20221031/16671947262102.gif#alt=img"></p>
+<p>4）执行systemctl restart network命令，重启网络服务。如果报错，则执行“reboot”命令，重启虚拟机</p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# systemctl restart network </p>
+<p>5）使用ifconfig命令查看当前IP</p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# ifconfig </p>
+<p><img src="https://image.3001.net/images/20221031/16671947265042.gif#alt=img"></p>
+<p>6）保证Linux系统ifcfg-ens33文件中IP地址、虚拟网络编辑器地址和Windows系统VM8网络IP地址相同</p>
+<h2 id="2-5-修改主机名和hosts文件-1"><a href="#2-5-修改主机名和hosts文件-1" class="headerlink" title="2.5 修改主机名和hosts文件"></a>2.5 修改主机名和hosts文件</h2><p><strong>1）修改主机名称</strong></p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# vim /etc/hostname </p>
+<p>hadoop100</p>
+<p><strong>2）配置Linux克隆机主机名称映射hosts文件，打开/etc/hosts</strong></p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# vim /etc/hosts </p>
+<p>添加如下内容</p>
+<p>192.168.10.100 hadoop100</p>
+<p>192.168.10.101 hadoop101</p>
+<p>192.168.10.102 hadoop102</p>
+<p>192.168.10.103 hadoop103</p>
+<p>192.168.10.104 hadoop104</p>
+<p>192.168.10.105 hadoop105</p>
+<p>192.168.10.106 hadoop106</p>
+<p>192.168.10.107 hadoop107</p>
+<p>192.168.10.108 hadoop108</p>
+<p><strong>3）重启克隆机hadoop102</strong></p>
+<p>[root<a href="/hadoop100">@hadoop100 </a> ~]# reboot </p>
+<p><strong>4）修改windows的主机映射文件（hosts文件）</strong></p>
+<p>（1）如果操作系统是window7，可以直接修改</p>
+<p>    （a）进入C:\Windows\System32\drivers\etc路径</p>
+<p>    （b）打开hosts文件并添加如下内容，然后保存</p>
+<p>192.168.10.100 hadoop100</p>
+<p>192.168.10.101 hadoop101</p>
+<p>192.168.10.102 hadoop102</p>
+<p>192.168.10.103 hadoop103</p>
+<p>192.168.10.104 hadoop104</p>
+<p>192.168.10.105 hadoop105</p>
+<p>192.168.10.106 hadoop106</p>
+<p>192.168.10.107 hadoop107</p>
+<p>192.168.10.108 hadoop108</p>
+<p>（2）如果操作系统是window10，先拷贝出来，修改保存以后，再覆盖即可</p>
+<p>（a）进入C:\Windows\System32\drivers\etc路径</p>
+<p>（b）拷贝hosts文件到桌面</p>
+<p>（c）打开桌面hosts文件并添加如下内容</p>
+<p>192.168.10.100 hadoop100</p>
+<p>192.168.10.101 hadoop101</p>
+<p>192.168.10.102 hadoop102</p>
+<p>192.168.10.103 hadoop103</p>
+<p>192.168.10.104 hadoop104</p>
+<p>192.168.10.105 hadoop105</p>
+<p>192.168.10.106 hadoop106</p>
+<p>192.168.10.107 hadoop107</p>
+<p>192.168.10.108 hadoop108</p>
+<p>（d）将桌面hosts文件覆盖C:\Windows\System32\drivers\etc路径hosts文件</p>
+<h1 id="第3章-远程终端工具安装-1"><a href="#第3章-远程终端工具安装-1" class="headerlink" title="第3章 远程终端工具安装"></a>第3章 远程终端工具安装</h1><p>通常在工作过程中，公司中使用的真实服务器或者是云服务器，都不允许除运维人员之外的员工直接接触，因此就需要通过远程登录的方式来操作。所以，远程登录工具就是必不可缺的，目前，比较主流的有Xshell，SecureCRT等，同学们可以根据自己的习惯自行选择，以下以Xshell5为例。</p>
+<h2 id="3-1-Xshell5安装和配置-1"><a href="#3-1-Xshell5安装和配置-1" class="headerlink" title="3.1 Xshell5安装和配置"></a>3.1 Xshell5安装和配置</h2><h3 id="3-1-1-安装Xshell5-1"><a href="#3-1-1-安装Xshell5-1" class="headerlink" title="3.1.1 安装Xshell5"></a>3.1.1 安装Xshell5</h3><p><img src="https://image.3001.net/images/20221031/16671947265769.gif#alt=img"></p>
+<p>1）一直点击下一步，但是有一页收费页，点击免费版，图如下</p>
+<p><img src="https://image.3001.net/images/20221031/16671947261590.gif#alt=img"></p>
+<p>2）出现如下界面安装成功</p>
+<p><img src="https://image.3001.net/images/20221031/1667194725274.gif#alt=img"></p>
+<h3 id="3-1-2-配置Xshell终端-1"><a href="#3-1-2-配置Xshell终端-1" class="headerlink" title="3.1.2 配置Xshell终端"></a>3.1.2 配置Xshell终端</h3><p>1）打开安装好的Xshell</p>
+<p><img src="https://image.3001.net/images/20221031/16671947252270.gif#alt=img"></p>
+<p>2）编辑新链接</p>
+<p><img src="https://image.3001.net/images/20221031/16671947309165.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947276191.gif#alt=img"></p>
+<p>3）测试链接</p>
+<p><img src="https://image.3001.net/images/20221031/1667194726531.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947277821.gif#alt=img"></p>
+<p>4）连接成功</p>
+<p><img src="https://image.3001.net/images/20221031/16671947273376.gif#alt=img"></p>
+<h2 id="3-2-Xftp传输工具-1"><a href="#3-2-Xftp传输工具-1" class="headerlink" title="3.2 Xftp传输工具"></a>3.2 Xftp传输工具</h2><h3 id="3-2-1-安装Xftp-1"><a href="#3-2-1-安装Xftp-1" class="headerlink" title="3.2.1 安装Xftp"></a>3.2.1 安装Xftp</h3><p><img src="https://image.3001.net/images/20221031/16671947261431.gif#alt=img"></p>
+<p>1）一直点击下一步，但是有一页收费页，点击免费版，图如下</p>
+<p><img src="https://image.3001.net/images/20221031/16671947262931.gif#alt=img"></p>
+<p>2）出现如下界面表示安装成功</p>
+<p><img src="https://image.3001.net/images/20221031/16671947274888.gif#alt=img"></p>
+<h3 id="3-2-2-配置Xftp-1"><a href="#3-2-2-配置Xftp-1" class="headerlink" title="3.2.2 配置Xftp"></a>3.2.2 配置Xftp</h3><p>1）打开安装好的Xftp</p>
+<p><img src="https://image.3001.net/images/20221031/16671947314399.gif#alt=img"></p>
+<p>2）创建新链接</p>
+<p><img src="https://image.3001.net/images/20221031/1667194727322.gif#alt=img"></p>
+<p>3）编辑新链接</p>
+<p><img src="https://image.3001.net/images/20221031/16671947269130.gif#alt=img"></p>
+<p>4）测试新链接</p>
+<p><img src="https://image.3001.net/images/20221031/1667194725865.gif#alt=img"></p>
+<p>出现以上界面表示链接成功，可以进行windows和linux系统互传数据</p>
+<p>注：有可能会有部分人右边是乱码，可以使用以下方式修改，修改后重启Xftp</p>
+<p><img src="https://image.3001.net/images/20221031/16671947261376.gif#alt=img"></p>
+<p><img src="https://image.3001.net/images/20221031/16671947264072.gif#alt=img"></p>
+
       
     </div>
 
@@ -468,7 +892,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/25/%E6%A8%A1%E6%9D%BF/">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/10/10/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/shell/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
@@ -482,7 +906,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/25/%E6%A8%A1%E6%9D%BF/" class="post-title-link" itemprop="url">模板</a>
+            <a href="/2022/10/10/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/shell/" class="post-title-link" itemprop="url">shell</a>
         </h2>
 
         <div class="post-meta">
@@ -492,14 +916,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-06-25 13:06:17" itemprop="dateCreated datePublished" datetime="2022-06-25T13:06:17+08:00">2022-06-25</time>
+              <time title="创建时间：2022-10-10 13:06:17" itemprop="dateCreated datePublished" datetime="2022-10-10T13:06:17+08:00">2022-10-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:06" itemprop="dateModified" datetime="2022-09-08T10:17:06+08:00">2022-09-08</time>
+                <time title="修改时间：2022-10-09 12:45:06" itemprop="dateModified" datetime="2022-10-09T12:45:06+08:00">2022-10-09</time>
               </span>
 
           <br>
@@ -508,361 +932,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>11</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><p>[TOC]</p>
-<h2 id="1-模板"><a href="#1-模板" class="headerlink" title="1.模板"></a>1.模板</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/25/%E6%A8%A1%E6%9D%BF/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%8F%AF%E8%A7%86%E5%8C%96/echarts%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/echats%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%8F%AF%E8%A7%86%E5%8C%96/echarts%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/echats%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">echarts使用步骤文档</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-25 13:06:17" itemprop="dateCreated datePublished" datetime="2022-06-25T13:06:17+08:00">2022-06-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:06" itemprop="dateModified" datetime="2022-09-08T10:17:06+08:00">2022-09-08</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="echarts使用步骤文档"><a href="#echarts使用步骤文档" class="headerlink" title="echarts使用步骤文档"></a>echarts使用步骤文档</h1><p>[TOC]</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>目前我们已经采集到一定数量的用户数据，管理者希望能够查看这些用户数据。</p>
-<p>需要将数据库中存储的原始数据进行初步的统计分析后，以可视化图表的形式加以展示。</p>
-<p>例如：显示用户各类操作的总数量和比例。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%8F%AF%E8%A7%86%E5%8C%96/echarts%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/echats%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3/%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3/%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">购买云服务器与配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-25 13:06:17" itemprop="dateCreated datePublished" datetime="2022-06-25T13:06:17+08:00">2022-06-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:06" itemprop="dateModified" datetime="2022-09-08T10:17:06+08:00">2022-09-08</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="购买云服务器与配置"><a href="#购买云服务器与配置" class="headerlink" title="购买云服务器与配置"></a>购买云服务器与配置</h1><p>[TOC]</p>
-<h2 id="1-购买云服务器"><a href="#1-购买云服务器" class="headerlink" title="1.购买云服务器"></a>1.购买云服务器</h2><h3 id="1-购买成功需要自己启动"><a href="#1-购买成功需要自己启动" class="headerlink" title="1.购买成功需要自己启动"></a>1.购买成功需要自己启动</h3><h3 id="2-重置密码"><a href="#2-重置密码" class="headerlink" title="2.重置密码"></a><img src="https://image.3001.net/images/20220623/16559778215622.png" alt="image-20220623163659230">2.重置密码</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3/%E8%B4%AD%E4%B9%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E6%A1%A3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/spring/SpringBoot%E6%95%99%E7%A8%8B/SpringBoot%E6%95%99%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/spring/SpringBoot%E6%95%99%E7%A8%8B/SpringBoot%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">Spring Boot教程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-25 13:06:17" itemprop="dateCreated datePublished" datetime="2022-06-25T13:06:17+08:00">2022-06-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:06" itemprop="dateModified" datetime="2022-09-08T10:17:06+08:00">2022-09-08</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Spring-Boot教程"><a href="#Spring-Boot教程" class="headerlink" title="Spring Boot教程"></a>Spring Boot教程</h1><p>[TOC]</p>
-<h2 id="1-idea创建Spring-boot项目"><a href="#1-idea创建Spring-boot项目" class="headerlink" title="1.idea创建Spring boot项目"></a>1.idea创建Spring boot项目</h2><p>在IDEA中创建一个Java Web项目。</p>
-<ul>
-<li>Spring Boot 项目（本次使用）</li>
-</ul>
-<p><img src="https://image.3001.net/images/20220625/16561510931991.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/spring/SpringBoot%E6%95%99%E7%A8%8B/SpringBoot%E6%95%99%E7%A8%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
-      <meta itemprop="name" content="希文">
-      <meta itemprop="description" content="日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="希文的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">Hadoop伪分布搭建文档</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-25 13:06:17" itemprop="dateCreated datePublished" datetime="2022-06-25T13:06:17+08:00">2022-06-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-07 13:13:18" itemprop="dateModified" datetime="2022-10-07T13:13:18+08:00">2022-10-07</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>18k</span>
+              <span>17k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -881,17 +951,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Hadoop伪分布搭建文档"><a href="#Hadoop伪分布搭建文档" class="headerlink" title="Hadoop伪分布搭建文档"></a>Hadoop伪分布搭建文档</h2><p>[TOC]</p>
-<h3 id="1-准备1台虚拟机或云主机"><a href="#1-准备1台虚拟机或云主机" class="headerlink" title="1. 准备1台虚拟机或云主机"></a>1. 准备1台虚拟机或云主机</h3><h4 id="1-配置好主机名"><a href="#1-配置好主机名" class="headerlink" title="1) 配置好主机名"></a>1) 配置好主机名</h4><p>配置主机hostname为master</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname master</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-准备"><a href="#2-准备" class="headerlink" title="2)准备"></a>2)准备</h4><ol>
-<li>关闭防火墙</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld                 #查看防火墙状态</span><br><span class="line">systemctl stop firewalld.service           #停止firewall</span><br><span class="line">systemctl disable firewalld.service        #禁止firewall开机启动</span><br></pre></td></tr></table></figure>
+          <p>[TOC]</p>
+<p>尚硅谷高级技术之 Shell</p>
+<h1 id="第-1-章-Shell-概述"><a href="#第-1-章-Shell-概述" class="headerlink" title="第 1 章 Shell 概述"></a>第 <strong>1</strong> 章 <strong>Shell</strong> 概述</h1><p><img src="https://image.3001.net/images/20221008/16652213272320.gif" alt="img"></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/06/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E6%90%AD%E5%BB%BA%E6%96%87%E6%A1%A3/#more" rel="contents">
+              <a class="btn" href="/2022/10/10/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/shell/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -915,7 +980,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/06/17/%E5%A4%A7%E6%95%B0%E6%8D%AE/git/Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/10/09/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
@@ -929,7 +994,89 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/17/%E5%A4%A7%E6%95%B0%E6%8D%AE/git/Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">Git版本流程控制基础命令</a>
+            <a href="/2022/10/09/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/linux/" class="post-title-link" itemprop="url">linux</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-10-09 13:06:17 / 修改时间：12:44:59" itemprop="dateCreated datePublished" datetime="2022-10-09T13:06:17+08:00">2022-10-09</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>31k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>28 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+<h1 id="尚硅谷高级技术之-Linux"><a href="#尚硅谷高级技术之-Linux" class="headerlink" title="尚硅谷高级技术之 Linux"></a>尚硅谷高级技术之 Linux</h1><h1 id="第-1-章-Linux-入门"><a href="#第-1-章-Linux-入门" class="headerlink" title="第 1 章 Linux 入门"></a>第 <strong>1</strong> 章 <strong>Linux</strong> 入门</h1><p><strong>1.1</strong> 概述如图 1-1 所示</p>
+<p><img src="https://image.3001.net/images/20221009/16652816012747.jpg" alt="img"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/09/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/linux/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/10/08/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/VMware%20%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/08/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/VMware%20%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">VMware 安装</a>
         </h2>
 
         <div class="post-meta">
@@ -939,14 +1086,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-06-17 17:06:17" itemprop="dateCreated datePublished" datetime="2022-06-17T17:06:17+08:00">2022-06-17</time>
+              <time title="创建时间：2022-10-08 13:06:17" itemprop="dateCreated datePublished" datetime="2022-10-08T13:06:17+08:00">2022-10-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:05" itemprop="dateModified" datetime="2022-09-08T10:17:05+08:00">2022-09-08</time>
+                <time title="修改时间：2022-10-09 12:45:09" itemprop="dateModified" datetime="2022-10-09T12:45:09+08:00">2022-10-09</time>
               </span>
 
           <br>
@@ -955,7 +1102,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.9k</span>
+              <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -974,12 +1121,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Git版本流程控制基础命令"><a href="#Git版本流程控制基础命令" class="headerlink" title="Git版本流程控制基础命令"></a>Git版本流程控制基础命令</h1><p>[TOC]</p>
-<h2 id="Git整体架构"><a href="#Git整体架构" class="headerlink" title="Git整体架构"></a>Git整体架构</h2><p>整体架构</p>
-<p><img src="https://image.3001.net/images/20220523/16532661467811.png" alt="image-20220523083544677"></p>
+          <h2 id="VMware-安装"><a href="#VMware-安装" class="headerlink" title="VMware 安装"></a>VMware 安装</h2><p>[TOC]</p>
+<p>尚硅谷高级技术之 Linux（环境准备）</p>
+<p>（作者：尚硅谷研究院）</p>
+<h1 id="第-1-章-VMware"><a href="#第-1-章-VMware" class="headerlink" title="第 1 章 VMware"></a>第 1 章 VMware</h1><h2 id="1-1-VMware-安装"><a href="#1-1-VMware-安装" class="headerlink" title="1.1 VMware 安装"></a>1.1 VMware 安装</h2><p>一台电脑本身是可以装多个操作系统的，但是做不到多个操作系统切换自如，所以我们需要一款软件帮助我们达到这个目的，不然数仓项目搭建不起来。</p>
+<p>推荐的软件为 VMware，VMware 可以使用户在一台计算机上同时运行多个操作系统，还可以像 Windows 应用程序一样来回切换。用户可以如同操作真实安装的系统一样操作虚拟机系统，甚至可以在一台计算机上将几个虚拟机系统连接为一个局域网或者连接到互联网。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/06/17/%E5%A4%A7%E6%95%B0%E6%8D%AE/git/Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/#more" rel="contents">
+              <a class="btn" href="/2022/10/08/%E5%A4%A7%E6%95%B0%E6%8D%AE/linux+shell/VMware%20%E5%AE%89%E8%A3%85/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1003,7 +1152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E9%AB%98%E7%BA%A7/10-java9&10&11%E6%96%B0%E7%89%B9%E6%80%A7/">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/2.%E7%AC%AC%E4%BA%8C%E7%AB%A0%20Maven%20%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BA%8F%E8%A7%A3%E5%8E%8B%E5%92%8C%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
@@ -1017,7 +1166,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/01/05/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/%E9%AB%98%E7%BA%A7/10-java9&10&11%E6%96%B0%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">10-java9&10&11新特性</a>
+            <a href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/2.%E7%AC%AC%E4%BA%8C%E7%AB%A0%20Maven%20%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BA%8F%E8%A7%A3%E5%8E%8B%E5%92%8C%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">第二章 Maven 核心程序解压和配置</a>
         </h2>
 
         <div class="post-meta">
@@ -1027,14 +1176,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-01-05 23:30:37" itemprop="dateCreated datePublished" datetime="2022-01-05T23:30:37+08:00">2022-01-05</time>
+              <time title="创建时间：2022-09-25 22:06:17" itemprop="dateCreated datePublished" datetime="2022-09-25T22:06:17+08:00">2022-09-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-08 10:17:05" itemprop="dateModified" datetime="2022-09-08T10:17:05+08:00">2022-09-08</time>
+                <time title="修改时间：2022-09-26 12:07:46" itemprop="dateModified" datetime="2022-09-26T12:07:46+08:00">2022-09-26</time>
               </span>
 
           <br>
@@ -1043,7 +1192,187 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>105</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+<h1 id="第一节-Maven核心程序解压与配置"><a href="#第一节-Maven核心程序解压与配置" class="headerlink" title="第一节 Maven核心程序解压与配置"></a>第一节 Maven核心程序解压与配置</h1><h2 id="1、Maven-官网地址"><a href="#1、Maven-官网地址" class="headerlink" title="1、Maven 官网地址"></a>1、Maven 官网地址</h2><p>首页：</p>
+<p><a target="_blank" rel="noopener" href="https://maven.apache.org/">Maven – Welcome to Apache Maven(opens new window)</a></p>
+<p>下载页面：</p>
+<p><a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">Maven – Download Apache Maven(opens new window)</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/2.%E7%AC%AC%E4%BA%8C%E7%AB%A0%20Maven%20%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BA%8F%E8%A7%A3%E5%8E%8B%E5%92%8C%E9%85%8D%E7%BD%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/4.%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E4%BD%BF%E7%94%A8Maven%EF%BC%9AIDEA%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/4.%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E4%BD%BF%E7%94%A8Maven%EF%BC%9AIDEA%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">第四章 使用Maven：IDEA环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-25 22:06:17" itemprop="dateCreated datePublished" datetime="2022-09-25T22:06:17+08:00">2022-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-26 12:04:42" itemprop="dateModified" datetime="2022-09-26T12:04:42+08:00">2022-09-26</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+<p>:::TIP</p>
+<p>各个 IDEA 不同版本在具体操作方面存在一定差异，这里我们以 2019.3.3 版本为例进行演示。其它版本大家灵活变通即可。</p>
+<p><img src="https://image.3001.net/images/20220926/16641638856825.png" alt="1"></p>
+<p>:::</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/4.%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E4%BD%BF%E7%94%A8Maven%EF%BC%9AIDEA%E7%8E%AF%E5%A2%83/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/5.%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%85%B6%E4%BB%96%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/5.%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%85%B6%E4%BB%96%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">5.第五章 其他核心概念</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-25 22:06:17" itemprop="dateCreated datePublished" datetime="2022-09-25T22:06:17+08:00">2022-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-26 12:07:06" itemprop="dateModified" datetime="2022-09-26T12:07:06+08:00">2022-09-26</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1062,10 +1391,191 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="java9-amp-10-amp-11新特性"><a href="#java9-amp-10-amp-11新特性" class="headerlink" title="java9&amp;10&amp;11新特性"></a>java9&amp;10&amp;11新特性</h1><p>[TOC]</p>
-<h2 id="Java9-amp-10-amp-11新特性概述（看视频或者查资料文档）"><a href="#Java9-amp-10-amp-11新特性概述（看视频或者查资料文档）" class="headerlink" title="Java9&amp;10&amp;11新特性概述（看视频或者查资料文档）"></a>Java9&amp;10&amp;11新特性概述（看视频或者查资料文档）</h2><p>具体特性可直接查看第17章ppt即可。</p>
-<p>去github的blog仓库中查看有pdf文档</p>
+          <p>[TOC]</p>
+<h1 id="第五章-其他核心概念"><a href="#第五章-其他核心概念" class="headerlink" title="第五章 其他核心概念"></a>第五章 其他核心概念</h1><h2 id="1、生命周期"><a href="#1、生命周期" class="headerlink" title="1、生命周期"></a>1、生命周期</h2><h3 id="①作用"><a href="#①作用" class="headerlink" title="①作用"></a>①作用</h3><p>为了让构建过程自动化完成，Maven 设定了三个生命周期，生命周期中的每一个环节对应构建过程中的一个操作。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/5.%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%85%B6%E4%BB%96%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/1.%E7%AC%AC%E4%B8%80%E7%AB%A0%20Maven%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/1.%E7%AC%AC%E4%B8%80%E7%AB%A0%20Maven%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">1.第一章Maven概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-25 22:06:17" itemprop="dateCreated datePublished" datetime="2022-09-25T22:06:17+08:00">2022-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-26 12:07:38" itemprop="dateModified" datetime="2022-09-26T12:07:38+08:00">2022-09-26</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+<h1 id="第一节-为什么要学习Maven？"><a href="#第一节-为什么要学习Maven？" class="headerlink" title="第一节 为什么要学习Maven？"></a>第一节 为什么要学习Maven？</h1><h2 id="1、Maven-作为依赖管理工具"><a href="#1、Maven-作为依赖管理工具" class="headerlink" title="1、Maven 作为依赖管理工具"></a>1、Maven 作为依赖管理工具</h2><h3 id="①jar-包的规模"><a href="#①jar-包的规模" class="headerlink" title="①jar 包的规模"></a>①jar 包的规模</h3><p>随着我们使用越来越多的框架，或者框架封装程度越来越高，项目中使用的jar包也越来越多。项目中，一个模块里面用到上百个jar包是非常正常的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/1.%E7%AC%AC%E4%B8%80%E7%AB%A0%20Maven%E6%A6%82%E8%BF%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yangmour.github.io/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/3.%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E4%BD%BF%E7%94%A8%20Maven%EF%BC%9A%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.gif">
+      <meta itemprop="name" content="希文">
+      <meta itemprop="description" content="日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="希文的个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/3.%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E4%BD%BF%E7%94%A8%20Maven%EF%BC%9A%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">第三章 使用 Maven：命令行环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-25 22:06:17" itemprop="dateCreated datePublished" datetime="2022-09-25T22:06:17+08:00">2022-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-26 11:40:24" itemprop="dateModified" datetime="2022-09-26T11:40:24+08:00">2022-09-26</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>22k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>20 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+<h1 id="第一节-实验一：根据坐标创建-Maven-工程"><a href="#第一节-实验一：根据坐标创建-Maven-工程" class="headerlink" title="第一节 实验一：根据坐标创建 Maven 工程"></a>第一节 实验一：根据坐标创建 Maven 工程</h1><h2 id="1、Maven-核心概念：坐标"><a href="#1、Maven-核心概念：坐标" class="headerlink" title="1、Maven 核心概念：坐标"></a>1、Maven 核心概念：坐标</h2><h3 id="①数学中的坐标"><a href="#①数学中的坐标" class="headerlink" title="①数学中的坐标"></a>①数学中的坐标</h3><p><img src="https://image.3001.net/images/20220926/16641606046087.png" alt="1"></p>
+<p>使用 x、y、z 三个<strong>『向量』</strong>作为空间的坐标系，可以在<strong>『空间』</strong>中唯一的定位到一个<strong>『点』</strong>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/25/%E5%A4%A7%E6%95%B0%E6%8D%AE/java/maven/3.%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E4%BD%BF%E7%94%A8%20Maven%EF%BC%9A%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%8E%AF%E5%A2%83/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1083,7 +1593,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1151,7 +1661,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1212,12 +1722,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">477k</span>
+    <span title="站点总字数">804k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:14</span>
+    <span title="站点阅读时长">12:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
